@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS Admin - Lightbridge Consulting</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Helvetica+Neue:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Quill WYSIWYG Editor -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 40px 24px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 48px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .admin-tab {
+            padding: 12px 24px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .admin-tab.active {
+            background: #FFA500;
+            color: white;
+        }
+
+        .admin-panel {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .content-editor {
+            display: grid;
+            gap: 24px;
+        }
+
+        .form-submissions {
+            display: grid;
+            gap: 16px;
+        }
+
+        .submission-card {
+            background: #f8f9fa;
+            padding: 24px;
+            border-radius: 8px;
+            border-left: 4px solid #FFA500;
+        }
+
+        .submission-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 16px;
+        }
+
+        .submission-meta {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* WYSIWYG Editor Styling */
+        .wysiwyg-container {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .wysiwyg-container .ql-toolbar {
+            border: none;
+            border-bottom: 2px solid #e0e0e0;
+            background: #f8f9fa;
+        }
+
+        .wysiwyg-container .ql-container {
+            border: none;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .wysiwyg-container .ql-editor {
+            min-height: 150px;
+            padding: 16px;
+        }
+
+        .editor-label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>Lightbridge Consulting - CMS Admin</h1>
+            <button class="btn btn-primary" onclick="window.open('../index.html', '_blank')">
+                <i data-lucide="external-link"></i>
+                View Website
+            </button>
+        </div>
+
+        <div class="admin-stats" id="adminStats">
+            <!-- Stats will be populated by JavaScript -->
+        </div>
+
+        <div class="admin-tabs">
+            <button class="admin-tab active" onclick="showAdminPanel('content')">Homepage Content</button>
+            <button class="admin-tab" onclick="showAdminPanel('about')">About Page</button>
+            <button class="admin-tab" onclick="showAdminPanel('legal')">Legal Pages</button>
+            <button class="admin-tab" onclick="showAdminPanel('submissions')">Form Submissions</button>
+            <button class="admin-tab" onclick="showAdminPanel('settings')">Settings</button>
+        </div>
+
+        <!-- Homepage Content Panel -->
+        <div id="content-panel" class="admin-panel active">
+            <h2>Homepage Content Management</h2>
+            <p style="color: #666; margin-bottom: 32px;">Update homepage content directly from here. Changes will be reflected immediately on the live site.</p>
+
+            <div class="content-editor">
+                <h3>Hero Section</h3>
+                <div class="form-group">
+                    <label class="form-label">Hero Headline</label>
+                    <input type="text" id="hero-headline" class="form-input"
+                           value="Build Software Together, Not Alone">
+                </div>
+
+                <div class="form-group">
+                    <label class="editor-label">Hero Subheadline</label>
+                    <div class="wysiwyg-container">
+                        <div id="hero-subheadline-editor"></div>
+                    </div>
+                </div>
+
+                <h3>Services Section</h3>
+                <div class="form-group">
+                    <label class="form-label">Services Section Title</label>
+                    <input type="text" id="services-title" class="form-input"
+                           value="Four Ways We Can Help Your Business">
+                </div>
+
+                <h3>Contact Information</h3>
+                <div class="form-group">
+                    <label class="form-label">Contact Email</label>
+                    <input type="email" id="contact-email" class="form-input"
+                           value="info@lightbridgeconsulting.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Contact Phone</label>
+                    <input type="tel" id="contact-phone" class="form-input"
+                           value="(555) 555-0123">
+                </div>
+
+                <div style="display: flex; gap: 16px;">
+                    <button class="btn btn-primary" onclick="saveHomepageContent()">
+                        <i data-lucide="save"></i>
+                        Save Homepage Changes
+                    </button>
+                    <button class="btn btn-outline" onclick="previewChanges('../index.html')">
+                        <i data-lucide="eye"></i>
+                        Preview Homepage
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Page Panel -->
+        <div id="about-panel" class="admin-panel">
+            <h2>About Page Content Management</h2>
+            <p style="color: #666; margin-bottom: 32px;">Update about page content including timeline and credentials.</p>
+
+            <div class="content-editor">
+                <h3>Hero Section</h3>
+                <div class="form-group">
+                    <label class="form-label">About Page Headline</label>
+                    <input type="text" id="about-headline" class="form-input"
+                           value="Building Software the Right Way for Three Decades">
+                </div>
+
+                <div class="form-group">
+                    <label class="editor-label">Introduction</label>
+                    <div class="wysiwyg-container">
+                        <div id="about-intro-editor"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="editor-label">Description</label>
+                    <div class="wysiwyg-container">
+                        <div id="about-description-editor"></div>
+                    </div>
+                </div>
+
+                <h3>Timeline</h3>
+                <div class="form-group">
+                    <label class="form-label">Timeline Title</label>
+                    <input type="text" id="timeline-title" class="form-input"
+                           value="Three Decades of Learning and Building">
+                </div>
+
+                <h3>Philosophy Section</h3>
+                <div class="form-group">
+                    <label class="form-label">Philosophy Title</label>
+                    <input type="text" id="philosophy-title" class="form-input"
+                           value="Why Collaborative Development Works">
+                </div>
+
+                <div style="display: flex; gap: 16px;">
+                    <button class="btn btn-primary" onclick="saveAboutContent()">
+                        <i data-lucide="save"></i>
+                        Save About Changes
+                    </button>
+                    <button class="btn btn-outline" onclick="previewChanges('../pages/about.html')">
+                        <i data-lucide="eye"></i>
+                        Preview About Page
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legal Pages Panel -->
+        <div id="legal-panel" class="admin-panel">
+            <h2>Legal Pages Management</h2>
+            <p style="color: #666; margin-bottom: 32px;">Manage Privacy Policy and Terms of Service content.</p>
+
+            <div class="content-editor">
+                <h3>Privacy Policy</h3>
+                <div class="form-group">
+                    <label class="form-label">Privacy Policy Last Updated</label>
+                    <input type="date" id="privacy-updated" class="form-input" value="2025-01-01">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Company Contact Email</label>
+                    <input type="email" id="legal-email" class="form-input"
+                           value="info@lightbridgeconsulting.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Company Contact Phone</label>
+                    <input type="tel" id="legal-phone" class="form-input"
+                           value="(555) 555-0123">
+                </div>
+
+                <h3>Terms of Service</h3>
+                <div class="form-group">
+                    <label class="form-label">Terms Last Updated</label>
+                    <input type="date" id="terms-updated" class="form-input" value="2025-01-01">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Discovery Session Price</label>
+                    <input type="number" id="discovery-price" class="form-input" value="200">
+                </div>
+
+                <div style="display: flex; gap: 16px;">
+                    <button class="btn btn-primary" onclick="saveLegalContent()">
+                        <i data-lucide="save"></i>
+                        Save Legal Changes
+                    </button>
+                    <button class="btn btn-outline" onclick="previewChanges('../pages/privacy.html')">
+                        <i data-lucide="eye"></i>
+                        Preview Privacy
+                    </button>
+                    <button class="btn btn-outline" onclick="previewChanges('../pages/terms.html')">
+                        <i data-lucide="eye"></i>
+                        Preview Terms
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Submissions Panel -->
+        <div id="submissions-panel" class="admin-panel">
+            <h2>Form Submissions</h2>
+            <p style="color: #666; margin-bottom: 32px;">All contact form submissions from your website.</p>
+
+            <div class="form-submissions" id="formSubmissions">
+                <!-- Submissions will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Settings Panel -->
+        <div id="settings-panel" class="admin-panel">
+            <h2>Settings</h2>
+            <p style="color: #666; margin-bottom: 32px;">Configure website settings and preferences.</p>
+
+            <div class="content-editor">
+                <div class="form-group">
+                    <label class="form-label">Google Analytics ID</label>
+                    <input type="text" id="ga-id" class="form-input" placeholder="GA-XXXXXXXXXX">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Social Media Links</label>
+                    <div style="display: grid; gap: 12px;">
+                        <input type="url" id="linkedin-url" class="form-input" placeholder="LinkedIn URL">
+                        <input type="url" id="facebook-url" class="form-input" placeholder="Facebook URL">
+                        <input type="url" id="twitter-url" class="form-input" placeholder="Twitter URL">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email Notifications</label>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <input type="checkbox" id="email-notifications" checked>
+                        <label for="email-notifications">Send email when form is submitted</label>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="saveSettings()">
+                    <i data-lucide="save"></i>
+                    Save Settings
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/security.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // WYSIWYG Editor instances
+        let editors = {};
+
+        // Initialize admin panel
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeWYSIWYGEditors();
+            loadAdminData();
+            lucide.createIcons();
+        });
+
+        function initializeWYSIWYGEditors() {
+            // Initialize Hero Subheadline Editor
+            editors.heroSubheadline = new Quill('#hero-subheadline-editor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link'],
+                        ['clean']
+                    ]
+                },
+                placeholder: 'Enter hero subheadline...'
+            });
+
+            // Set initial content
+            editors.heroSubheadline.setContents([
+                { insert: '30 years of engineering. 15 years teaching. One collaborative approach that transforms your vision into working software—while you understand every step.' }
+            ]);
+
+            // Initialize About Introduction Editor
+            editors.aboutIntro = new Quill('#about-intro-editor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link'],
+                        ['clean']
+                    ]
+                },
+                placeholder: 'Enter introduction...'
+            });
+
+            // Set initial content
+            editors.aboutIntro.setContents([
+                { insert: 'I\'ve spent 30 years writing code, 15 years teaching others how to think about software, and over two decades solving real business problems. Lightbridge Consulting brings all of that together.' }
+            ]);
+
+            // Initialize About Description Editor
+            editors.aboutDescription = new Quill('#about-description-editor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link'],
+                        ['clean']
+                    ]
+                },
+                placeholder: 'Enter description...'
+            });
+
+            // Set initial content
+            editors.aboutDescription.setContents([
+                { insert: 'What makes my approach different? I don\'t just build what you ask for—I help you discover what you actually need. Teaching database programming at the college level taught me how to break down complex problems and explain solutions clearly. That\'s what I bring to every project.' }
+            ]);
+        }
+
+        function showAdminPanel(panelName) {
+            // Hide all panels
+            document.querySelectorAll('.admin-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.admin-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected panel and activate tab
+            document.getElementById(panelName + '-panel').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function loadAdminData() {
+            // Load stats
+            const submissions = JSON.parse(localStorage.getItem('contact_submissions') || '[]');
+            const totalSubmissions = submissions.length;
+            const todaySubmissions = submissions.filter(sub => {
+                const today = new Date().toDateString();
+                const subDate = new Date(sub.timestamp).toDateString();
+                return today === subDate;
+            }).length;
+
+            const statsHtml = `
+                <div class="stat-card">
+                    <div class="stat-number">${totalSubmissions}</div>
+                    <div class="stat-label">Total Submissions</div>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #1F78B4 0%, #0B3D91 100%);">
+                    <div class="stat-number">${todaySubmissions}</div>
+                    <div class="stat-label">Today's Submissions</div>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+                    <div class="stat-number">${submissions.filter(s => !s.responded).length}</div>
+                    <div class="stat-label">Pending Responses</div>
+                </div>
+            `;
+
+            document.getElementById('adminStats').innerHTML = statsHtml;
+
+            // Load form submissions
+            loadFormSubmissions();
+        }
+
+        function loadFormSubmissions() {
+            const submissions = JSON.parse(localStorage.getItem('contact_submissions') || '[]');
+            const submissionsHtml = submissions.reverse().map(submission => `
+                <div class="submission-card">
+                    <div class="submission-header">
+                        <div>
+                            <strong>${submission.name}</strong>
+                            <div class="submission-meta">
+                                ${submission.email} • ${new Date(submission.timestamp).toLocaleString()}
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-small btn-primary" onclick="respondToSubmission('${submission.email}')">
+                                <i data-lucide="mail"></i>
+                                Respond
+                            </button>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 16px;">
+                        <strong>Service Interest:</strong> ${submission.service || 'Not specified'}<br>
+                        <strong>Timeline:</strong> ${submission.timeline || 'Not specified'}<br>
+                        ${submission.phone ? `<strong>Phone:</strong> ${submission.phone}<br>` : ''}
+                    </div>
+                    <div style="background: white; padding: 16px; border-radius: 8px;">
+                        <strong>Message:</strong><br>
+                        ${submission.message}
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('formSubmissions').innerHTML = submissionsHtml || '<p style="text-align: center; color: #666; padding: 40px;">No submissions yet.</p>';
+        }
+
+        function saveHomepageContent() {
+            try {
+                // Sanitize and validate content
+                const rawContent = {
+                    heroHeadline: document.getElementById('hero-headline').value,
+                    heroSubheadlineHTML: editors.heroSubheadline.root.innerHTML,
+                    heroSubheadlineText: editors.heroSubheadline.getText().trim(),
+                    servicesTitle: document.getElementById('services-title').value,
+                    contactEmail: document.getElementById('contact-email').value,
+                    contactPhone: document.getElementById('contact-phone').value
+                };
+
+                // Apply security sanitization
+                const content = {
+                    heroHeadline: SecurityUtils.sanitizeInput(rawContent.heroHeadline, 'text'),
+                    heroSubheadlineHTML: SecurityUtils.sanitizeInput(rawContent.heroSubheadlineHTML, 'html'),
+                    heroSubheadlineText: SecurityUtils.sanitizeInput(rawContent.heroSubheadlineText, 'text'),
+                    servicesTitle: SecurityUtils.sanitizeInput(rawContent.servicesTitle, 'text'),
+                    contactEmail: SecurityUtils.sanitizeInput(rawContent.contactEmail, 'email'),
+                    contactPhone: SecurityUtils.sanitizeInput(rawContent.contactPhone, 'phone'),
+                    lastUpdated: new Date().toISOString()
+                };
+
+                // Validate required fields
+                if (!content.heroHeadline || !content.contactEmail) {
+                    throw new Error('Required fields are missing');
+                }
+
+                // Log admin action
+                SecurityUtils.logSecurityEvent('admin_content_save', {
+                    contentType: 'homepage',
+                    fieldsUpdated: Object.keys(content)
+                });
+
+                // Save to localStorage
+                localStorage.setItem('cms_homepage_content', JSON.stringify(content));
+
+                // Show success message
+                showNotification('Homepage content saved successfully! Contact information will update on page reload.', 'success');
+
+            } catch (error) {
+                SecurityUtils.logSecurityEvent('admin_save_failed', {
+                    contentType: 'homepage',
+                    error: error.message
+                });
+                showNotification('Error saving content: ' + error.message, 'error');
+            }
+        }
+
+        function saveAboutContent() {
+            const content = {
+                aboutHeadline: document.getElementById('about-headline').value,
+                aboutIntro: editors.aboutIntro.getContents(),
+                aboutIntroText: editors.aboutIntro.getText().trim(),
+                aboutDescription: editors.aboutDescription.getContents(),
+                aboutDescriptionText: editors.aboutDescription.getText().trim(),
+                timelineTitle: document.getElementById('timeline-title').value,
+                philosophyTitle: document.getElementById('philosophy-title').value,
+                lastUpdated: new Date().toISOString()
+            };
+
+            // Save to localStorage
+            localStorage.setItem('cms_about_content', JSON.stringify(content));
+
+            // Show success message
+            showNotification('About page content saved successfully!', 'success');
+        }
+
+        function saveLegalContent() {
+            const content = {
+                privacyUpdated: document.getElementById('privacy-updated').value,
+                termsUpdated: document.getElementById('terms-updated').value,
+                legalEmail: document.getElementById('legal-email').value,
+                legalPhone: document.getElementById('legal-phone').value,
+                discoveryPrice: document.getElementById('discovery-price').value,
+                lastUpdated: new Date().toISOString()
+            };
+
+            // Save to localStorage
+            localStorage.setItem('cms_legal_content', JSON.stringify(content));
+
+            // Show success message
+            showNotification('Legal content saved successfully! Contact information will update on page reload.', 'success');
+        }
+
+        function previewChanges() {
+            // Open preview in new tab
+            const previewWindow = window.open('../index.html', '_blank');
+            showNotification('Preview opened in new tab', 'info');
+        }
+
+        function saveSettings() {
+            const settings = {
+                gaId: document.getElementById('ga-id').value,
+                linkedinUrl: document.getElementById('linkedin-url').value,
+                facebookUrl: document.getElementById('facebook-url').value,
+                twitterUrl: document.getElementById('twitter-url').value,
+                emailNotifications: document.getElementById('email-notifications').checked,
+                lastUpdated: new Date().toISOString()
+            };
+
+            localStorage.setItem('cms_settings', JSON.stringify(settings));
+            showNotification('Settings saved successfully!', 'success');
+        }
+
+        function respondToSubmission(email) {
+            // Open email client with pre-filled email
+            const subject = encodeURIComponent('Re: Your inquiry to Lightbridge Consulting');
+            const body = encodeURIComponent(`Thank you for reaching out to Lightbridge Consulting. I've received your message and will be happy to discuss your project.\n\nI'd like to schedule a brief call to better understand your needs. Are you available for a 15-minute conversation this week?\n\nBest regards,\nShawn Ferguson\nLightbridge Consulting`);
+
+            window.open(`mailto:${email}?subject=${subject}&body=${body}`);
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 16px 24px;
+                background: ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#1F78B4'};
+                color: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                font-weight: 600;
+            `;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Auto-refresh submissions every 30 seconds
+        setInterval(() => {
+            loadAdminData();
+        }, 30000);
+    </script>
+</body>
+</html>
