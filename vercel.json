@@ -1,40 +1,17 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "src/**/*",
-      "use": "@vercel/static"
-    }
+    { "src": "src/**", "use": "@vercel/static" },
+    { "src": "index.html", "use": "@vercel/static" }
   ],
-  "routes": [
-    {
-      "src": "/",
-      "dest": "/src/index.html"
-    },
-    {
-      "src": "/cms/(.*)",
-      "dest": "/src/cms/$1"
-    },
-    {
-      "src": "/pages/(.*)",
-      "dest": "/src/pages/$1"
-    },
-    {
-      "src": "/css/(.*)",
-      "dest": "/src/css/$1"
-    },
-    {
-      "src": "/js/(.*)",
-      "dest": "/src/js/$1"
-    },
-    {
-      "src": "/images/(.*)",
-      "dest": "/src/images/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/src/$1"
-    }
+  "rewrites": [
+    { "source": "/", "destination": "/src/index.html" },
+    { "source": "/cms/:path*", "destination": "/src/cms/:path*" },
+    { "source": "/pages/:path*", "destination": "/src/pages/:path*" },
+    { "source": "/css/:path*", "destination": "/src/css/:path*" },
+    { "source": "/js/:path*", "destination": "/src/js/:path*" },
+    { "source": "/images/:path*", "destination": "/src/images/:path*" },
+    { "source": "/:path*", "destination": "/src/:path*" }
   ],
   "headers": [
     {
