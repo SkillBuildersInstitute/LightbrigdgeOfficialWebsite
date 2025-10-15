@@ -18,6 +18,7 @@ function loadCMSContent() {
         loadLegalContent();
         loadPricingContent();
         loadContactInfo();
+        loadFooterLinks();
         
         console.log('CMS content loaded successfully');
     } catch (error) {
@@ -218,6 +219,62 @@ function loadContactInfo() {
 }
 
 /**
+ * Load and apply footer links from settings
+ */
+function loadFooterLinks() {
+    const settings = JSON.parse(localStorage.getItem('cms_settings') || '{}');
+    
+    // Update Case Studies link
+    const caseStudiesLinks = document.querySelectorAll('a[href*="case-studies"], a[data-cms="case-studies"]');
+    caseStudiesLinks.forEach(link => {
+        if (settings.caseStudiesUrl) {
+            link.href = settings.caseStudiesUrl;
+            link.style.display = '';
+        } else {
+            // Hide if no URL is set
+            link.style.display = 'none';
+        }
+    });
+    
+    // Update Blog link
+    const blogLinks = document.querySelectorAll('a[data-cms="blog"]');
+    blogLinks.forEach(link => {
+        if (settings.blogUrl) {
+            link.href = settings.blogUrl;
+            link.style.display = '';
+        } else {
+            // Hide if no URL is set
+            link.style.display = 'none';
+        }
+    });
+    
+    // Update social media links
+    if (settings.linkedinUrl) {
+        document.querySelectorAll('a[data-social="linkedin"]').forEach(link => {
+            link.href = settings.linkedinUrl;
+        });
+    }
+    
+    if (settings.facebookUrl) {
+        document.querySelectorAll('a[data-social="facebook"]').forEach(link => {
+            link.href = settings.facebookUrl;
+        });
+    }
+    
+    if (settings.twitterUrl) {
+        document.querySelectorAll('a[data-social="twitter"]').forEach(link => {
+            link.href = settings.twitterUrl;
+        });
+    }
+    
+    if (settings.githubUrl) {
+        document.querySelectorAll('a[data-social="github"]').forEach(link => {
+            link.href = settings.githubUrl;
+        });
+    }
+}
+
+/**
  * Export for use in other scripts
  */
 if (typeof module !== 'undefined' && module.exports) {
@@ -227,7 +284,8 @@ if (typeof module !== 'undefined' && module.exports) {
         loadAboutContent,
         loadLegalContent,
         loadPricingContent,
-        loadContactInfo
+        loadContactInfo,
+        loadFooterLinks
     };
 }
 

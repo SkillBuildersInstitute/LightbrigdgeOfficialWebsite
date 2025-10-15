@@ -782,6 +782,23 @@
                 </div>
 
                 <div class="content-section">
+                    <h3>Footer Links</h3>
+                    <p style="color: #666; margin-bottom: 20px;">Manage footer navigation links. Leave blank to hide link.</p>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Case Studies URL</label>
+                            <input type="url" id="case-studies-url" class="form-input" placeholder="/pages/case-studies.html or external URL">
+                            <span class="help-text">Link to case studies page or leave blank to disable</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Blog URL</label>
+                            <input type="url" id="blog-url" class="form-input" placeholder="https://yourblog.com or /pages/blog.html">
+                            <span class="help-text">Link to blog or leave blank to disable</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
                     <h3>Notifications</h3>
                     <div class="form-group">
                         <label class="form-checkbox-label">
@@ -1000,6 +1017,8 @@
             if (settings.facebookUrl) document.getElementById('facebook-url').value = settings.facebookUrl;
             if (settings.twitterUrl) document.getElementById('twitter-url').value = settings.twitterUrl;
             if (settings.githubUrl) document.getElementById('github-url').value = settings.githubUrl;
+            if (settings.caseStudiesUrl) document.getElementById('case-studies-url').value = settings.caseStudiesUrl;
+            if (settings.blogUrl) document.getElementById('blog-url').value = settings.blogUrl;
             
             document.getElementById('email-notifications').checked = settings.emailNotifications !== false;
         }
@@ -1216,6 +1235,8 @@
                 facebookUrl: document.getElementById('facebook-url').value,
                 twitterUrl: document.getElementById('twitter-url').value,
                 githubUrl: document.getElementById('github-url').value,
+                caseStudiesUrl: document.getElementById('case-studies-url').value,
+                blogUrl: document.getElementById('blog-url').value,
                 emailNotifications: document.getElementById('email-notifications').checked,
                 lastUpdated: new Date().toISOString()
             };
