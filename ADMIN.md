@@ -27,8 +27,9 @@ Authentication: Basic (development mode)
 
 **Production Environment:**
 ```
-URL: https://yourdomain.com/cms/admin.html
-Authentication: Secure login required
+URL: https://lightbrigdge-official-website.vercel.app/cms/admin.html
+Authentication: Browser-based (localStorage)
+Note: Currently uses localStorage. Implement authentication for production use.
 ```
 
 ### First-Time Setup
@@ -66,10 +67,13 @@ The Lightbridge Consulting CMS is a lightweight, secure content management syste
 ### Key Features
 
 **Content Management:**
-- Real-time WYSIWYG editing
+- Real-time WYSIWYG editing with Quill.js
 - Live preview of changes
-- Content versioning (planned)
-- Bulk content operations
+- 7 dedicated management panels
+- Pricing management for all services
+- Footer link management
+- Auto-save to localStorage
+- Export pricing functionality
 
 **Security Features:**
 - CSRF protection
@@ -79,12 +83,68 @@ The Lightbridge Consulting CMS is a lightweight, secure content management syste
 - Access control
 
 **User Experience:**
-- Intuitive interface
+- Intuitive tabbed interface
+- Stats dashboard
 - Mobile-responsive admin
-- Undo/redo functionality
-- Auto-save (planned)
+- Real-time notifications
+- One-click preview
+- Help text for all fields
 
 ## ✏️ Content Management
+
+### CMS Panel Overview
+
+The CMS is organized into 7 dedicated panels for easy content management:
+
+#### 1. Homepage Panel
+Manage all homepage content including:
+- **Hero Section**: Badge text, headline, subheadline (WYSIWYG)
+- **Services Section**: Title and description
+- **Contact Information**: Email and phone (updates site-wide)
+
+#### 2. Pricing Panel 💰
+Comprehensive pricing management for all services:
+- **Collaborative Development**: Hourly rate, minimum project
+- **Express Development**: Fixed price, timeline
+- **Business Butler**: Monthly retainer, included hours
+- **Business Boot Camp**: One-time fee, duration
+- **Discovery Session**: Consultation fee
+- **Currency**: USD, CAD, EUR, GBP selector
+- **Export**: Download pricing as JSON
+
+#### 3. About Panel
+Manage about page content:
+- Page headline
+- Introduction and description (WYSIWYG editors)
+- Timeline title
+- Philosophy title
+
+#### 4. Services Panel
+Edit service offering content:
+- Taglines for all 4 service offerings
+- Service descriptions
+- Feature highlights
+
+#### 5. Legal Panel
+Update legal information:
+- Privacy Policy last updated date
+- Terms of Service last updated date
+- Legal contact information
+
+#### 6. Submissions Panel 📧
+View and manage form submissions:
+- All contact form submissions
+- Sender details (name, email, phone)
+- Message content
+- Submission timestamp
+- Quick reply via email
+
+#### 7. Settings Panel ⚙️
+Configure website settings:
+- **Analytics**: Google Analytics ID
+- **Social Media**: LinkedIn, Facebook, Twitter, GitHub links
+- **Footer Links**: Case Studies and Blog URLs
+- **Notifications**: Email notification preferences
 
 ### Editable Content Areas
 
@@ -95,7 +155,7 @@ The website contains several editable content areas identified by `data-cms` att
 ```html
 <!-- Hero Section -->
 data-cms="hero-headline"           → Main headline
-data-cms="hero-subheadline"        → Supporting headline
+data-cms="hero-subheadline"        → Supporting headline (managed via CMS)
 data-cms="hero-description"        → Hero description text
 data-cms="hero-cta-primary"        → Primary button text
 data-cms="hero-cta-secondary"      → Secondary button text
@@ -987,7 +1047,67 @@ If security breach suspected:
 
 ---
 
+## 🎯 Quick Reference
+
+### Common Tasks
+
+**Update Pricing:**
+1. Go to CMS → Pricing tab
+2. Update price fields for any service
+3. Click "Save Pricing Changes"
+4. Refresh homepage to see changes
+
+**Update Footer Links:**
+1. Go to CMS → Settings tab
+2. Scroll to "Footer Links" section
+3. Enter URLs for Case Studies and/or Blog
+4. Click "Save Settings"
+5. Refresh any page to see changes
+
+**Update Contact Information:**
+1. Go to CMS → Homepage tab
+2. Update email and/or phone in "Contact Information" section
+3. Click "Save Homepage Changes"
+4. Changes apply site-wide on next page load
+
+**View Form Submissions:**
+1. Go to CMS → Submissions tab
+2. Review all submissions
+3. Click "Reply" to respond via email
+
+**Export Pricing:**
+1. Go to CMS → Pricing tab
+2. Click "Export Pricing" button
+3. JSON file downloads automatically
+
+### Keyboard Shortcuts
+
+- `Ctrl/Cmd + S` - Save current panel (when implemented)
+- `Ctrl/Cmd + P` - Preview current page
+- `Esc` - Close notification
+
+### Browser Console Commands
+
+```javascript
+// View all saved content
+Object.keys(localStorage).forEach(key => console.log(key, localStorage.getItem(key)));
+
+// Clear all CMS data (use with caution!)
+localStorage.clear();
+
+// Export all CMS data
+const cmsData = {};
+Object.keys(localStorage).forEach(key => {
+  if (key.startsWith('cms_')) cmsData[key] = localStorage.getItem(key);
+});
+console.log(JSON.stringify(cmsData, null, 2));
+```
+
+---
+
 **Last Updated**: January 2025
 **Administrator**: Lightbridge Consulting
-**Version**: 1.0.0
+**Version**: 2.0.0
+**GitHub**: https://github.com/SkillBuildersInstitute/LightbrigdgeOfficialWebsite.git
+**Live Site**: https://lightbrigdge-official-website.vercel.app/
 **Support**: info@lightbridgeconsulting.com

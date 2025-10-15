@@ -11,9 +11,10 @@ Lightbridge Consulting is a professional website showcasing collaborative softwa
 - **Marketing-Optimized**: Aligned with comprehensive marketing strategy
 - **SEO-Optimized**: Full Schema.org markup, meta tags, and social media optimization
 - **Security-First**: OWASP Top 10 2021 compliant with comprehensive security measures
-- **Content Management**: Built-in CMS for easy content updates
+- **Advanced CMS**: Built-in content management with pricing, services, and footer link management
 - **Mobile-Responsive**: Fully responsive design across all devices
 - **Performance**: Fast loading with optimized assets and minimal dependencies
+- **Vercel Deployed**: Production-ready deployment on Vercel with automatic updates
 
 ## 🎯 Marketing Positioning
 
@@ -46,11 +47,16 @@ The site prominently features the collaborative development approach where:
 - **Security Headers**: CSP, XSS protection, and other security headers
 - **Security Logging**: Comprehensive event logging and monitoring
 
-### Content Management
-- **Built-in CMS**: Simple, secure content management system
-- **WYSIWYG Editor**: Quill.js-based rich text editing
-- **Real-time Preview**: See changes immediately
+### Content Management System
+- **Built-in CMS**: Comprehensive content management system
+- **WYSIWYG Editor**: Quill.js-based rich text editing for formatted content
+- **Pricing Management**: Update pricing for all 4 service offerings dynamically
+- **Footer Links**: Manage case studies, blog, and social media links
+- **Services Content**: Edit service descriptions and taglines
+- **Contact Info**: Update email and phone across entire site
+- **Real-time Updates**: Changes apply immediately via CMS loader
 - **Security Integration**: All CMS operations go through security validation
+- **Local Storage**: Content persists in browser localStorage
 
 ## 📁 Project Structure
 
@@ -63,7 +69,7 @@ The site prominently features the collaborative development approach where:
 │   ├── js/
 │   │   ├── main.js              # Core functionality
 │   │   ├── security.js          # Security utilities
-│   │   └── cms.js               # CMS functionality
+│   │   └── cms-loader.js        # CMS content loader
 │   ├── pages/                   # Site pages
 │   │   ├── about.html           # About page
 │   │   ├── contact.html         # Contact form
@@ -114,7 +120,17 @@ The site prominently features the collaborative development approach where:
 
 4. **For CMS access**: http://localhost:8000/cms/admin.html
 
-### Production Deployment
+### Production Deployment (Vercel)
+
+The site is deployed on Vercel with automatic deployments from the GitHub repository.
+
+**Live URL**: https://lightbrigdge-official-website.vercel.app/
+**GitHub Repo**: https://github.com/SkillBuildersInstitute/LightbrigdgeOfficialWebsite.git
+
+**Automatic Deployment**:
+- Push to `main` branch triggers automatic Vercel deployment
+- Changes go live within 1-2 minutes
+- Preview deployments for pull requests
 
 See [DEVELOPER.md](DEVELOPER.md) for detailed deployment instructions.
 
@@ -130,14 +146,55 @@ The website uses client-side configuration for development. For production deplo
 4. **Configure proper database connections**
 5. **Set up centralized logging**
 
-### Content Management
+### Content Management System (CMS)
 
-The CMS allows real-time editing of:
-- Homepage hero content
-- Service descriptions
-- About page information
-- Contact information
-- All editable content marked with `data-cms="key"`
+Access the CMS at: `/cms/admin.html`
+
+The CMS provides comprehensive content management across 7 panels:
+
+1. **Homepage Panel**
+   - Hero badge, headline, and subheadline
+   - Services section title and description
+   - Contact information (email and phone)
+
+2. **Pricing Panel** 🎯
+   - Collaborative Development pricing and terms
+   - Express Development pricing and timeline
+   - Business Butler monthly retainer details
+   - Business Boot Camp pricing and duration
+   - Discovery session fee
+   - Currency selector
+
+3. **About Panel**
+   - About page headline
+   - Introduction and description (WYSIWYG)
+   - Timeline and philosophy titles
+
+4. **Services Panel**
+   - Service taglines for all 4 offerings
+   - Service descriptions and features
+
+5. **Legal Panel**
+   - Privacy Policy and Terms of Service dates
+   - Legal contact information
+
+6. **Submissions Panel**
+   - View all form submissions
+   - Quick reply via email
+
+7. **Settings Panel**
+   - Google Analytics ID
+   - Social media links (LinkedIn, Facebook, Twitter, GitHub)
+   - Footer links (Case Studies, Blog)
+   - Email notifications
+
+**Features**:
+- Changes apply immediately (no page rebuild needed)
+- WYSIWYG editor for formatted content
+- Auto-save to localStorage
+- Export pricing functionality
+- Real-time stats dashboard
+- Preview functionality for all pages
 
 ## 📊 SEO & Marketing Features
 

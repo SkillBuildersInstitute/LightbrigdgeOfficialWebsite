@@ -623,6 +623,24 @@ function initializeForms() {
 
 ## 🚀 Deployment Guide
 
+### Current Deployment (Vercel)
+
+**Live Site**: https://lightbrigdge-official-website.vercel.app/
+**GitHub Repo**: https://github.com/SkillBuildersInstitute/LightbrigdgeOfficialWebsite.git
+
+**Deployment Process:**
+1. Push code to `main` branch on GitHub
+2. Vercel automatically detects changes
+3. Builds and deploys within 1-2 minutes
+4. Site goes live at production URL
+
+**Vercel Configuration:**
+- `vercel.json` handles routing and rewrites
+- All requests routed through `/src` directory
+- Security headers configured in `vercel.json`
+- Automatic HTTPS enforcement
+- CDN distribution worldwide
+
 ### Development vs Production
 
 **Development Environment:**
@@ -631,13 +649,19 @@ function initializeForms() {
 - Minimal error handling
 - Basic authentication
 
-**Production Requirements:**
-- Server-side security headers
-- Database for content storage
-- Comprehensive error handling
-- SSL/HTTPS enforcement
-- Centralized logging
-- Performance optimization
+**Production (Current State):**
+- localStorage for CMS (browser-based)
+- Server-side security headers (via vercel.json)
+- HTTPS enforced automatically
+- CDN performance optimization
+- Automatic deployments from GitHub
+
+**Production (Recommended Upgrades):**
+- Database for content storage (instead of localStorage)
+- Server-side session management
+- Authentication system for CMS access
+- Centralized logging service
+- Email notification integration
 
 ### Production Deployment Checklist
 
