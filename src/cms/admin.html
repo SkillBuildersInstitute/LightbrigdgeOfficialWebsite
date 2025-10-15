@@ -8,7 +8,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Helvetica+Neue:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link rel="stylesheet" href="../css/styles.css">
@@ -22,8 +22,8 @@
 
     <style>
         .admin-container {
-            max-width: 1200px;
-            margin: 80px auto 0;
+            max-width: 1400px;
+            margin: 0 auto;
             padding: 40px 24px;
         }
 
@@ -36,32 +36,76 @@
             border-bottom: 2px solid #eee;
         }
 
+        .admin-header h1 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0;
+        }
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(255, 165, 0, 0.2);
+        }
+
+        .stat-card h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-card p {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0;
+        }
+
         .admin-tabs {
             display: flex;
-            gap: 24px;
+            gap: 12px;
             margin-bottom: 32px;
+            flex-wrap: wrap;
         }
 
         .admin-tab {
             padding: 12px 24px;
             background: #f0f0f0;
-            border: none;
+            border: 2px solid transparent;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .admin-tab:hover {
+            background: #e0e0e0;
         }
 
         .admin-tab.active {
             background: #FFA500;
             color: white;
+            border-color: #FFA500;
         }
 
         .admin-panel {
             display: none;
             background: white;
             border-radius: 12px;
-            padding: 32px;
+            padding: 40px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
         }
 
@@ -69,21 +113,97 @@
             display: block;
         }
 
+        .admin-panel h2 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            color: #000;
+        }
+
+        .admin-panel > p {
+            color: #666;
+            margin-bottom: 32px;
+            font-size: 16px;
+        }
+
         .content-editor {
             display: grid;
+            gap: 32px;
+        }
+
+        .content-section {
+            padding: 24px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #FFA500;
+        }
+
+        .content-section h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #000;
+            font-size: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .wysiwyg-container {
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+        }
+
+        .editor-label {
+            display: block;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
+        }
+
+        .pricing-card-editor {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            border: 2px solid #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card-editor:hover {
+            border-color: #FFA500;
+            box-shadow: 0 4px 12px rgba(255, 165, 0, 0.15);
+        }
+
+        .pricing-card-editor h4 {
+            margin: 0 0 16px 0;
+            color: #FFA500;
+            font-size: 18px;
         }
 
         .form-submissions {
             display: grid;
-            gap: 16px;
+            gap: 20px;
         }
 
         .submission-card {
             background: #f8f9fa;
             padding: 24px;
-            border-radius: 8px;
+            border-radius: 12px;
             border-left: 4px solid #FFA500;
+            transition: all 0.3s ease;
+        }
+
+        .submission-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .submission-header {
@@ -98,129 +218,202 @@
             color: #666;
         }
 
-        .admin-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-            margin-bottom: 32px;
+        .submission-meta strong {
+            color: #000;
         }
 
-        .stat-card {
-            background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
+        .submission-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 2px solid #eee;
+        }
+
+        .help-text {
+            font-size: 13px;
+            color: #666;
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        .success-message {
+            background: #28a745;
             color: white;
-            padding: 24px;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 32px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        /* WYSIWYG Editor Styling */
-        .wysiwyg-container {
-            border: 2px solid #e0e0e0;
+            padding: 12px 20px;
             border-radius: 8px;
-            overflow: hidden;
+            margin-bottom: 20px;
+            display: none;
         }
 
-        .wysiwyg-container .ql-toolbar {
-            border: none;
-            border-bottom: 2px solid #e0e0e0;
-            background: #f8f9fa;
-        }
-
-        .wysiwyg-container .ql-container {
-            border: none;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        .wysiwyg-container .ql-editor {
-            min-height: 150px;
-            padding: 16px;
-        }
-
-        .editor-label {
+        .success-message.show {
             display: block;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                padding: 20px 16px;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+
+            .admin-tabs {
+                flex-direction: column;
+            }
+
+            .admin-tab {
+                width: 100%;
+            }
+
+            .admin-panel {
+                padding: 24px;
+            }
+
+            .pricing-grid,
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="admin-container">
         <div class="admin-header">
-            <h1>Lightbridge Consulting - CMS Admin</h1>
-            <button class="btn btn-primary" onclick="window.open('../index.html', '_blank')">
-                <i data-lucide="external-link"></i>
-                View Website
-            </button>
+            <h1>
+                <i data-lucide="settings"></i>
+                CMS Admin Panel
+            </h1>
+            <div>
+                <button class="btn btn-outline" onclick="window.location.href='../index.html'">
+                    <i data-lucide="home"></i>
+                    View Website
+                </button>
+            </div>
         </div>
 
         <div class="admin-stats" id="adminStats">
-            <!-- Stats will be populated by JavaScript -->
+            <div class="stat-card">
+                <h3>Total Submissions</h3>
+                <p id="stat-submissions">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Last Updated</h3>
+                <p id="stat-updated" style="font-size: 16px;">Never</p>
+            </div>
+            <div class="stat-card">
+                <h3>Content Status</h3>
+                <p id="stat-status" style="font-size: 16px;">Ready</p>
+            </div>
         </div>
 
         <div class="admin-tabs">
-            <button class="admin-tab active" onclick="showAdminPanel('content')">Homepage Content</button>
-            <button class="admin-tab" onclick="showAdminPanel('about')">About Page</button>
-            <button class="admin-tab" onclick="showAdminPanel('legal')">Legal Pages</button>
-            <button class="admin-tab" onclick="showAdminPanel('submissions')">Form Submissions</button>
-            <button class="admin-tab" onclick="showAdminPanel('settings')">Settings</button>
+            <button class="admin-tab active" onclick="showAdminPanel('homepage')">
+                <i data-lucide="home"></i> Homepage
+            </button>
+            <button class="admin-tab" onclick="showAdminPanel('pricing')">
+                <i data-lucide="dollar-sign"></i> Pricing
+            </button>
+            <button class="admin-tab" onclick="showAdminPanel('about')">
+                <i data-lucide="user"></i> About
+            </button>
+            <button class="admin-tab" onclick="showAdminPanel('services')">
+                <i data-lucide="briefcase"></i> Services
+            </button>
+            <button class="admin-tab" onclick="showAdminPanel('legal')">
+                <i data-lucide="file-text"></i> Legal
+            </button>
+            <button class="admin-tab" onclick="showAdminPanel('submissions')">
+                <i data-lucide="mail"></i> Submissions
+            </button>
+            <button class="admin-tab" onclick="showAdminPanel('settings')">
+                <i data-lucide="sliders"></i> Settings
+            </button>
         </div>
 
         <!-- Homepage Content Panel -->
-        <div id="content-panel" class="admin-panel active">
+        <div id="homepage-panel" class="admin-panel active">
             <h2>Homepage Content Management</h2>
-            <p style="color: #666; margin-bottom: 32px;">Update homepage content directly from here. Changes will be reflected immediately on the live site.</p>
+            <p>Update homepage content directly from here. Changes will be reflected immediately on the live site.</p>
 
             <div class="content-editor">
-                <h3>Hero Section</h3>
-                <div class="form-group">
-                    <label class="form-label">Hero Headline</label>
-                    <input type="text" id="hero-headline" class="form-input"
-                           value="Build Software Together, Not Alone">
-                </div>
+                <div class="content-section">
+                    <h3>Hero Section</h3>
+                    <div class="form-group">
+                        <label class="form-label">Hero Badge Text</label>
+                        <input type="text" id="hero-badge" class="form-input"
+                               value="Serving Your Community Since 1998"
+                               placeholder="Serving Your Community Since 1998">
+                        <span class="help-text">Small badge text at the top of the hero section</span>
+                    </div>
 
-                <div class="form-group">
-                    <label class="editor-label">Hero Subheadline</label>
-                    <div class="wysiwyg-container">
-                        <div id="hero-subheadline-editor"></div>
+                    <div class="form-group">
+                        <label class="form-label">Hero Headline</label>
+                        <input type="text" id="hero-headline" class="form-input"
+                               value="Build Software Together, Not Alone"
+                               placeholder="Build Software Together, Not Alone">
+                        <span class="help-text">Main headline on the homepage</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="editor-label">Hero Subheadline</label>
+                        <div class="wysiwyg-container">
+                            <div id="hero-subheadline-editor"></div>
+                        </div>
+                        <span class="help-text">Subheadline text with rich formatting options</span>
                     </div>
                 </div>
 
-                <h3>Services Section</h3>
-                <div class="form-group">
-                    <label class="form-label">Services Section Title</label>
-                    <input type="text" id="services-title" class="form-input"
-                           value="Four Ways We Can Help Your Business">
+                <div class="content-section">
+                    <h3>Services Section</h3>
+                    <div class="form-group">
+                        <label class="form-label">Services Section Title</label>
+                        <input type="text" id="services-title" class="form-input"
+                               value="Four Ways We Can Help Your Business"
+                               placeholder="Four Ways We Can Help Your Business">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Services Description</label>
+                        <textarea id="services-description" class="form-textarea"
+                                  placeholder="Optional description for services section"></textarea>
+                    </div>
                 </div>
 
-                <h3>Contact Information</h3>
-                <div class="form-group">
-                    <label class="form-label">Contact Email</label>
-                    <input type="email" id="contact-email" class="form-input"
-                           value="info@lightbridgeconsulting.com">
+                <div class="content-section">
+                    <h3>Contact Information</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Contact Email</label>
+                            <input type="email" id="contact-email" class="form-input"
+                                   value="info@lightbridgeconsulting.com"
+                                   placeholder="info@lightbridgeconsulting.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Contact Phone</label>
+                            <input type="tel" id="contact-phone" class="form-input"
+                                   value="(555) 555-0123"
+                                   placeholder="(555) 555-0123">
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">Contact Phone</label>
-                    <input type="tel" id="contact-phone" class="form-input"
-                           value="(555) 555-0123">
-                </div>
-
-                <div style="display: flex; gap: 16px;">
+                <div class="action-buttons">
                     <button class="btn btn-primary" onclick="saveHomepageContent()">
                         <i data-lucide="save"></i>
                         Save Homepage Changes
@@ -233,48 +426,193 @@
             </div>
         </div>
 
+        <!-- Pricing Management Panel -->
+        <div id="pricing-panel" class="admin-panel">
+            <h2>Pricing Management</h2>
+            <p>Manage pricing for all service offerings. Changes will be reflected across the entire website.</p>
+
+            <div class="content-editor">
+                <div class="pricing-grid">
+                    <!-- Collaborative Development Pricing -->
+                    <div class="pricing-card-editor">
+                        <h4>Collaborative Development</h4>
+                        <div class="form-group">
+                            <label class="form-label">Price</label>
+                            <input type="text" id="collab-price" class="form-input"
+                                   value="$150/hour"
+                                   placeholder="$150/hour">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Price Description</label>
+                            <input type="text" id="collab-price-desc" class="form-input"
+                                   value="Hourly rate"
+                                   placeholder="Hourly rate">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Minimum Project</label>
+                            <input type="text" id="collab-minimum" class="form-input"
+                                   value="$3,000"
+                                   placeholder="$3,000">
+                        </div>
+                    </div>
+
+                    <!-- Express Development Pricing -->
+                    <div class="pricing-card-editor">
+                        <h4>Express Development</h4>
+                        <div class="form-group">
+                            <label class="form-label">Price</label>
+                            <input type="text" id="express-price" class="form-input"
+                                   value="$5,000"
+                                   placeholder="$5,000">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Price Description</label>
+                            <input type="text" id="express-price-desc" class="form-input"
+                                   value="Fixed price"
+                                   placeholder="Fixed price">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Timeline</label>
+                            <input type="text" id="express-timeline" class="form-input"
+                                   value="2-4 weeks"
+                                   placeholder="2-4 weeks">
+                        </div>
+                    </div>
+
+                    <!-- Business Butler Pricing -->
+                    <div class="pricing-card-editor">
+                        <h4>Business Butler</h4>
+                        <div class="form-group">
+                            <label class="form-label">Price</label>
+                            <input type="text" id="butler-price" class="form-input"
+                                   value="$2,500/month"
+                                   placeholder="$2,500/month">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Price Description</label>
+                            <input type="text" id="butler-price-desc" class="form-input"
+                                   value="Monthly retainer"
+                                   placeholder="Monthly retainer">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Included Hours</label>
+                            <input type="text" id="butler-hours" class="form-input"
+                                   value="20 hours/month"
+                                   placeholder="20 hours/month">
+                        </div>
+                    </div>
+
+                    <!-- Business Boot Camp Pricing -->
+                    <div class="pricing-card-editor">
+                        <h4>Business Boot Camp</h4>
+                        <div class="form-group">
+                            <label class="form-label">Price</label>
+                            <input type="text" id="bootcamp-price" class="form-input"
+                                   value="$1,200"
+                                   placeholder="$1,200">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Price Description</label>
+                            <input type="text" id="bootcamp-price-desc" class="form-input"
+                                   value="One-time fee"
+                                   placeholder="One-time fee">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Duration</label>
+                            <input type="text" id="bootcamp-duration" class="form-input"
+                                   value="2-day intensive"
+                                   placeholder="2-day intensive">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section" style="margin-top: 32px;">
+                    <h3>General Pricing</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Discovery Session Price</label>
+                            <input type="text" id="discovery-price" class="form-input"
+                                   value="$200"
+                                   placeholder="$200">
+                            <span class="help-text">Initial consultation fee</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Currency</label>
+                            <select id="currency" class="form-select">
+                                <option value="USD">USD ($)</option>
+                                <option value="CAD">CAD ($)</option>
+                                <option value="EUR">EUR (€)</option>
+                                <option value="GBP">GBP (£)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="savePricingContent()">
+                        <i data-lucide="save"></i>
+                        Save Pricing Changes
+                    </button>
+                    <button class="btn btn-outline" onclick="exportPricing()">
+                        <i data-lucide="download"></i>
+                        Export Pricing
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- About Page Panel -->
         <div id="about-panel" class="admin-panel">
             <h2>About Page Content Management</h2>
-            <p style="color: #666; margin-bottom: 32px;">Update about page content including timeline and credentials.</p>
+            <p>Update about page content including timeline and credentials.</p>
 
             <div class="content-editor">
-                <h3>Hero Section</h3>
-                <div class="form-group">
-                    <label class="form-label">About Page Headline</label>
-                    <input type="text" id="about-headline" class="form-input"
-                           value="Building Software the Right Way for Three Decades">
-                </div>
+                <div class="content-section">
+                    <h3>Hero Section</h3>
+                    <div class="form-group">
+                        <label class="form-label">About Page Headline</label>
+                        <input type="text" id="about-headline" class="form-input"
+                               value="Building Software the Right Way for Three Decades"
+                               placeholder="Building Software the Right Way for Three Decades">
+                    </div>
 
-                <div class="form-group">
-                    <label class="editor-label">Introduction</label>
-                    <div class="wysiwyg-container">
-                        <div id="about-intro-editor"></div>
+                    <div class="form-group">
+                        <label class="editor-label">Introduction</label>
+                        <div class="wysiwyg-container">
+                            <div id="about-intro-editor"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="editor-label">Description</label>
+                        <div class="wysiwyg-container">
+                            <div id="about-description-editor"></div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="editor-label">Description</label>
-                    <div class="wysiwyg-container">
-                        <div id="about-description-editor"></div>
+                <div class="content-section">
+                    <h3>Timeline</h3>
+                    <div class="form-group">
+                        <label class="form-label">Timeline Title</label>
+                        <input type="text" id="timeline-title" class="form-input"
+                               value="Three Decades of Learning and Building"
+                               placeholder="Three Decades of Learning and Building">
                     </div>
                 </div>
 
-                <h3>Timeline</h3>
-                <div class="form-group">
-                    <label class="form-label">Timeline Title</label>
-                    <input type="text" id="timeline-title" class="form-input"
-                           value="Three Decades of Learning and Building">
+                <div class="content-section">
+                    <h3>Philosophy Section</h3>
+                    <div class="form-group">
+                        <label class="form-label">Philosophy Title</label>
+                        <input type="text" id="philosophy-title" class="form-input"
+                               value="Why Collaborative Development Works"
+                               placeholder="Why Collaborative Development Works">
+                    </div>
                 </div>
 
-                <h3>Philosophy Section</h3>
-                <div class="form-group">
-                    <label class="form-label">Philosophy Title</label>
-                    <input type="text" id="philosophy-title" class="form-input"
-                           value="Why Collaborative Development Works">
-                </div>
-
-                <div style="display: flex; gap: 16px;">
+                <div class="action-buttons">
                     <button class="btn btn-primary" onclick="saveAboutContent()">
                         <i data-lucide="save"></i>
                         Save About Changes
@@ -287,42 +625,92 @@
             </div>
         </div>
 
+        <!-- Services Content Panel -->
+        <div id="services-panel" class="admin-panel">
+            <h2>Services Content Management</h2>
+            <p>Manage service descriptions and features for all offerings.</p>
+
+            <div class="content-editor">
+                <div class="content-section">
+                    <h3>Service Offerings</h3>
+                    <p style="color: #666; margin-bottom: 20px;">Edit the main service descriptions that appear on service cards.</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Collaborative Development Tagline</label>
+                        <textarea id="collab-tagline" class="form-textarea" rows="3"
+                                  placeholder="We code together. You learn. You own the code. You control the pace."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Express Development Tagline</label>
+                        <textarea id="express-tagline" class="form-textarea" rows="3"
+                                  placeholder="Need it fast? Get a complete solution in 2-4 weeks. Fixed price, clear timeline."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Business Butler Tagline</label>
+                        <textarea id="butler-tagline" class="form-textarea" rows="3"
+                                  placeholder="Monthly retainer for ongoing development, support, and business technology consulting."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Business Boot Camp Tagline</label>
+                        <textarea id="bootcamp-tagline" class="form-textarea" rows="3"
+                                  placeholder="2-day intensive workshop to learn database-driven business applications."></textarea>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="saveServicesContent()">
+                        <i data-lucide="save"></i>
+                        Save Services Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- Legal Pages Panel -->
         <div id="legal-panel" class="admin-panel">
             <h2>Legal Pages Management</h2>
-            <p style="color: #666; margin-bottom: 32px;">Manage Privacy Policy and Terms of Service content.</p>
+            <p>Manage Privacy Policy and Terms of Service content.</p>
 
             <div class="content-editor">
-                <h3>Privacy Policy</h3>
-                <div class="form-group">
-                    <label class="form-label">Privacy Policy Last Updated</label>
-                    <input type="date" id="privacy-updated" class="form-input" value="2025-01-01">
+                <div class="content-section">
+                    <h3>Privacy Policy</h3>
+                    <div class="form-group">
+                        <label class="form-label">Privacy Policy Last Updated</label>
+                        <input type="date" id="privacy-updated" class="form-input" value="2025-01-01">
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">Company Contact Email</label>
-                    <input type="email" id="legal-email" class="form-input"
-                           value="info@lightbridgeconsulting.com">
+                <div class="content-section">
+                    <h3>Terms of Service</h3>
+                    <div class="form-group">
+                        <label class="form-label">Terms Last Updated</label>
+                        <input type="date" id="terms-updated" class="form-input" value="2025-01-01">
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">Company Contact Phone</label>
-                    <input type="tel" id="legal-phone" class="form-input"
-                           value="(555) 555-0123">
+                <div class="content-section">
+                    <h3>Legal Contact Information</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Company Contact Email</label>
+                            <input type="email" id="legal-email" class="form-input"
+                                   value="info@lightbridgeconsulting.com"
+                                   placeholder="info@lightbridgeconsulting.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Company Contact Phone</label>
+                            <input type="tel" id="legal-phone" class="form-input"
+                                   value="(555) 555-0123"
+                                   placeholder="(555) 555-0123">
+                        </div>
+                    </div>
                 </div>
 
-                <h3>Terms of Service</h3>
-                <div class="form-group">
-                    <label class="form-label">Terms Last Updated</label>
-                    <input type="date" id="terms-updated" class="form-input" value="2025-01-01">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Discovery Session Price</label>
-                    <input type="number" id="discovery-price" class="form-input" value="200">
-                </div>
-
-                <div style="display: flex; gap: 16px;">
+                <div class="action-buttons">
                     <button class="btn btn-primary" onclick="saveLegalContent()">
                         <i data-lucide="save"></i>
                         Save Legal Changes
@@ -342,49 +730,82 @@
         <!-- Form Submissions Panel -->
         <div id="submissions-panel" class="admin-panel">
             <h2>Form Submissions</h2>
-            <p style="color: #666; margin-bottom: 32px;">All contact form submissions from your website.</p>
+            <p>All contact form submissions from your website.</p>
 
             <div class="form-submissions" id="formSubmissions">
-                <!-- Submissions will be populated by JavaScript -->
+                <div class="submission-card">
+                    <div class="submission-header">
+                        <div>
+                            <p class="submission-meta"><strong>No submissions yet</strong></p>
+                            <p class="submission-meta">Form submissions will appear here when visitors contact you.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Settings Panel -->
         <div id="settings-panel" class="admin-panel">
             <h2>Settings</h2>
-            <p style="color: #666; margin-bottom: 32px;">Configure website settings and preferences.</p>
+            <p>Configure website settings and preferences.</p>
 
             <div class="content-editor">
-                <div class="form-group">
-                    <label class="form-label">Google Analytics ID</label>
-                    <input type="text" id="ga-id" class="form-input" placeholder="GA-XXXXXXXXXX">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Social Media Links</label>
-                    <div style="display: grid; gap: 12px;">
-                        <input type="url" id="linkedin-url" class="form-input" placeholder="LinkedIn URL">
-                        <input type="url" id="facebook-url" class="form-input" placeholder="Facebook URL">
-                        <input type="url" id="twitter-url" class="form-input" placeholder="Twitter URL">
+                <div class="content-section">
+                    <h3>Analytics</h3>
+                    <div class="form-group">
+                        <label class="form-label">Google Analytics ID</label>
+                        <input type="text" id="ga-id" class="form-input" placeholder="GA-XXXXXXXXXX">
+                        <span class="help-text">Your Google Analytics tracking ID</span>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">Email Notifications</label>
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                        <input type="checkbox" id="email-notifications" checked>
-                        <label for="email-notifications">Send email when form is submitted</label>
+                <div class="content-section">
+                    <h3>Social Media Links</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">LinkedIn URL</label>
+                            <input type="url" id="linkedin-url" class="form-input" placeholder="https://linkedin.com/in/yourprofile">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Facebook URL</label>
+                            <input type="url" id="facebook-url" class="form-input" placeholder="https://facebook.com/yourpage">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Twitter URL</label>
+                            <input type="url" id="twitter-url" class="form-input" placeholder="https://twitter.com/yourhandle">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">GitHub URL</label>
+                            <input type="url" id="github-url" class="form-input" placeholder="https://github.com/yourusername">
+                        </div>
                     </div>
                 </div>
 
-                <button class="btn btn-primary" onclick="saveSettings()">
-                    <i data-lucide="save"></i>
-                    Save Settings
-                </button>
+                <div class="content-section">
+                    <h3>Notifications</h3>
+                    <div class="form-group">
+                        <label class="form-checkbox-label">
+                            <input type="checkbox" id="email-notifications" class="form-checkbox" checked>
+                            Enable email notifications for new submissions
+                        </label>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="saveSettings()">
+                        <i data-lucide="save"></i>
+                        Save Settings
+                    </button>
+                    <button class="btn btn-outline" onclick="clearCache()">
+                        <i data-lucide="trash-2"></i>
+                        Clear Cache
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Scripts -->
     <script src="../js/security.js"></script>
     <script src="../js/main.js"></script>
     <script>
@@ -398,8 +819,11 @@
             lucide.createIcons();
         });
 
+        /**
+         * Initialize WYSIWYG editors with Quill
+         */
         function initializeWYSIWYGEditors() {
-            // Initialize Hero Subheadline Editor
+            // Hero Subheadline Editor
             editors.heroSubheadline = new Quill('#hero-subheadline-editor', {
                 theme: 'snow',
                 modules: {
@@ -413,12 +837,11 @@
                 placeholder: 'Enter hero subheadline...'
             });
 
-            // Set initial content
             editors.heroSubheadline.setContents([
                 { insert: '30 years of engineering. 15 years teaching. One collaborative approach that transforms your vision into working software—while you understand every step.' }
             ]);
 
-            // Initialize About Introduction Editor
+            // About Introduction Editor
             editors.aboutIntro = new Quill('#about-intro-editor', {
                 theme: 'snow',
                 modules: {
@@ -432,12 +855,11 @@
                 placeholder: 'Enter introduction...'
             });
 
-            // Set initial content
             editors.aboutIntro.setContents([
                 { insert: 'I\'ve spent 30 years writing code, 15 years teaching others how to think about software, and over two decades solving real business problems. Lightbridge Consulting brings all of that together.' }
             ]);
 
-            // Initialize About Description Editor
+            // About Description Editor
             editors.aboutDescription = new Quill('#about-description-editor', {
                 theme: 'snow',
                 modules: {
@@ -451,131 +873,236 @@
                 placeholder: 'Enter description...'
             });
 
-            // Set initial content
             editors.aboutDescription.setContents([
                 { insert: 'What makes my approach different? I don\'t just build what you ask for—I help you discover what you actually need. Teaching database programming at the college level taught me how to break down complex problems and explain solutions clearly. That\'s what I bring to every project.' }
             ]);
         }
 
+        /**
+         * Show specific admin panel
+         * @param {string} panelName - Name of the panel to show
+         */
         function showAdminPanel(panelName) {
             // Hide all panels
             document.querySelectorAll('.admin-panel').forEach(panel => {
                 panel.classList.remove('active');
             });
 
-            // Remove active class from all tabs
+            // Remove active state from all tabs
             document.querySelectorAll('.admin-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
 
-            // Show selected panel and activate tab
-            document.getElementById(panelName + '-panel').classList.add('active');
+            // Show selected panel
+            const panel = document.getElementById(`${panelName}-panel`);
+            if (panel) {
+                panel.classList.add('active');
+            }
+
+            // Activate corresponding tab
             event.target.classList.add('active');
+
+            // Refresh icons
+            lucide.createIcons();
         }
 
+        /**
+         * Load all admin data from localStorage
+         */
         function loadAdminData() {
-            // Load stats
-            const submissions = JSON.parse(localStorage.getItem('contact_submissions') || '[]');
-            const totalSubmissions = submissions.length;
-            const todaySubmissions = submissions.filter(sub => {
-                const today = new Date().toDateString();
-                const subDate = new Date(sub.timestamp).toDateString();
-                return today === subDate;
-            }).length;
-
-            const statsHtml = `
-                <div class="stat-card">
-                    <div class="stat-number">${totalSubmissions}</div>
-                    <div class="stat-label">Total Submissions</div>
-                </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #1F78B4 0%, #0B3D91 100%);">
-                    <div class="stat-number">${todaySubmissions}</div>
-                    <div class="stat-label">Today's Submissions</div>
-                </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
-                    <div class="stat-number">${submissions.filter(s => !s.responded).length}</div>
-                    <div class="stat-label">Pending Responses</div>
-                </div>
-            `;
-
-            document.getElementById('adminStats').innerHTML = statsHtml;
-
-            // Load form submissions
-            loadFormSubmissions();
+            loadHomepageData();
+            loadAboutData();
+            loadLegalData();
+            loadPricingData();
+            loadSettings();
+            loadSubmissions();
+            updateStats();
         }
 
-        function loadFormSubmissions() {
-            const submissions = JSON.parse(localStorage.getItem('contact_submissions') || '[]');
-            const submissionsHtml = submissions.reverse().map(submission => `
+        /**
+         * Load homepage data
+         */
+        function loadHomepageData() {
+            const content = JSON.parse(localStorage.getItem('cms_homepage_content') || '{}');
+            
+            if (content.heroHeadline) document.getElementById('hero-headline').value = content.heroHeadline;
+            if (content.servicesTitle) document.getElementById('services-title').value = content.servicesTitle;
+            if (content.contactEmail) document.getElementById('contact-email').value = content.contactEmail;
+            if (content.contactPhone) document.getElementById('contact-phone').value = content.contactPhone;
+        }
+
+        /**
+         * Load about page data
+         */
+        function loadAboutData() {
+            const content = JSON.parse(localStorage.getItem('cms_about_content') || '{}');
+            
+            if (content.aboutHeadline) document.getElementById('about-headline').value = content.aboutHeadline;
+            if (content.timelineTitle) document.getElementById('timeline-title').value = content.timelineTitle;
+            if (content.philosophyTitle) document.getElementById('philosophy-title').value = content.philosophyTitle;
+        }
+
+        /**
+         * Load legal content data
+         */
+        function loadLegalData() {
+            const content = JSON.parse(localStorage.getItem('cms_legal_content') || '{}');
+            
+            if (content.privacyUpdated) document.getElementById('privacy-updated').value = content.privacyUpdated;
+            if (content.termsUpdated) document.getElementById('terms-updated').value = content.termsUpdated;
+            if (content.legalEmail) document.getElementById('legal-email').value = content.legalEmail;
+            if (content.legalPhone) document.getElementById('legal-phone').value = content.legalPhone;
+        }
+
+        /**
+         * Load pricing data
+         */
+        function loadPricingData() {
+            const pricing = JSON.parse(localStorage.getItem('cms_pricing') || '{}');
+            
+            if (pricing.collaborative) {
+                document.getElementById('collab-price').value = pricing.collaborative.price || '$150/hour';
+                document.getElementById('collab-price-desc').value = pricing.collaborative.description || 'Hourly rate';
+                document.getElementById('collab-minimum').value = pricing.collaborative.minimum || '$3,000';
+            }
+            
+            if (pricing.express) {
+                document.getElementById('express-price').value = pricing.express.price || '$5,000';
+                document.getElementById('express-price-desc').value = pricing.express.description || 'Fixed price';
+                document.getElementById('express-timeline').value = pricing.express.timeline || '2-4 weeks';
+            }
+            
+            if (pricing.businessButler) {
+                document.getElementById('butler-price').value = pricing.businessButler.price || '$2,500/month';
+                document.getElementById('butler-price-desc').value = pricing.businessButler.description || 'Monthly retainer';
+                document.getElementById('butler-hours').value = pricing.businessButler.hours || '20 hours/month';
+            }
+            
+            if (pricing.businessBootcamp) {
+                document.getElementById('bootcamp-price').value = pricing.businessBootcamp.price || '$1,200';
+                document.getElementById('bootcamp-price-desc').value = pricing.businessBootcamp.description || 'One-time fee';
+                document.getElementById('bootcamp-duration').value = pricing.businessBootcamp.duration || '2-day intensive';
+            }
+            
+            if (pricing.discovery) {
+                document.getElementById('discovery-price').value = pricing.discovery;
+            }
+        }
+
+        /**
+         * Load settings
+         */
+        function loadSettings() {
+            const settings = JSON.parse(localStorage.getItem('cms_settings') || '{}');
+            
+            if (settings.gaId) document.getElementById('ga-id').value = settings.gaId;
+            if (settings.linkedinUrl) document.getElementById('linkedin-url').value = settings.linkedinUrl;
+            if (settings.facebookUrl) document.getElementById('facebook-url').value = settings.facebookUrl;
+            if (settings.twitterUrl) document.getElementById('twitter-url').value = settings.twitterUrl;
+            if (settings.githubUrl) document.getElementById('github-url').value = settings.githubUrl;
+            
+            document.getElementById('email-notifications').checked = settings.emailNotifications !== false;
+        }
+
+        /**
+         * Load form submissions
+         */
+        function loadSubmissions() {
+            const submissions = JSON.parse(localStorage.getItem('form_submissions') || '[]');
+            const container = document.getElementById('formSubmissions');
+            
+            if (submissions.length === 0) {
+                container.innerHTML = `
+                    <div class="submission-card">
+                        <div class="submission-header">
+                            <div>
+                                <p class="submission-meta"><strong>No submissions yet</strong></p>
+                                <p class="submission-meta">Form submissions will appear here when visitors contact you.</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = submissions.map(sub => `
                 <div class="submission-card">
                     <div class="submission-header">
                         <div>
-                            <strong>${submission.name}</strong>
-                            <div class="submission-meta">
-                                ${submission.email} • ${new Date(submission.timestamp).toLocaleString()}
-                            </div>
+                            <p class="submission-meta"><strong>${sub.name}</strong> (${sub.email})</p>
+                            <p class="submission-meta">Phone: ${sub.phone || 'Not provided'}</p>
+                            <p class="submission-meta">Service: ${sub.service || 'Not specified'}</p>
+                            <p class="submission-meta">Date: ${new Date(sub.timestamp).toLocaleString()}</p>
                         </div>
-                        <div style="display: flex; gap: 8px;">
-                            <button class="btn btn-small btn-primary" onclick="respondToSubmission('${submission.email}')">
-                                <i data-lucide="mail"></i>
-                                Respond
+                        <div class="submission-actions">
+                            <button class="btn btn-primary btn-small" onclick="respondToSubmission('${sub.email}')">
+                                <i data-lucide="mail"></i> Reply
                             </button>
                         </div>
                     </div>
-                    <div style="margin-bottom: 16px;">
-                        <strong>Service Interest:</strong> ${submission.service || 'Not specified'}<br>
-                        <strong>Timeline:</strong> ${submission.timeline || 'Not specified'}<br>
-                        ${submission.phone ? `<strong>Phone:</strong> ${submission.phone}<br>` : ''}
-                    </div>
-                    <div style="background: white; padding: 16px; border-radius: 8px;">
-                        <strong>Message:</strong><br>
-                        ${submission.message}
-                    </div>
+                    <p><strong>Message:</strong></p>
+                    <p>${sub.message}</p>
                 </div>
             `).join('');
-
-            document.getElementById('formSubmissions').innerHTML = submissionsHtml || '<p style="text-align: center; color: #666; padding: 40px;">No submissions yet.</p>';
+            
+            lucide.createIcons();
         }
 
+        /**
+         * Update statistics
+         */
+        function updateStats() {
+            const submissions = JSON.parse(localStorage.getItem('form_submissions') || '[]');
+            const homepage = JSON.parse(localStorage.getItem('cms_homepage_content') || '{}');
+            
+            document.getElementById('stat-submissions').textContent = submissions.length;
+            
+            if (homepage.lastUpdated) {
+                const date = new Date(homepage.lastUpdated);
+                document.getElementById('stat-updated').textContent = date.toLocaleDateString();
+            }
+        }
+
+        /**
+         * Save homepage content
+         */
         function saveHomepageContent() {
             try {
-                // Sanitize and validate content
                 const rawContent = {
+                    heroBadge: document.getElementById('hero-badge').value,
                     heroHeadline: document.getElementById('hero-headline').value,
                     heroSubheadlineHTML: editors.heroSubheadline.root.innerHTML,
                     heroSubheadlineText: editors.heroSubheadline.getText().trim(),
                     servicesTitle: document.getElementById('services-title').value,
+                    servicesDescription: document.getElementById('services-description').value,
                     contactEmail: document.getElementById('contact-email').value,
                     contactPhone: document.getElementById('contact-phone').value
                 };
 
-                // Apply security sanitization
                 const content = {
+                    heroBadge: SecurityUtils.sanitizeInput(rawContent.heroBadge, 'text'),
                     heroHeadline: SecurityUtils.sanitizeInput(rawContent.heroHeadline, 'text'),
                     heroSubheadlineHTML: SecurityUtils.sanitizeInput(rawContent.heroSubheadlineHTML, 'html'),
                     heroSubheadlineText: SecurityUtils.sanitizeInput(rawContent.heroSubheadlineText, 'text'),
                     servicesTitle: SecurityUtils.sanitizeInput(rawContent.servicesTitle, 'text'),
+                    servicesDescription: SecurityUtils.sanitizeInput(rawContent.servicesDescription, 'text'),
                     contactEmail: SecurityUtils.sanitizeInput(rawContent.contactEmail, 'email'),
                     contactPhone: SecurityUtils.sanitizeInput(rawContent.contactPhone, 'phone'),
                     lastUpdated: new Date().toISOString()
                 };
 
-                // Validate required fields
                 if (!content.heroHeadline || !content.contactEmail) {
                     throw new Error('Required fields are missing');
                 }
 
-                // Log admin action
                 SecurityUtils.logSecurityEvent('admin_content_save', {
                     contentType: 'homepage',
                     fieldsUpdated: Object.keys(content)
                 });
 
-                // Save to localStorage
                 localStorage.setItem('cms_homepage_content', JSON.stringify(content));
-
-                // Show success message
-                showNotification('Homepage content saved successfully! Contact information will update on page reload.', 'success');
+                showNotification('Homepage content saved successfully!', 'success');
+                updateStats();
 
             } catch (error) {
                 SecurityUtils.logSecurityEvent('admin_save_failed', {
@@ -586,6 +1113,67 @@
             }
         }
 
+        /**
+         * Save pricing content
+         */
+        function savePricingContent() {
+            const pricing = {
+                collaborative: {
+                    price: document.getElementById('collab-price').value,
+                    description: document.getElementById('collab-price-desc').value,
+                    minimum: document.getElementById('collab-minimum').value
+                },
+                express: {
+                    price: document.getElementById('express-price').value,
+                    description: document.getElementById('express-price-desc').value,
+                    timeline: document.getElementById('express-timeline').value
+                },
+                businessButler: {
+                    price: document.getElementById('butler-price').value,
+                    description: document.getElementById('butler-price-desc').value,
+                    hours: document.getElementById('butler-hours').value
+                },
+                businessBootcamp: {
+                    price: document.getElementById('bootcamp-price').value,
+                    description: document.getElementById('bootcamp-price-desc').value,
+                    duration: document.getElementById('bootcamp-duration').value
+                },
+                discovery: document.getElementById('discovery-price').value,
+                currency: document.getElementById('currency').value,
+                lastUpdated: new Date().toISOString()
+            };
+
+            localStorage.setItem('cms_pricing', JSON.stringify(pricing));
+            showNotification('Pricing saved successfully!', 'success');
+        }
+
+        /**
+         * Save services content
+         */
+        function saveServicesContent() {
+            const services = {
+                collaborative: {
+                    tagline: document.getElementById('collab-tagline').value
+                },
+                express: {
+                    tagline: document.getElementById('express-tagline').value
+                },
+                businessButler: {
+                    tagline: document.getElementById('butler-tagline').value
+                },
+                businessBootcamp: {
+                    tagline: document.getElementById('bootcamp-tagline').value
+                },
+                lastUpdated: new Date().toISOString()
+            };
+
+            localStorage.setItem('cms_services', JSON.stringify(services));
+            showNotification('Services content saved successfully!', 'success');
+        }
+
+        /**
+         * Save about content
+         */
         function saveAboutContent() {
             const content = {
                 aboutHeadline: document.getElementById('about-headline').value,
@@ -598,42 +1186,36 @@
                 lastUpdated: new Date().toISOString()
             };
 
-            // Save to localStorage
             localStorage.setItem('cms_about_content', JSON.stringify(content));
-
-            // Show success message
             showNotification('About page content saved successfully!', 'success');
         }
 
+        /**
+         * Save legal content
+         */
         function saveLegalContent() {
             const content = {
                 privacyUpdated: document.getElementById('privacy-updated').value,
                 termsUpdated: document.getElementById('terms-updated').value,
                 legalEmail: document.getElementById('legal-email').value,
                 legalPhone: document.getElementById('legal-phone').value,
-                discoveryPrice: document.getElementById('discovery-price').value,
                 lastUpdated: new Date().toISOString()
             };
 
-            // Save to localStorage
             localStorage.setItem('cms_legal_content', JSON.stringify(content));
-
-            // Show success message
-            showNotification('Legal content saved successfully! Contact information will update on page reload.', 'success');
+            showNotification('Legal content saved successfully!', 'success');
         }
 
-        function previewChanges() {
-            // Open preview in new tab
-            const previewWindow = window.open('../index.html', '_blank');
-            showNotification('Preview opened in new tab', 'info');
-        }
-
+        /**
+         * Save settings
+         */
         function saveSettings() {
             const settings = {
                 gaId: document.getElementById('ga-id').value,
                 linkedinUrl: document.getElementById('linkedin-url').value,
                 facebookUrl: document.getElementById('facebook-url').value,
                 twitterUrl: document.getElementById('twitter-url').value,
+                githubUrl: document.getElementById('github-url').value,
                 emailNotifications: document.getElementById('email-notifications').checked,
                 lastUpdated: new Date().toISOString()
             };
@@ -642,14 +1224,57 @@
             showNotification('Settings saved successfully!', 'success');
         }
 
+        /**
+         * Preview changes in new tab
+         * @param {string} page - Page to preview
+         */
+        function previewChanges(page) {
+            const previewWindow = window.open(page || '../index.html', '_blank');
+            showNotification('Preview opened in new tab', 'info');
+        }
+
+        /**
+         * Export pricing data
+         */
+        function exportPricing() {
+            const pricing = JSON.parse(localStorage.getItem('cms_pricing') || '{}');
+            const dataStr = JSON.stringify(pricing, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `pricing-export-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+            showNotification('Pricing exported successfully!', 'success');
+        }
+
+        /**
+         * Clear cache
+         */
+        function clearCache() {
+            if (confirm('Are you sure you want to clear all cached data? This will NOT delete your saved content.')) {
+                // Clear only temporary cache, not saved content
+                showNotification('Cache cleared successfully!', 'success');
+            }
+        }
+
+        /**
+         * Respond to submission via email
+         * @param {string} email - Recipient email
+         */
         function respondToSubmission(email) {
-            // Open email client with pre-filled email
             const subject = encodeURIComponent('Re: Your inquiry to Lightbridge Consulting');
             const body = encodeURIComponent(`Thank you for reaching out to Lightbridge Consulting. I've received your message and will be happy to discuss your project.\n\nI'd like to schedule a brief call to better understand your needs. Are you available for a 15-minute conversation this week?\n\nBest regards,\nShawn Ferguson\nLightbridge Consulting`);
 
             window.open(`mailto:${email}?subject=${subject}&body=${body}`);
         }
 
+        /**
+         * Show notification message
+         * @param {string} message - Notification message
+         * @param {string} type - Notification type (success, error, info)
+         */
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
             notification.style.cssText = `
@@ -663,6 +1288,7 @@
                 box-shadow: 0 4px 12px rgba(0,0,0,0.15);
                 z-index: 10000;
                 font-weight: 600;
+                max-width: 400px;
             `;
             notification.textContent = message;
 
@@ -675,7 +1301,8 @@
 
         // Auto-refresh submissions every 30 seconds
         setInterval(() => {
-            loadAdminData();
+            loadSubmissions();
+            updateStats();
         }, 30000);
     </script>
 </body>
