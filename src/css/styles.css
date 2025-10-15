@@ -257,10 +257,11 @@ p {
   align-items: center;
 }
 
+/* Site logo sizing: keep navbar compact on all devices */
 .logo {
-  height: 200px;
+  height: 64px;
   width: auto;
-  max-width: 450px;
+  max-width: 100%;
 }
 
 .nav-menu {
@@ -1749,6 +1750,10 @@ p {
     flex-direction: column;
     gap: var(--space-sm);
     text-align: center;
+  }
+  /* Smaller logo on mobile to avoid covering content under fixed navbar */
+  .logo {
+    height: 48px;
   }
 }
 
