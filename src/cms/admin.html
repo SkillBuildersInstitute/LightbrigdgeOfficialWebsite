@@ -771,6 +771,24 @@
 
             <div class="content-editor">
                 <div class="content-section">
+                    <h3>Email Notifications</h3>
+                    <p style="color: #666; margin-bottom: 20px;">Configure where form submissions are sent.</p>
+                    <div class="form-group">
+                        <label class="form-label">Admin Email Address</label>
+                        <input type="email" id="admin-email" class="form-input" 
+                               value="info@lightbridgeconsulting.com"
+                               placeholder="info@lightbridgeconsulting.com">
+                        <span class="help-text">Email address to receive form submissions and inquiries</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-checkbox-label">
+                            <input type="checkbox" id="email-notifications-enabled" class="form-checkbox" checked>
+                            Enable email notifications for new form submissions
+                        </label>
+                    </div>
+                </div>
+
+                <div class="content-section">
                     <h3>Analytics</h3>
                     <div class="form-group">
                         <label class="form-label">Google Analytics ID</label>
@@ -815,16 +833,6 @@
                             <input type="url" id="blog-url" class="form-input" placeholder="https://yourblog.com or /pages/blog.html">
                             <span class="help-text">Link to blog or leave blank to disable</span>
                         </div>
-                    </div>
-                </div>
-
-                <div class="content-section">
-                    <h3>Notifications</h3>
-                    <div class="form-group">
-                        <label class="form-checkbox-label">
-                            <input type="checkbox" id="email-notifications" class="form-checkbox" checked>
-                            Enable email notifications for new submissions
-                        </label>
                     </div>
                 </div>
 
@@ -1100,6 +1108,7 @@
         function loadSettings() {
             const settings = JSON.parse(localStorage.getItem('cms_settings') || '{}');
             
+            if (settings.adminEmail) document.getElementById('admin-email').value = settings.adminEmail;
             if (settings.gaId) document.getElementById('ga-id').value = settings.gaId;
             if (settings.linkedinUrl) document.getElementById('linkedin-url').value = settings.linkedinUrl;
             if (settings.facebookUrl) document.getElementById('facebook-url').value = settings.facebookUrl;
@@ -1108,7 +1117,7 @@
             if (settings.caseStudiesUrl) document.getElementById('case-studies-url').value = settings.caseStudiesUrl;
             if (settings.blogUrl) document.getElementById('blog-url').value = settings.blogUrl;
             
-            document.getElementById('email-notifications').checked = settings.emailNotifications !== false;
+            document.getElementById('email-notifications-enabled').checked = settings.emailNotificationsEnabled !== false;
         }
 
         /**
@@ -1350,6 +1359,8 @@
          */
         function saveSettings() {
             const settings = {
+                adminEmail: document.getElementById('admin-email').value,
+                emailNotificationsEnabled: document.getElementById('email-notifications-enabled').checked,
                 gaId: document.getElementById('ga-id').value,
                 linkedinUrl: document.getElementById('linkedin-url').value,
                 facebookUrl: document.getElementById('facebook-url').value,
@@ -1357,12 +1368,11 @@
                 githubUrl: document.getElementById('github-url').value,
                 caseStudiesUrl: document.getElementById('case-studies-url').value,
                 blogUrl: document.getElementById('blog-url').value,
-                emailNotifications: document.getElementById('email-notifications').checked,
                 lastUpdated: new Date().toISOString()
             };
 
             localStorage.setItem('cms_settings', JSON.stringify(settings));
-            showNotification('Settings saved successfully!', 'success');
+            showNotification('Settings saved successfully! Email notifications will be sent to ' + settings.adminEmail, 'success');
         }
 
         /**

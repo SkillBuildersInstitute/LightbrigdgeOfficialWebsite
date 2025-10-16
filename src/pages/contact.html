@@ -177,6 +177,16 @@
                         <span class="form-help-text">Optional, but helpful for quick follow-up</span>
                     </div>
 
+                    <!-- Honeypot field for spam protection (hidden from users) -->
+                    <input
+                        type="text"
+                        name="honeypot"
+                        style="position: absolute; left: -9999px; width: 1px; height: 1px;"
+                        tabindex="-1"
+                        autocomplete="off"
+                        aria-hidden="true"
+                    >
+
                     <div class="form-group">
                         <label for="service" class="form-label required">Service Interest</label>
                         <select id="service" name="service" class="form-select" required>

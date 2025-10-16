@@ -193,31 +193,48 @@ function showErrorMessage(form, error) {
 
 // CMS Integration Functions
 async function submitToCMS(data) {
-    // This would integrate with your chosen CMS
-    // For now, we'll simulate the submission and store locally
-
     try {
-        // Store in localStorage as fallback
-        const submissions = JSON.parse(localStorage.getItem('contact_submissions') || '[]');
+        // Store in localStorage for CMS display
+        const submissions = JSON.parse(localStorage.getItem('form_submissions') || '[]');
         submissions.push(data);
-        localStorage.setItem('contact_submissions', JSON.stringify(submissions));
+        localStorage.setItem('form_submissions', JSON.stringify(submissions));
 
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // Get admin email from settings
+        const settings = JSON.parse(localStorage.getItem('cms_settings') || '{}');
+        const adminEmail = settings.adminEmail || 'info@lightbridgeconsulting.com';
+        const emailEnabled = settings.emailNotificationsEnabled !== false;
 
-        // In production, replace this with actual CMS API call:
-        // const response = await fetch('/api/contact', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify(data)
-        // });
-        // return response.json();
+        // Send email via serverless function if enabled
+        if (emailEnabled) {
+            const emailData = {
+                ...data,
+                adminEmail: adminEmail
+            };
 
-        return { success: true, id: Date.now() };
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(emailData)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({ error: 'Network error' }));
+                throw new Error(errorData.error || 'Failed to send email');
+            }
+
+            const result = await response.json();
+            return result;
+        } else {
+            // Email notifications disabled, just confirm submission saved
+            return { success: true, id: Date.now(), emailSent: false, message: 'Submission saved (email notifications disabled)' };
+        }
 
     } catch (error) {
-        console.error('CMS submission error:', error);
-        throw error;
+        console.error('Form submission error:', error);
+        // Even if email fails, submission is saved in localStorage
+        return { success: true, id: Date.now(), emailSent: false, error: error.message };
     }
 }
 

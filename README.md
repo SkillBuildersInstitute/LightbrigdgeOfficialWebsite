@@ -12,6 +12,8 @@ Lightbridge Consulting is a professional website showcasing collaborative softwa
 - **SEO-Optimized**: Full Schema.org markup, meta tags, and social media optimization
 - **Security-First**: OWASP Top 10 2021 compliant with comprehensive security measures
 - **Advanced CMS**: Built-in content management with pricing, services, and footer link management
+- **Email Integration**: Automated email notifications for form submissions via Web3Forms
+- **Form Management**: View and manage all form submissions in CMS admin panel
 - **Mobile-Responsive**: Fully responsive design across all devices
 - **Performance**: Fast loading with optimized assets and minimal dependencies
 - **Vercel Deployed**: Production-ready deployment on Vercel with automatic updates
@@ -83,6 +85,10 @@ The site prominently features the collaborative development approach where:
 │   │   └── admin.html           # Content management interface
 │   ├── images/                  # Image assets
 │   └── SECURITY.md              # Security documentation
+├── api/
+│   └── contact.js               # Serverless email function
+├── vercel.json                  # Vercel deployment configuration
+├── EMAIL_SETUP.md               # Email configuration guide
 ├── Marketing.md                 # Marketing strategy document
 ├── websiteoutline.md           # Original website outline
 ├── generalwebsiteoutline.md    # General outline
@@ -131,6 +137,12 @@ The site is deployed on Vercel with automatic deployments from the GitHub reposi
 - Push to `main` branch triggers automatic Vercel deployment
 - Changes go live within 1-2 minutes
 - Preview deployments for pull requests
+
+**Email Setup** (Required for contact form):
+1. Get free Web3Forms access key at https://web3forms.com
+2. Add to Vercel Environment Variables: `WEB3FORMS_ACCESS_KEY`
+3. Configure admin email in CMS Settings panel
+4. See [EMAIL_SETUP.md](EMAIL_SETUP.md) for complete instructions
 
 See [DEVELOPER.md](DEVELOPER.md) for detailed deployment instructions.
 

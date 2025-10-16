@@ -132,19 +132,28 @@ Update legal information:
 - Legal contact information
 
 #### 6. Submissions Panel 📧
-View and manage form submissions:
-- All contact form submissions
-- Sender details (name, email, phone)
-- Message content
-- Submission timestamp
-- Quick reply via email
+View and manage all form submissions:
+- **Display all contact form submissions** with timestamps
+- **Sender details**: Name, email, phone number
+- **Message content**: Full inquiry text
+- **Service interest**: Which service they selected
+- **Quick reply**: Click email to respond directly
+- **Automatic storage**: All submissions saved in localStorage
+- **Email notifications**: Sent to admin email (if configured)
+
+**Managing Submissions:**
+1. Click **Submissions** tab in CMS
+2. View all inquiries with timestamps
+3. Click **Reply** button to open email client
+4. Use Export feature to backup all submissions
 
 #### 7. Settings Panel ⚙️
-Configure website settings:
+Configure website and email settings:
+- **Email Notifications**: Admin email address and notification toggles
 - **Analytics**: Google Analytics ID
 - **Social Media**: LinkedIn, Facebook, Twitter, GitHub links
 - **Footer Links**: Case Studies and Blog URLs
-- **Notifications**: Email notification preferences
+- **Backup & Restore**: Export/import all CMS content
 
 ### Editable Content Areas
 
@@ -1074,6 +1083,14 @@ If security breach suspected:
 1. Go to CMS → Submissions tab
 2. Review all submissions
 3. Click "Reply" to respond via email
+
+**Configure Email Notifications:**
+1. Go to CMS → Settings tab
+2. Scroll to "Email Notifications" section
+3. Enter your admin email address
+4. Check "Enable email notifications" box
+5. Click "Save Settings"
+6. Configure Web3Forms access key in Vercel (see EMAIL_SETUP.md)
 
 **Export Pricing:**
 1. Go to CMS → Pricing tab
