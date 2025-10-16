@@ -676,22 +676,38 @@
         <!-- Legal Pages Panel -->
         <div id="legal-panel" class="admin-panel">
             <h2>Legal Pages Management</h2>
-            <p>Manage Privacy Policy and Terms of Service content.</p>
+            <p>Manage Privacy Policy and Terms of Service content. Use the editors below to update the full legal text.</p>
 
             <div class="content-editor">
                 <div class="content-section">
-                    <h3>Privacy Policy</h3>
+                    <h3>Privacy Policy Content</h3>
                     <div class="form-group">
                         <label class="form-label">Privacy Policy Last Updated</label>
                         <input type="date" id="privacy-updated" class="form-input" value="2025-01-01">
                     </div>
+                    
+                    <div class="form-group">
+                        <label class="editor-label">Privacy Policy Content</label>
+                        <div class="wysiwyg-container">
+                            <div id="privacy-content-editor"></div>
+                        </div>
+                        <span class="help-text">Edit the complete Privacy Policy content (HTML supported)</span>
+                    </div>
                 </div>
 
                 <div class="content-section">
-                    <h3>Terms of Service</h3>
+                    <h3>Terms of Service Content</h3>
                     <div class="form-group">
                         <label class="form-label">Terms Last Updated</label>
                         <input type="date" id="terms-updated" class="form-input" value="2025-01-01">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="editor-label">Terms of Service Content</label>
+                        <div class="wysiwyg-container">
+                            <div id="terms-content-editor"></div>
+                        </div>
+                        <span class="help-text">Edit the complete Terms of Service content (HTML supported)</span>
                     </div>
                 </div>
 
@@ -919,6 +935,42 @@
             editors.aboutDescription.setContents([
                 { insert: 'What makes my approach different? I don\'t just build what you ask for—I help you discover what you actually need. Teaching database programming at the college level taught me how to break down complex problems and explain solutions clearly. That\'s what I bring to every project.' }
             ]);
+
+            // Privacy Policy Content Editor
+            editors.privacyContent = new Quill('#privacy-content-editor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link'],
+                        ['clean']
+                    ]
+                },
+                placeholder: 'Enter Privacy Policy content...'
+            });
+
+            // Terms of Service Content Editor
+            editors.termsContent = new Quill('#terms-content-editor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link'],
+                        ['clean']
+                    ]
+                },
+                placeholder: 'Enter Terms of Service content...'
+            });
+
+            // Set default content for Privacy Policy
+            editors.privacyContent.setText('Privacy Policy content will be loaded here. Click Save to persist changes.');
+
+            // Set default content for Terms of Service  
+            editors.termsContent.setText('Terms of Service content will be loaded here. Click Save to persist changes.');
         }
 
         /**
@@ -995,6 +1047,16 @@
             if (content.termsUpdated) document.getElementById('terms-updated').value = content.termsUpdated;
             if (content.legalEmail) document.getElementById('legal-email').value = content.legalEmail;
             if (content.legalPhone) document.getElementById('legal-phone').value = content.legalPhone;
+            
+            // Load Privacy Policy content
+            if (content.privacyContent && editors.privacyContent) {
+                editors.privacyContent.setContents(content.privacyContent);
+            }
+            
+            // Load Terms content
+            if (content.termsContent && editors.termsContent) {
+                editors.termsContent.setContents(content.termsContent);
+            }
         }
 
         /**
@@ -1269,11 +1331,18 @@
                 termsUpdated: document.getElementById('terms-updated').value,
                 legalEmail: document.getElementById('legal-email').value,
                 legalPhone: document.getElementById('legal-phone').value,
+                privacyContent: editors.privacyContent.getContents(),
+                privacyContentHTML: editors.privacyContent.root.innerHTML,
+                privacyContentText: editors.privacyContent.getText().trim(),
+                termsContent: editors.termsContent.getContents(),
+                termsContentHTML: editors.termsContent.root.innerHTML,
+                termsContentText: editors.termsContent.getText().trim(),
                 lastUpdated: new Date().toISOString()
             };
 
             localStorage.setItem('cms_legal_content', JSON.stringify(content));
-            showNotification('Legal content saved successfully!', 'success');
+            showNotification('Legal content saved successfully! Refresh the Privacy and Terms pages to see changes.', 'success');
+            updateStats();
         }
 
         /**

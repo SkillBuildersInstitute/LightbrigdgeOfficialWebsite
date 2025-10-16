@@ -84,17 +84,45 @@ function loadLegalContent() {
     
     // Update privacy policy date
     if (content.privacyUpdated) {
-        const privacyDate = document.querySelector('[data-cms="privacy-date"]');
-        if (privacyDate) {
-            privacyDate.textContent = new Date(content.privacyUpdated).toLocaleDateString();
-        }
+        const privacyDate = document.querySelectorAll('[data-cms="privacy-date"], .lead-text');
+        privacyDate.forEach(el => {
+            if (el.textContent.includes('Last updated') || el.textContent.includes('updated')) {
+                el.textContent = `Last updated: ${new Date(content.privacyUpdated).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}`;
+            }
+        });
     }
     
     // Update terms date
     if (content.termsUpdated) {
-        const termsDate = document.querySelector('[data-cms="terms-date"]');
-        if (termsDate) {
-            termsDate.textContent = new Date(content.termsUpdated).toLocaleDateString();
+        const termsDate = document.querySelectorAll('[data-cms="terms-date"], .lead-text');
+        termsDate.forEach(el => {
+            if (el.textContent.includes('Last updated') || el.textContent.includes('updated')) {
+                el.textContent = `Last updated: ${new Date(content.termsUpdated).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}`;
+            }
+        });
+    }
+    
+    // Update Privacy Policy content
+    if (content.privacyContentHTML && window.location.pathname.includes('privacy')) {
+        const privacyContainer = document.querySelector('.container-narrow > div[style*="text-align: left"]');
+        if (privacyContainer) {
+            // Keep the header, replace the content
+            const header = document.querySelector('.section-header');
+            if (header) {
+                privacyContainer.innerHTML = content.privacyContentHTML;
+            }
+        }
+    }
+    
+    // Update Terms of Service content
+    if (content.termsContentHTML && window.location.pathname.includes('terms')) {
+        const termsContainer = document.querySelector('.container-narrow > div[style*="text-align: left"]');
+        if (termsContainer) {
+            // Keep the header, replace the content
+            const header = document.querySelector('.section-header');
+            if (header) {
+                termsContainer.innerHTML = content.termsContentHTML;
+            }
         }
     }
     
