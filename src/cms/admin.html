@@ -308,16 +308,20 @@
 
         <div class="admin-stats" id="adminStats">
             <div class="stat-card">
-                <h3>Total Submissions</h3>
+                <h3><i data-lucide="mail" style="width: 20px; height: 20px; display: inline; margin-right: 8px;"></i>Submissions</h3>
                 <p id="stat-submissions">0</p>
             </div>
             <div class="stat-card">
-                <h3>Last Updated</h3>
+                <h3><i data-lucide="clock" style="width: 20px; height: 20px; display: inline; margin-right: 8px;"></i>Last Updated</h3>
                 <p id="stat-updated" style="font-size: 16px;">Never</p>
             </div>
             <div class="stat-card">
-                <h3>Content Status</h3>
+                <h3><i data-lucide="check-circle" style="width: 20px; height: 20px; display: inline; margin-right: 8px;"></i>Content Status</h3>
                 <p id="stat-status" style="font-size: 16px;">Ready</p>
+            </div>
+            <div class="stat-card">
+                <h3><i data-lucide="database" style="width: 20px; height: 20px; display: inline; margin-right: 8px;"></i>Storage Used</h3>
+                <p id="stat-storage" style="font-size: 16px;">0 KB</p>
             </div>
         </div>
 
@@ -808,6 +812,28 @@
                     </div>
                 </div>
 
+                <div class="content-section">
+                    <h3>Backup & Restore</h3>
+                    <p style="color: #666; margin-bottom: 20px;">Export all CMS content for backup or import content from a previous export.</p>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <button class="btn btn-outline" onclick="exportAllContent()" style="width: 100%;">
+                                <i data-lucide="download"></i>
+                                Export All Content
+                            </button>
+                            <span class="help-text">Download all CMS data as JSON file</span>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-outline" onclick="document.getElementById('import-file').click()" style="width: 100%;">
+                                <i data-lucide="upload"></i>
+                                Import Content
+                            </button>
+                            <input type="file" id="import-file" accept=".json" style="display: none;" onchange="importAllContent(event)">
+                            <span class="help-text">Restore from exported JSON file</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="action-buttons">
                     <button class="btn btn-primary" onclick="saveSettings()">
                         <i data-lucide="save"></i>
@@ -1080,6 +1106,31 @@
                 const date = new Date(homepage.lastUpdated);
                 document.getElementById('stat-updated').textContent = date.toLocaleDateString();
             }
+            
+            // Calculate storage used
+            let totalSize = 0;
+            for (let key in localStorage) {
+                if (localStorage.hasOwnProperty(key)) {
+                    totalSize += localStorage[key].length + key.length;
+                }
+            }
+            const sizeKB = (totalSize / 1024).toFixed(2);
+            document.getElementById('stat-storage').textContent = `${sizeKB} KB`;
+            
+            // Update status based on content completeness
+            const hasHomepage = Object.keys(homepage).length > 0;
+            const hasPricing = localStorage.getItem('cms_pricing') !== null;
+            const hasAbout = localStorage.getItem('cms_about_content') !== null;
+            
+            if (hasHomepage && hasPricing && hasAbout) {
+                document.getElementById('stat-status').textContent = 'Complete';
+            } else if (hasHomepage) {
+                document.getElementById('stat-status').textContent = 'Partial';
+            } else {
+                document.getElementById('stat-status').textContent = 'Empty';
+            }
+            
+            lucide.createIcons();
         }
 
         /**
@@ -1278,6 +1329,86 @@
                 // Clear only temporary cache, not saved content
                 showNotification('Cache cleared successfully!', 'success');
             }
+        }
+
+        /**
+         * Export all CMS content
+         */
+        function exportAllContent() {
+            const allContent = {};
+            
+            // Collect all CMS data
+            for (let key in localStorage) {
+                if (localStorage.hasOwnProperty(key) && key.startsWith('cms_')) {
+                    allContent[key] = JSON.parse(localStorage.getItem(key));
+                }
+            }
+            
+            // Add metadata
+            allContent._metadata = {
+                exportDate: new Date().toISOString(),
+                version: '2.0.0',
+                site: 'Lightbridge Consulting'
+            };
+            
+            // Create download
+            const dataStr = JSON.stringify(allContent, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `lightbridge-cms-export-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+            
+            showNotification('All content exported successfully!', 'success');
+        }
+
+        /**
+         * Import all CMS content
+         */
+        function importAllContent(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    
+                    // Validate import
+                    if (!importedData._metadata) {
+                        throw new Error('Invalid export file format');
+                    }
+                    
+                    // Confirm import
+                    if (!confirm(`Import content from ${new Date(importedData._metadata.exportDate).toLocaleDateString()}? This will overwrite current content.`)) {
+                        return;
+                    }
+                    
+                    // Import all data
+                    let importCount = 0;
+                    for (let key in importedData) {
+                        if (key !== '_metadata' && key.startsWith('cms_')) {
+                            localStorage.setItem(key, JSON.stringify(importedData[key]));
+                            importCount++;
+                        }
+                    }
+                    
+                    // Reload data
+                    loadAdminData();
+                    updateStats();
+                    
+                    showNotification(`Successfully imported ${importCount} content items!`, 'success');
+                    
+                } catch (error) {
+                    showNotification('Error importing content: ' + error.message, 'error');
+                }
+            };
+            reader.readAsText(file);
+            
+            // Reset file input
+            event.target.value = '';
         }
 
         /**
