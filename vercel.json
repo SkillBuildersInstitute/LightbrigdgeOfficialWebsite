@@ -1,9 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "src/**", "use": "@vercel/static" },
-    { "src": "index.html", "use": "@vercel/static" }
-  ],
   "rewrites": [
     { "source": "/", "destination": "/src/index.html" },
     { "source": "/cms/:path*", "destination": "/src/cms/:path*" },
