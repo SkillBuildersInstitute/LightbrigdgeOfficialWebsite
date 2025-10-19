@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form Health Check - Lightbridge Consulting</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .test-section h2 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #ffeaa7;
+            color: #d63031;
+        }
+
+        .status-testing {
+            background: #74b9ff;
+            color: #0984e3;
+        }
+
+        .status-pass {
+            background: #55efc4;
+            color: #00b894;
+        }
+
+        .status-fail {
+            background: #ff7675;
+            color: #d63031;
+        }
+
+        .test-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            margin: 8px 0;
+            background: white;
+            border-radius: 6px;
+        }
+
+        .test-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .test-name {
+            flex: 1;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .test-result {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .summary {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+        }
+
+        .summary h3 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .console-log {
+            margin-top: 20px;
+            padding: 15px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .console-log .error {
+            color: #ff6b6b;
+        }
+
+        .console-log .success {
+            color: #51cf66;
+        }
+
+        .console-log .info {
+            color: #74c0fc;
+        }
+
+        .timestamp {
+            color: #868e96;
+            font-size: 11px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏥 Contact Form Health Check</h1>
+        <p class="subtitle">Automated testing for Lightbridge Consulting contact form</p>
+
+        <div class="test-section">
+            <h2>
+                System Checks
+                <span class="status-badge status-pending" id="systemStatus">Pending</span>
+            </h2>
+            <div id="systemTests"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>
+                Security Tests
+                <span class="status-badge status-pending" id="securityStatus">Pending</span>
+            </h2>
+            <div id="securityTests"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>
+                Form Functionality
+                <span class="status-badge status-pending" id="formStatus">Pending</span>
+            </h2>
+            <div id="formTests"></div>
+        </div>
+
+        <button class="btn" id="runTests">Run All Tests</button>
+
+        <div class="summary" id="summary" style="display: none;">
+            <h3>Test Summary</h3>
+            <div class="summary-stats">
+                <div class="stat-card">
+                    <div class="stat-value" style="color: #51cf66;" id="passCount">0</div>
+                    <div class="stat-label">Passed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="color: #ff6b6b;" id="failCount">0</div>
+                    <div class="stat-label">Failed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="color: #868e96;" id="totalCount">0</div>
+                    <div class="stat-label">Total Tests</div>
+                </div>
+            </div>
+            <div class="timestamp" id="timestamp"></div>
+        </div>
+
+        <div class="console-log" id="consoleLog" style="display: none;"></div>
+    </div>
+
+    <script>
+        const tests = {
+            system: [
+                { name: 'Page loads successfully', test: async () => true },
+                { name: 'Security.js loaded', test: async () => typeof SecurityUtils !== 'undefined' },
+                { name: 'Lucide icons library loaded', test: async () => typeof lucide !== 'undefined' },
+                { name: 'LocalStorage accessible', test: async () => {
+                    try {
+                        localStorage.setItem('test', 'test');
+                        localStorage.removeItem('test');
+                        return true;
+                    } catch (e) {
+                        return false;
+                    }
+                }},
+                { name: 'No console errors', test: async () => {
+                    return !window.hasConsoleErrors;
+                }}
+            ],
+            security: [
+                { name: 'CSRF token generated', test: async () => !!localStorage.getItem('csrf_token') },
+                { name: 'Security instance initialized', test: async () => !!window.lightbridgeSecurity },
+                { name: 'Input sanitization working', test: async () => {
+                    const result = SecurityUtils.sanitizeInput('<scr' + 'ipt>alert("xss")</scr' + 'ipt>', 'text');
+                    return !result.includes('<scr' + 'ipt>');
+                }},
+                { name: 'Email validation working', test: async () => {
+                    const valid = SecurityUtils.sanitizeEmail('test@example.com');
+                    const invalid = SecurityUtils.sanitizeEmail('invalid-email');
+                    return valid === 'test@example.com' && invalid === '';
+                }},
+                { name: 'Rate limiting enabled', test: async () => {
+                    return typeof window.lightbridgeSecurity.checkRateLimit === 'function';
+                }}
+            ],
+            form: [
+                { name: 'Contact form exists', test: async () => !!document.getElementById('contactForm') },
+                { name: 'Form has CSRF protection', test: async () => {
+                    const form = document.getElementById('contactForm');
+                    return form && !!form.querySelector('input[name="csrf_token"]');
+                }},
+                { name: 'Required fields present', test: async () => {
+                    const form = document.getElementById('contactForm');
+                    if (!form) return false;
+                    const required = ['name', 'email', 'service', 'message'];
+                    return required.every(field => !!form.querySelector(`[name="${field}"]`));
+                }},
+                { name: 'Honeypot field present', test: async () => {
+                    const form = document.getElementById('contactForm');
+                    return form && !!form.querySelector('[name="honeypot"]');
+                }},
+                { name: 'Submit button present', test: async () => {
+                    const form = document.getElementById('contactForm');
+                    return form && !!form.querySelector('[type="submit"]');
+                }}
+            ]
+        };
+
+        let passCount = 0;
+        let failCount = 0;
+        let totalCount = 0;
+        window.hasConsoleErrors = false;
+
+        // Capture console errors
+        const originalError = console.error;
+        console.error = function(...args) {
+            window.hasConsoleErrors = true;
+            logToConsole('error', args.join(' '));
+            originalError.apply(console, args);
+        };
+
+        function logToConsole(type, message) {
+            const log = document.getElementById('consoleLog');
+            log.style.display = 'block';
+            const time = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'error' : type === 'success' ? 'success' : 'info';
+            log.innerHTML += `<div class="${className}">[${time}] ${message}</div>`;
+            log.scrollTop = log.scrollHeight;
+        }
+
+        async function runTest(test) {
+            try {
+                const result = await test.test();
+                return { success: result, error: null };
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        }
+
+        function updateTestUI(containerId, testName, result) {
+            const container = document.getElementById(containerId);
+            const testItem = document.createElement('div');
+            testItem.className = 'test-item';
+            
+            const icon = result.success ? '✅' : '❌';
+            const resultText = result.success ? 'PASS' : `FAIL: ${result.error || 'Test failed'}`;
+            const resultColor = result.success ? '#00b894' : '#d63031';
+            
+            testItem.innerHTML = `
+                <span class="test-icon">${icon}</span>
+                <span class="test-name">${testName}</span>
+                <span class="test-result" style="color: ${resultColor}">${resultText}</span>
+            `;
+            
+            container.appendChild(testItem);
+        }
+
+        function updateStatusBadge(badgeId, status) {
+            const badge = document.getElementById(badgeId);
+            badge.textContent = status;
+            badge.className = `status-badge status-${status.toLowerCase()}`;
+        }
+
+        async function runAllTests() {
+            const button = document.getElementById('runTests');
+            button.disabled = true;
+            button.textContent = 'Testing...';
+            
+            passCount = 0;
+            failCount = 0;
+            totalCount = 0;
+            
+            document.getElementById('systemTests').innerHTML = '';
+            document.getElementById('securityTests').innerHTML = '';
+            document.getElementById('formTests').innerHTML = '';
+            document.getElementById('consoleLog').innerHTML = '';
+            
+            updateStatusBadge('systemStatus', 'Testing');
+            updateStatusBadge('securityStatus', 'Testing');
+            updateStatusBadge('formStatus', 'Testing');
+            
+            logToConsole('info', 'Starting health check tests...');
+
+            // Run system tests
+            let sectionPass = true;
+            for (const test of tests.system) {
+                const result = await runTest(test);
+                updateTestUI('systemTests', test.name, result);
+                totalCount++;
+                if (result.success) {
+                    passCount++;
+                } else {
+                    failCount++;
+                    sectionPass = false;
+                }
+            }
+            updateStatusBadge('systemStatus', sectionPass ? 'Pass' : 'Fail');
+
+            // Run security tests
+            sectionPass = true;
+            for (const test of tests.security) {
+                const result = await runTest(test);
+                updateTestUI('securityTests', test.name, result);
+                totalCount++;
+                if (result.success) {
+                    passCount++;
+                } else {
+                    failCount++;
+                    sectionPass = false;
+                }
+            }
+            updateStatusBadge('securityStatus', sectionPass ? 'Pass' : 'Fail');
+
+            // Run form tests
+            sectionPass = true;
+            for (const test of tests.form) {
+                const result = await runTest(test);
+                updateTestUI('formTests', test.name, result);
+                totalCount++;
+                if (result.success) {
+                    passCount++;
+                } else {
+                    failCount++;
+                    sectionPass = false;
+                }
+            }
+            updateStatusBadge('formStatus', sectionPass ? 'Pass' : 'Fail');
+
+            // Update summary
+            document.getElementById('passCount').textContent = passCount;
+            document.getElementById('failCount').textContent = failCount;
+            document.getElementById('totalCount').textContent = totalCount;
+            document.getElementById('timestamp').textContent = `Completed at ${new Date().toLocaleString()}`;
+            document.getElementById('summary').style.display = 'block';
+
+            const allPassed = failCount === 0;
+            logToConsole(
+                allPassed ? 'success' : 'error',
+                allPassed 
+                    ? `✅ All ${totalCount} tests passed! Form is healthy.`
+                    : `⚠️ ${failCount} of ${totalCount} tests failed. Review issues above.`
+            );
+
+            button.disabled = false;
+            button.textContent = 'Run Tests Again';
+        }
+
+        document.getElementById('runTests').addEventListener('click', runAllTests);
+
+        // Auto-run tests on page load after a brief delay
+        setTimeout(() => {
+            logToConsole('info', 'Auto-running tests in 2 seconds...');
+            setTimeout(runAllTests, 2000);
+        }, 500);
+    </script>
+
+    <!-- Load dependencies for testing -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="../js/security.js"></script>
+</body>
+</html>
