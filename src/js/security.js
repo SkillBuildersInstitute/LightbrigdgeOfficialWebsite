@@ -196,11 +196,8 @@ class SecurityUtils {
 
     // Content Security Policy helpers
     setupSecurityHeaders() {
-        // Add security-related meta tags if not present
-        this.addMetaTag('X-Content-Type-Options', 'nosniff');
-        this.addMetaTag('X-Frame-Options', 'DENY');
-        this.addMetaTag('X-XSS-Protection', '1; mode=block');
-        this.addMetaTag('Referrer-Policy', 'strict-origin-when-cross-origin');
+        // Note: Security headers like X-Frame-Options, X-Content-Type-Options, etc.
+        // are already configured server-side in vercel.json and cannot be set via meta tags
 
         // Basic CSP for development - should be implemented server-side in production
         this.addMetaTag('Content-Security-Policy',
@@ -209,7 +206,7 @@ class SecurityUtils {
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.quilljs.com; " +
             "font-src 'self' https://fonts.gstatic.com; " +
             "img-src 'self' data:; " +
-            "connect-src 'self';"
+            "connect-src 'self' https://unpkg.com;"
         );
     }
 
