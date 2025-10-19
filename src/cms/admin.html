@@ -393,8 +393,9 @@
 
                     <div class="form-group">
                         <label class="form-label">Services Description</label>
-                        <textarea id="services-description" class="form-textarea"
-                                  placeholder="Optional description for services section"></textarea>
+                        <textarea id="services-description" class="form-textarea" rows="4"
+                                  placeholder="💡 Have an app idea? 💼 Need a custom business solution? 📊 Struggling with spreadsheets that should be databases? We help you discover what you actually need—whether working together closely or with a more hands-off approach."></textarea>
+                        <span class="help-text">The introductory text shown above the service cards. Supports emojis and HTML formatting.</span>
                     </div>
                 </div>
 
@@ -1030,6 +1031,7 @@
             
             if (content.heroHeadline) document.getElementById('hero-headline').value = content.heroHeadline;
             if (content.servicesTitle) document.getElementById('services-title').value = content.servicesTitle;
+            if (content.servicesDescription) document.getElementById('services-description').value = content.servicesDescription;
             if (content.contactEmail) document.getElementById('contact-email').value = content.contactEmail;
             if (content.contactPhone) document.getElementById('contact-phone').value = content.contactPhone;
         }

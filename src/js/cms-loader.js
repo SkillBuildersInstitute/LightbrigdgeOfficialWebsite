@@ -51,6 +51,12 @@ function loadHomepageContent() {
     if (servicesTitle && content.servicesTitle) {
         servicesTitle.textContent = content.servicesTitle;
     }
+    
+    // Update services description
+    const servicesDescription = document.querySelector('[data-cms="services-description"]');
+    if (servicesDescription && content.servicesDescription) {
+        servicesDescription.innerHTML = content.servicesDescription;
+    }
 }
 
 /**
