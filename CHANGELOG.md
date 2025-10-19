@@ -2,6 +2,22 @@
 
 All notable changes to the Lightbridge Consulting website.
 
+## [2.1.1] - 2024-10-19
+
+### Added - CMS Services Section Management
+- **Services Description Field**: Added CMS-manageable textarea for services section description
+- **Homepage Content**: Services description (with emojis) now editable through CMS admin panel
+- **Dynamic Loading**: `cms-loader.js` applies services description from localStorage
+- **Data Attributes**: Added `data-cms="services-description"` to homepage for targeted updates
+- **Seamless Integration**: Existing save/load functions handle the new field automatically
+
+### Enhanced - Content Management
+- **Better Control**: Users can now edit the intro text above service cards
+- **Emoji Support**: Preserves formatting including emojis (💡 💼 📊)
+- **Consistent Workflow**: Same CMS editing experience as other homepage content
+
+---
+
 ## [2.1.0] - 2024-10-16
 
 ### Added - Email Integration

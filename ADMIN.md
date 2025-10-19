@@ -99,7 +99,7 @@ The CMS is organized into 7 dedicated panels for easy content management:
 #### 1. Homepage Panel
 Manage all homepage content including:
 - **Hero Section**: Badge text, headline, subheadline (WYSIWYG)
-- **Services Section**: Title and description
+- **Services Section**: Title and description text (with emoji support)
 - **Contact Information**: Email and phone (updates site-wide)
 
 #### 2. Pricing Panel 💰
@@ -171,6 +171,7 @@ data-cms="hero-cta-secondary"      → Secondary button text
 
 <!-- Services Section -->
 data-cms="services-title"          → Services section title
+data-cms="services-description"    → Services intro description (with emojis)
 data-cms="service-1-title"         → Collaborative Development title
 data-cms="service-1-description"   → Service description
 data-cms="service-2-title"         → Express Development title
