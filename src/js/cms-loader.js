@@ -17,6 +17,7 @@ function loadCMSContent() {
         loadAboutContent();
         loadLegalContent();
         loadPricingContent();
+        loadServicesTaglines();
         loadContactInfo();
         loadFooterLinks();
         
@@ -40,6 +41,7 @@ function loadHomepageContent() {
         heroHeadline.innerHTML = content.heroHeadline;
     }
     
+    
     // Update hero subheadline
     const heroSubheadline = document.querySelector('.hero-subheadline');
     if (heroSubheadline && content.heroSubheadlineHTML) {
@@ -54,9 +56,42 @@ function loadHomepageContent() {
     
     // Update services description
     const servicesDescription = document.querySelector('[data-cms="services-description"]');
-    if (servicesDescription && content.servicesDescription) {
-        servicesDescription.innerHTML = content.servicesDescription;
+    if (servicesDescription) {
+        if (content.servicesDescriptionHTML) {
+            servicesDescription.innerHTML = content.servicesDescriptionHTML;
+        } else if (content.servicesDescription) {
+            servicesDescription.innerHTML = content.servicesDescription;
+        }
     }
+}
+
+/**
+ * Load and apply services taglines (homepage cards)
+ */
+function loadServicesTaglines() {
+    const services = JSON.parse(localStorage.getItem('cms_services') || '{}');
+    if (!services || Object.keys(services).length === 0) return;
+
+    const map = [
+        { key: 'collaborative', selector: '[data-service="collaborative"] .service-description' },
+        { key: 'express', selector: '[data-service="express"] .service-description' },
+        { key: 'businessButler', selector: '[data-service="business-butler"] .service-description' },
+        { key: 'businessBootcamp', selector: '[data-service="business-bootcamp"] .service-description' }
+    ];
+
+    map.forEach(({ key, selector }) => {
+        const cfg = services[key];
+        if (!cfg) return;
+        const el = document.querySelector(selector);
+        if (!el) return;
+        if (cfg.taglineHTML) {
+            el.innerHTML = cfg.taglineHTML;
+            return;
+        }
+        if (cfg.tagline) {
+            el.textContent = cfg.tagline;
+        }
+    });
 }
 
 /**

@@ -392,9 +392,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Services Description</label>
-                        <textarea id="services-description" class="form-textarea" rows="4"
-                                  placeholder="💡 Have an app idea? 💼 Need a custom business solution? 📊 Struggling with spreadsheets that should be databases? We help you discover what you actually need—whether working together closely or with a more hands-off approach."></textarea>
+                        <label class="editor-label">Services Description</label>
+                        <div class="wysiwyg-container"><div id="services-description-editor"></div></div>
                         <span class="help-text">The introductory text shown above the service cards. Supports emojis and HTML formatting.</span>
                     </div>
                 </div>
@@ -641,27 +640,23 @@
                     <p style="color: #666; margin-bottom: 20px;">Edit the main service descriptions that appear on service cards.</p>
                     
                     <div class="form-group">
-                        <label class="form-label">Collaborative Development Tagline</label>
-                        <textarea id="collab-tagline" class="form-textarea" rows="3"
-                                  placeholder="We code together. You learn. You own the code. You control the pace."></textarea>
+                        <label class="editor-label">Collaborative Development Tagline</label>
+                        <div class="wysiwyg-container"><div id="collab-tagline-editor"></div></div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Express Development Tagline</label>
-                        <textarea id="express-tagline" class="form-textarea" rows="3"
-                                  placeholder="Need it fast? Get a complete solution in 2-4 weeks. Fixed price, clear timeline."></textarea>
+                        <label class="editor-label">Express Development Tagline</label>
+                        <div class="wysiwyg-container"><div id="express-tagline-editor"></div></div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Business Butler Tagline</label>
-                        <textarea id="butler-tagline" class="form-textarea" rows="3"
-                                  placeholder="Monthly retainer for ongoing development, support, and business technology consulting."></textarea>
+                        <label class="editor-label">Business Butler Tagline</label>
+                        <div class="wysiwyg-container"><div id="butler-tagline-editor"></div></div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Business Boot Camp Tagline</label>
-                        <textarea id="bootcamp-tagline" class="form-textarea" rows="3"
-                                  placeholder="2-day intensive workshop to learn database-driven business applications."></textarea>
+                        <label class="editor-label">Business Boot Camp Tagline</label>
+                        <div class="wysiwyg-container"><div id="bootcamp-tagline-editor"></div></div>
                     </div>
                 </div>
 
@@ -945,6 +940,37 @@
                 { insert: 'What makes my approach different? I don\'t just build what you ask for—I help you discover what you actually need. Teaching database programming at the college level taught me how to break down complex problems and explain solutions clearly. That\'s what I bring to every project.' }
             ]);
 
+            // Services Description Editor
+            editors.servicesDescription = new Quill('#services-description-editor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link'],
+                        ['clean']
+                    ]
+                },
+                placeholder: 'Enter services introduction...'
+            });
+
+            // Services Taglines Editors
+            const taglineToolbar = {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['clean']
+                    ]
+                }
+            };
+
+            editors.collabTagline = new Quill('#collab-tagline-editor', taglineToolbar);
+            editors.expressTagline = new Quill('#express-tagline-editor', taglineToolbar);
+            editors.butlerTagline = new Quill('#butler-tagline-editor', taglineToolbar);
+            editors.bootcampTagline = new Quill('#bootcamp-tagline-editor', taglineToolbar);
+
             // Privacy Policy Content Editor
             editors.privacyContent = new Quill('#privacy-content-editor', {
                 theme: 'snow',
@@ -1018,6 +1044,7 @@
             loadAboutData();
             loadLegalData();
             loadPricingData();
+            loadServicesData();
             loadSettings();
             loadSubmissions();
             updateStats();
@@ -1031,7 +1058,10 @@
             
             if (content.heroHeadline) document.getElementById('hero-headline').value = content.heroHeadline;
             if (content.servicesTitle) document.getElementById('services-title').value = content.servicesTitle;
-            if (content.servicesDescription) document.getElementById('services-description').value = content.servicesDescription;
+            if (editors.servicesDescription && (content.servicesDescriptionHTML || content.servicesDescription)) {
+                const html = content.servicesDescriptionHTML || content.servicesDescription;
+                editors.servicesDescription.root.innerHTML = html;
+            }
             if (content.contactEmail) document.getElementById('contact-email').value = content.contactEmail;
             if (content.contactPhone) document.getElementById('contact-phone').value = content.contactPhone;
         }
@@ -1217,7 +1247,8 @@
                     heroSubheadlineHTML: editors.heroSubheadline.root.innerHTML,
                     heroSubheadlineText: editors.heroSubheadline.getText().trim(),
                     servicesTitle: document.getElementById('services-title').value,
-                    servicesDescription: document.getElementById('services-description').value,
+                    servicesDescriptionHTML: editors.servicesDescription ? editors.servicesDescription.root.innerHTML : '',
+                    servicesDescriptionText: editors.servicesDescription ? editors.servicesDescription.getText().trim() : '',
                     contactEmail: document.getElementById('contact-email').value,
                     contactPhone: document.getElementById('contact-phone').value
                 };
@@ -1228,7 +1259,8 @@
                     heroSubheadlineHTML: SecurityUtils.sanitizeInput(rawContent.heroSubheadlineHTML, 'html'),
                     heroSubheadlineText: SecurityUtils.sanitizeInput(rawContent.heroSubheadlineText, 'text'),
                     servicesTitle: SecurityUtils.sanitizeInput(rawContent.servicesTitle, 'text'),
-                    servicesDescription: SecurityUtils.sanitizeInput(rawContent.servicesDescription, 'text'),
+                    servicesDescriptionHTML: SecurityUtils.sanitizeInput(rawContent.servicesDescriptionHTML, 'html'),
+                    servicesDescriptionText: SecurityUtils.sanitizeInput(rawContent.servicesDescriptionText, 'text'),
                     contactEmail: SecurityUtils.sanitizeInput(rawContent.contactEmail, 'email'),
                     contactPhone: SecurityUtils.sanitizeInput(rawContent.contactPhone, 'phone'),
                     lastUpdated: new Date().toISOString()
@@ -1296,16 +1328,20 @@
         function saveServicesContent() {
             const services = {
                 collaborative: {
-                    tagline: document.getElementById('collab-tagline').value
+                    taglineHTML: SecurityUtils.sanitizeInput(editors.collabTagline ? editors.collabTagline.root.innerHTML : '', 'html'),
+                    taglineText: SecurityUtils.sanitizeInput(editors.collabTagline ? editors.collabTagline.getText().trim() : '', 'text')
                 },
                 express: {
-                    tagline: document.getElementById('express-tagline').value
+                    taglineHTML: SecurityUtils.sanitizeInput(editors.expressTagline ? editors.expressTagline.root.innerHTML : '', 'html'),
+                    taglineText: SecurityUtils.sanitizeInput(editors.expressTagline ? editors.expressTagline.getText().trim() : '', 'text')
                 },
                 businessButler: {
-                    tagline: document.getElementById('butler-tagline').value
+                    taglineHTML: SecurityUtils.sanitizeInput(editors.butlerTagline ? editors.butlerTagline.root.innerHTML : '', 'html'),
+                    taglineText: SecurityUtils.sanitizeInput(editors.butlerTagline ? editors.butlerTagline.getText().trim() : '', 'text')
                 },
                 businessBootcamp: {
-                    tagline: document.getElementById('bootcamp-tagline').value
+                    taglineHTML: SecurityUtils.sanitizeInput(editors.bootcampTagline ? editors.bootcampTagline.root.innerHTML : '', 'html'),
+                    taglineText: SecurityUtils.sanitizeInput(editors.bootcampTagline ? editors.bootcampTagline.getText().trim() : '', 'text')
                 },
                 lastUpdated: new Date().toISOString()
             };
