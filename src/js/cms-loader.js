@@ -18,7 +18,7 @@ function loadCMSContent() {
         loadLegalContent();
         loadPricingContent();
         loadServicesTaglines();
-        loadContactInfo();
+        // loadContactInfo(); // Disabled - using hardcoded contact info
         loadFooterLinks();
         
         console.log('CMS content loaded successfully');
@@ -244,47 +244,14 @@ function updateServicePricing(serviceKey, pricingData) {
 
 /**
  * Load and apply contact information across all pages
+ * DISABLED - Contact info is now hardcoded in HTML files
  */
 function loadContactInfo() {
-    const homepageContent = JSON.parse(localStorage.getItem('cms_homepage_content') || '{}');
-    const legalContent = JSON.parse(localStorage.getItem('cms_legal_content') || '{}');
-    
-    // Use whichever is most recently updated
-    const contactEmail = homepageContent.contactEmail || legalContent.legalEmail;
-    const contactPhone = homepageContent.contactPhone || legalContent.legalPhone;
-    
-    if (contactEmail) {
-        // Update all email links
-        document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
-            if (link.href.includes('lightbridgeconsulting') || link.href.includes('info@')) {
-                link.href = `mailto:${contactEmail}`;
-                if (!link.querySelector('i, svg')) { // Don't update if it's just an icon
-                    link.textContent = contactEmail;
-                }
-            }
-        });
-        
-        // Update email text elements
-        document.querySelectorAll('[data-cms="contact-email"]').forEach(el => {
-            el.textContent = contactEmail;
-        });
-    }
-    
-    if (contactPhone) {
-        // Update all phone links
-        const cleanPhone = contactPhone.replace(/[^0-9]/g, '');
-        document.querySelectorAll('a[href^="tel:"]').forEach(link => {
-            link.href = `tel:${cleanPhone}`;
-            if (!link.querySelector('i, svg')) { // Don't update if it's just an icon
-                link.textContent = contactPhone;
-            }
-        });
-        
-        // Update phone text elements
-        document.querySelectorAll('[data-cms="contact-phone"]').forEach(el => {
-            el.textContent = contactPhone;
-        });
-    }
+    // Contact information is hardcoded in HTML files
+    // Phone: 813-618-5333
+    // Email: lightbridgeconsultingco@gmail.com
+    // This function is disabled to ensure consistency across all visitors
+    return;
 }
 
 /**

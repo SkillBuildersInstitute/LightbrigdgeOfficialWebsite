@@ -241,7 +241,7 @@ async function submitToCMS(data) {
 // Initialize CMS Content Management
 function initCMSContent() {
     loadCMSContent();
-    loadContactInformation();
+    // loadContactInformation(); // Disabled - using hardcoded contact info
 }
 
 async function loadCMSContent() {
@@ -260,53 +260,13 @@ async function loadCMSContent() {
 }
 
 // Load contact information from CMS and update all references
+// DISABLED - Contact info is now hardcoded in HTML files
 function loadContactInformation() {
-    try {
-        // Load contact info from CMS
-        const cmsContent = JSON.parse(localStorage.getItem('cms_homepage_content') || '{}');
-        const legalContent = JSON.parse(localStorage.getItem('cms_legal_content') || '{}');
-
-        // Use CMS data if available, otherwise use defaults
-        const contactEmail = cmsContent.contactEmail || legalContent.legalEmail || 'lightbridgeconsultingco@gmail.com';
-        const contactPhone = cmsContent.contactPhone || legalContent.legalPhone || '813-618-5333';
-
-        // Update all email references in footers and contact info
-        const emailLinks = document.querySelectorAll('a[href^="mailto:"]');
-        emailLinks.forEach(link => {
-            // Only update if it's a company email (not user-specific emails)
-            if (link.href.includes('lightbridgeconsulting') || link.href.includes('info@')) {
-                link.href = `mailto:${contactEmail}`;
-                link.textContent = contactEmail;
-            }
-        });
-
-        // Update all phone references
-        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
-        phoneLinks.forEach(link => {
-            // Extract just the phone number from href
-            const cleanPhone = contactPhone.replace(/[^0-9]/g, '');
-            link.href = `tel:${cleanPhone}`;
-            link.textContent = contactPhone;
-        });
-
-        // Update any plain text phone/email references in footers
-        const footerLinks = document.querySelectorAll('.footer-links a');
-        footerLinks.forEach(link => {
-            if (link.textContent.includes('@') || link.textContent.includes('info')) {
-                link.textContent = contactEmail;
-                link.href = `mailto:${contactEmail}`;
-            }
-            if (link.textContent.includes('555') || link.textContent.match(/\(\d{3}\)/)) {
-                link.textContent = contactPhone;
-                const cleanPhone = contactPhone.replace(/[^0-9]/g, '');
-                link.href = `tel:${cleanPhone}`;
-            }
-        });
-
-        console.log('Contact information updated from CMS:', { contactEmail, contactPhone });
-    } catch (error) {
-        console.error('Failed to load contact information:', error);
-    }
+    // Contact information is hardcoded in HTML files
+    // Phone: 813-618-5333
+    // Email: lightbridgeconsultingco@gmail.com
+    // This function is disabled to ensure consistency across all visitors
+    return;
 }
 
 // CMS Content Management Functions
