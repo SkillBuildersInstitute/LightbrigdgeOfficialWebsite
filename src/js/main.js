@@ -267,8 +267,8 @@ function loadContactInformation() {
         const legalContent = JSON.parse(localStorage.getItem('cms_legal_content') || '{}');
 
         // Use CMS data if available, otherwise use defaults
-        const contactEmail = cmsContent.contactEmail || legalContent.legalEmail || 'info@lightbridgeconsulting.com';
-        const contactPhone = cmsContent.contactPhone || legalContent.legalPhone || '(555) 555-0123';
+        const contactEmail = cmsContent.contactEmail || legalContent.legalEmail || 'lightbridgeconsultingco@gmail.com';
+        const contactPhone = cmsContent.contactPhone || legalContent.legalPhone || '813-618-5333';
 
         // Update all email references in footers and contact info
         const emailLinks = document.querySelectorAll('a[href^="mailto:"]');

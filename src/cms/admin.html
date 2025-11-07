@@ -411,8 +411,8 @@
                         <div class="form-group">
                             <label class="form-label">Contact Phone</label>
                             <input type="tel" id="contact-phone" class="form-input"
-                                   value="(555) 555-0123"
-                                   placeholder="(555) 555-0123">
+                                   value="813-618-5333"
+                                   placeholder="813-618-5333">
                         </div>
                     </div>
                 </div>
@@ -720,8 +720,8 @@
                         <div class="form-group">
                             <label class="form-label">Company Contact Phone</label>
                             <input type="tel" id="legal-phone" class="form-input"
-                                   value="(555) 555-0123"
-                                   placeholder="(555) 555-0123">
+                                   value="813-618-5333"
+                                   placeholder="813-618-5333">
                         </div>
                     </div>
                 </div>
@@ -1131,6 +1131,38 @@
             
             if (pricing.discovery) {
                 document.getElementById('discovery-price').value = pricing.discovery;
+            }
+        }
+
+        /**
+         * Load services (taglines) data
+         */
+        function loadServicesData() {
+            const services = JSON.parse(localStorage.getItem('cms_services') || '{}');
+
+            if (services.collaborative && editors.collabTagline) {
+                const html = services.collaborative.taglineHTML || services.collaborative.tagline || '';
+                if (html) {
+                    editors.collabTagline.root.innerHTML = html;
+                }
+            }
+            if (services.express && editors.expressTagline) {
+                const html = services.express.taglineHTML || services.express.tagline || '';
+                if (html) {
+                    editors.expressTagline.root.innerHTML = html;
+                }
+            }
+            if (services.businessButler && editors.butlerTagline) {
+                const html = services.businessButler.taglineHTML || services.businessButler.tagline || '';
+                if (html) {
+                    editors.butlerTagline.root.innerHTML = html;
+                }
+            }
+            if (services.businessBootcamp && editors.bootcampTagline) {
+                const html = services.businessBootcamp.taglineHTML || services.businessBootcamp.tagline || '';
+                if (html) {
+                    editors.bootcampTagline.root.innerHTML = html;
+                }
             }
         }
 
