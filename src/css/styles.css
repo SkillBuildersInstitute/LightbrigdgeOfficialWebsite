@@ -485,6 +485,55 @@ p {
   letter-spacing: var(--ls-wide);
 }
 
+/* Popular Badge Styles */
+.service-badge-wrapper {
+  position: absolute;
+  top: -16px;
+  right: var(--space-md);
+  z-index: 10;
+}
+
+.popular-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: var(--lighthouse-black);
+  padding: 8px 20px;
+  border-radius: var(--radius-full);
+  font-size: var(--fs-body-small);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--ls-wide);
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--white);
+  animation: pulse-badge 2s ease-in-out infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: var(--shadow-md);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+/* Enhanced styling for featured card with popular badge */
+.service-card.featured[data-service="custom-solutions"] {
+  background: linear-gradient(135deg,
+    rgba(255, 215, 0, 0.08) 0%,
+    rgba(255, 165, 0, 0.08) 100%);
+  border-color: #FFD700;
+  border-width: 3px;
+  box-shadow: var(--shadow-md);
+}
+
+.service-card.featured[data-service="custom-solutions"]:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--beam-orange);
+}
+
 .service-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
