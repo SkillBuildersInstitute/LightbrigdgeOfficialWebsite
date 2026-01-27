@@ -184,24 +184,34 @@ function loadPricingContent() {
     
     if (Object.keys(pricing).length === 0) return;
     
-    // Update Collaborative Development pricing
-    if (pricing.collaborative) {
-        updateServicePricing('collaborative', pricing.collaborative);
+    // Update Custom Solutions pricing
+    if (pricing.customSolutions) {
+        updateServicePricing('custom-solutions', pricing.customSolutions);
     }
     
-    // Update Express Development pricing
-    if (pricing.express) {
-        updateServicePricing('express', pricing.express);
+    // Update Website Development pricing
+    if (pricing.websiteDevelopment) {
+        updateServicePricing('website-development', pricing.websiteDevelopment);
     }
     
-    // Update Business Butler pricing
-    if (pricing.businessButler) {
-        updateServicePricing('business-butler', pricing.businessButler);
+    // Update Lead Generation & CRM Tools pricing
+    if (pricing.crmTools) {
+        updateServicePricing('crm-tools', pricing.crmTools);
     }
     
-    // Update Business Boot Camp pricing
-    if (pricing.businessBootcamp) {
-        updateServicePricing('business-bootcamp', pricing.businessBootcamp);
+    // Update Workflow Automation pricing
+    if (pricing.workflowAutomation) {
+        updateServicePricing('workflow-automation', pricing.workflowAutomation);
+    }
+    
+    // Update Voice Automation pricing
+    if (pricing.voiceAutomation) {
+        updateServicePricing('voice-automation', pricing.voiceAutomation);
+    }
+    
+    // Update Data Analysis pricing
+    if (pricing.dataAnalysis) {
+        updateServicePricing('data-analysis', pricing.dataAnalysis);
     }
 }
 
@@ -211,33 +221,43 @@ function loadPricingContent() {
  * @param {object} pricingData - Pricing data object
  */
 function updateServicePricing(serviceKey, pricingData) {
-    // Update on service cards (homepage)
-    const priceElements = document.querySelectorAll(`[data-service="${serviceKey}"] [data-cms="price"]`);
+    // Update on service cards (homepage) - using data-price attribute
+    const priceElements = document.querySelectorAll(`[data-price="${serviceKey}"]`);
     priceElements.forEach(el => {
         if (pricingData.price) {
             el.textContent = pricingData.price;
         }
     });
     
-    // Update pricing description
-    const priceDescElements = document.querySelectorAll(`[data-service="${serviceKey}"] [data-cms="price-description"]`);
-    priceDescElements.forEach(el => {
-        if (pricingData.description) {
-            el.textContent = pricingData.description;
+    // Update pricing description on service cards (the small text below the price)
+    const serviceCard = document.querySelector(`[data-service="${serviceKey}"]`);
+    if (serviceCard && pricingData.description) {
+        const servicePricing = serviceCard.querySelector('.service-pricing');
+        if (servicePricing) {
+            // Find the description div (usually the last div in service-pricing with font-size: 14px)
+            const descDivs = servicePricing.querySelectorAll('div[style*="font-size: 14px"]');
+            if (descDivs.length > 0) {
+                descDivs[descDivs.length - 1].textContent = pricingData.description;
+            }
         }
-    });
+    }
     
-    // Update pricing cards on service pages
-    const pricingCards = document.querySelectorAll(`[data-pricing="${serviceKey}"]`);
-    pricingCards.forEach(card => {
-        const priceEl = card.querySelector('.pricing-price');
-        const descEl = card.querySelector('.pricing-description');
-        
-        if (priceEl && pricingData.price) {
-            priceEl.textContent = pricingData.price;
+    // Update pricing section cards - using data-price attribute with -pricing suffix
+    const pricingSectionElements = document.querySelectorAll(`[data-price="${serviceKey}-pricing"]`);
+    pricingSectionElements.forEach(el => {
+        if (pricingData.price) {
+            el.textContent = pricingData.price;
         }
-        if (descEl && pricingData.description) {
-            descEl.textContent = pricingData.description;
+        
+        // Update description in pricing section (the paragraph below the price)
+        const card = el.closest('.pricing-card');
+        if (card && pricingData.description) {
+            // Find the description paragraph (usually has font-size: 14px and color: #666)
+            const descParagraphs = card.querySelectorAll('p[style*="font-size: 14px"]');
+            if (descParagraphs.length > 0) {
+                // Usually the first one after the price
+                descParagraphs[0].textContent = pricingData.description;
+            }
         }
     });
 }

@@ -433,99 +433,116 @@
         <!-- Pricing Management Panel -->
         <div id="pricing-panel" class="admin-panel">
             <h2>Pricing Management</h2>
-            <p>Manage pricing for all service offerings. Changes will be reflected across the entire website.</p>
+            <p>Manage pricing for all service offerings using dollar sign symbols (e.g., $, $$, $$$). Changes will be reflected across the entire website.</p>
+            <p style="color: #666; font-size: 14px; margin-bottom: 24px;">
+                <strong>Pricing Guide:</strong> $ = $2K-$5K | $$ = $5K-$10K | $$$ = $10K-$25K | $$$$ = $25K-$50K | $$$$$ = $50K-$99K | $$$$$$ = $100K+
+            </p>
 
             <div class="content-editor">
                 <div class="pricing-grid">
-                    <!-- Collaborative Development Pricing -->
+                    <!-- Custom Solutions Pricing -->
                     <div class="pricing-card-editor">
-                        <h4>Collaborative Development</h4>
+                        <h4>Custom Solutions & Technical Training</h4>
                         <div class="form-group">
-                            <label class="form-label">Price</label>
-                            <input type="text" id="collab-price" class="form-input"
-                                   value="$150/hour"
-                                   placeholder="$150/hour">
+                            <label class="form-label">Price Symbol</label>
+                            <input type="text" id="custom-solutions-price" class="form-input"
+                                   placeholder="$$ - $$$">
+                            <span class="help-text">Use dollar signs like: $, $$, $$$, etc. (e.g., "$$ - $$$")</span>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Price Description</label>
-                            <input type="text" id="collab-price-desc" class="form-input"
-                                   value="Hourly rate"
-                                   placeholder="Hourly rate">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Minimum Project</label>
-                            <input type="text" id="collab-minimum" class="form-input"
-                                   value="$3,000"
-                                   placeholder="$3,000">
+                            <input type="text" id="custom-solutions-desc" class="form-input"
+                                   placeholder="Based on scope | 3 months support included">
                         </div>
                     </div>
 
-                    <!-- Express Development Pricing -->
+                    <!-- Website Development Pricing -->
                     <div class="pricing-card-editor">
-                        <h4>Express Development</h4>
+                        <h4>Website Development</h4>
                         <div class="form-group">
-                            <label class="form-label">Price</label>
-                            <input type="text" id="express-price" class="form-input"
-                                   value="$5,000"
-                                   placeholder="$5,000">
+                            <label class="form-label">Price Symbol</label>
+                            <input type="text" id="website-development-price" class="form-input"
+                                   value="$ - $$"
+                                   placeholder="$ - $$">
+                            <span class="help-text">Use dollar signs like: $, $$, $$$, etc.</span>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Price Description</label>
-                            <input type="text" id="express-price-desc" class="form-input"
-                                   value="Fixed price"
-                                   placeholder="Fixed price">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Timeline</label>
-                            <input type="text" id="express-timeline" class="form-input"
-                                   value="2-4 weeks"
-                                   placeholder="2-4 weeks">
+                            <input type="text" id="website-development-desc" class="form-input"
+                                   value="Delivered in less than a week | 60 days support"
+                                   placeholder="Delivered in less than a week | 60 days support">
                         </div>
                     </div>
 
-                    <!-- Business Butler Pricing -->
+                    <!-- Lead Generation & CRM Pricing -->
                     <div class="pricing-card-editor">
-                        <h4>Business Butler</h4>
+                        <h4>Lead Generation & CRM Tools</h4>
                         <div class="form-group">
-                            <label class="form-label">Price</label>
-                            <input type="text" id="butler-price" class="form-input"
-                                   value="$2,500/month"
-                                   placeholder="$2,500/month">
+                            <label class="form-label">Price Symbol</label>
+                            <input type="text" id="crm-tools-price" class="form-input"
+                                   value="$ - $$"
+                                   placeholder="$ - $$">
+                            <span class="help-text">Use dollar signs like: $, $$, $$$, etc.</span>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Price Description</label>
-                            <input type="text" id="butler-price-desc" class="form-input"
-                                   value="Monthly retainer"
-                                   placeholder="Monthly retainer">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Included Hours</label>
-                            <input type="text" id="butler-hours" class="form-input"
-                                   value="20 hours/month"
-                                   placeholder="20 hours/month">
+                            <input type="text" id="crm-tools-desc" class="form-input"
+                                   value="Implementation & setup | 60 days support"
+                                   placeholder="Implementation & setup | 60 days support">
                         </div>
                     </div>
 
-                    <!-- Business Boot Camp Pricing -->
+                    <!-- Workflow Automation Pricing -->
                     <div class="pricing-card-editor">
-                        <h4>Business Boot Camp</h4>
+                        <h4>Workflow Automation & Integration</h4>
                         <div class="form-group">
-                            <label class="form-label">Price</label>
-                            <input type="text" id="bootcamp-price" class="form-input"
-                                   value="$1,200"
-                                   placeholder="$1,200">
+                            <label class="form-label">Price Symbol</label>
+                            <input type="text" id="workflow-automation-price" class="form-input"
+                                   value="$ - $$$"
+                                   placeholder="$ - $$$">
+                            <span class="help-text">Use dollar signs like: $, $$, $$$, etc.</span>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Price Description</label>
-                            <input type="text" id="bootcamp-price-desc" class="form-input"
-                                   value="One-time fee"
-                                   placeholder="One-time fee">
+                            <input type="text" id="workflow-automation-desc" class="form-input"
+                                   value="Per implementation | 60 days support"
+                                   placeholder="Per implementation | 60 days support">
+                        </div>
+                    </div>
+
+                    <!-- Voice Automation Pricing -->
+                    <div class="pricing-card-editor">
+                        <h4>Voice Automation & Scheduling</h4>
+                        <div class="form-group">
+                            <label class="form-label">Price Symbol</label>
+                            <input type="text" id="voice-automation-price" class="form-input"
+                                   value="$ - $$"
+                                   placeholder="$ - $$">
+                            <span class="help-text">Use dollar signs like: $, $$, $$$, etc.</span>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Duration</label>
-                            <input type="text" id="bootcamp-duration" class="form-input"
-                                   value="2-day intensive"
-                                   placeholder="2-day intensive">
+                            <label class="form-label">Price Description</label>
+                            <input type="text" id="voice-automation-desc" class="form-input"
+                                   value="Setup + monthly fees | 30 days support"
+                                   placeholder="Setup + monthly fees | 30 days support">
+                        </div>
+                    </div>
+
+                    <!-- Data Analysis Pricing -->
+                    <div class="pricing-card-editor">
+                        <h4>Data Analysis & Reporting</h4>
+                        <div class="form-group">
+                            <label class="form-label">Price Symbol</label>
+                            <input type="text" id="data-analysis-price" class="form-input"
+                                   value="$ - $$$"
+                                   placeholder="$ - $$$">
+                            <span class="help-text">Use dollar signs like: $, $$, $$$, etc.</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Price Description</label>
+                            <input type="text" id="data-analysis-desc" class="form-input"
+                                   value="Database & dashboards | 90 days support"
+                                   placeholder="Database & dashboards | 90 days support">
                         </div>
                     </div>
                 </div>
@@ -1105,32 +1122,69 @@
         function loadPricingData() {
             const pricing = JSON.parse(localStorage.getItem('cms_pricing') || '{}');
             
-            if (pricing.collaborative) {
-                document.getElementById('collab-price').value = pricing.collaborative.price || '$150/hour';
-                document.getElementById('collab-price-desc').value = pricing.collaborative.description || 'Hourly rate';
-                document.getElementById('collab-minimum').value = pricing.collaborative.minimum || '$3,000';
-            }
+            // Set defaults if no saved data exists
+            const defaults = {
+                customSolutions: {
+                    price: '$$ - $$$',
+                    description: 'Based on scope | 3 months support included'
+                },
+                websiteDevelopment: {
+                    price: '$ - $$',
+                    description: 'Delivered in less than a week | 60 days support'
+                },
+                crmTools: {
+                    price: '$ - $$',
+                    description: 'Implementation & setup | 60 days support'
+                },
+                workflowAutomation: {
+                    price: '$ - $$$',
+                    description: 'Per implementation | 60 days support'
+                },
+                voiceAutomation: {
+                    price: '$ - $$',
+                    description: 'Setup + monthly fees | 30 days support'
+                },
+                dataAnalysis: {
+                    price: '$ - $$$',
+                    description: 'Database & dashboards | 90 days support'
+                }
+            };
             
-            if (pricing.express) {
-                document.getElementById('express-price').value = pricing.express.price || '$5,000';
-                document.getElementById('express-price-desc').value = pricing.express.description || 'Fixed price';
-                document.getElementById('express-timeline').value = pricing.express.timeline || '2-4 weeks';
-            }
+            // Load Custom Solutions
+            const customSolutions = pricing.customSolutions || defaults.customSolutions;
+            document.getElementById('custom-solutions-price').value = customSolutions.price;
+            document.getElementById('custom-solutions-desc').value = customSolutions.description;
             
-            if (pricing.businessButler) {
-                document.getElementById('butler-price').value = pricing.businessButler.price || '$2,500/month';
-                document.getElementById('butler-price-desc').value = pricing.businessButler.description || 'Monthly retainer';
-                document.getElementById('butler-hours').value = pricing.businessButler.hours || '20 hours/month';
-            }
+            // Load Website Development
+            const websiteDevelopment = pricing.websiteDevelopment || defaults.websiteDevelopment;
+            document.getElementById('website-development-price').value = websiteDevelopment.price;
+            document.getElementById('website-development-desc').value = websiteDevelopment.description;
             
-            if (pricing.businessBootcamp) {
-                document.getElementById('bootcamp-price').value = pricing.businessBootcamp.price || '$1,200';
-                document.getElementById('bootcamp-price-desc').value = pricing.businessBootcamp.description || 'One-time fee';
-                document.getElementById('bootcamp-duration').value = pricing.businessBootcamp.duration || '2-day intensive';
-            }
+            // Load CRM Tools
+            const crmTools = pricing.crmTools || defaults.crmTools;
+            document.getElementById('crm-tools-price').value = crmTools.price;
+            document.getElementById('crm-tools-desc').value = crmTools.description;
             
+            // Load Workflow Automation
+            const workflowAutomation = pricing.workflowAutomation || defaults.workflowAutomation;
+            document.getElementById('workflow-automation-price').value = workflowAutomation.price;
+            document.getElementById('workflow-automation-desc').value = workflowAutomation.description;
+            
+            // Load Voice Automation
+            const voiceAutomation = pricing.voiceAutomation || defaults.voiceAutomation;
+            document.getElementById('voice-automation-price').value = voiceAutomation.price;
+            document.getElementById('voice-automation-desc').value = voiceAutomation.description;
+            
+            // Load Data Analysis
+            const dataAnalysis = pricing.dataAnalysis || defaults.dataAnalysis;
+            document.getElementById('data-analysis-price').value = dataAnalysis.price;
+            document.getElementById('data-analysis-desc').value = dataAnalysis.description;
+            
+            // Load Discovery Price
             if (pricing.discovery) {
                 document.getElementById('discovery-price').value = pricing.discovery;
+            } else {
+                document.getElementById('discovery-price').value = 'FREE - Complimentary';
             }
         }
 
@@ -1325,25 +1379,29 @@
          */
         function savePricingContent() {
             const pricing = {
-                collaborative: {
-                    price: document.getElementById('collab-price').value,
-                    description: document.getElementById('collab-price-desc').value,
-                    minimum: document.getElementById('collab-minimum').value
+                customSolutions: {
+                    price: document.getElementById('custom-solutions-price').value,
+                    description: document.getElementById('custom-solutions-desc').value
                 },
-                express: {
-                    price: document.getElementById('express-price').value,
-                    description: document.getElementById('express-price-desc').value,
-                    timeline: document.getElementById('express-timeline').value
+                websiteDevelopment: {
+                    price: document.getElementById('website-development-price').value,
+                    description: document.getElementById('website-development-desc').value
                 },
-                businessButler: {
-                    price: document.getElementById('butler-price').value,
-                    description: document.getElementById('butler-price-desc').value,
-                    hours: document.getElementById('butler-hours').value
+                crmTools: {
+                    price: document.getElementById('crm-tools-price').value,
+                    description: document.getElementById('crm-tools-desc').value
                 },
-                businessBootcamp: {
-                    price: document.getElementById('bootcamp-price').value,
-                    description: document.getElementById('bootcamp-price-desc').value,
-                    duration: document.getElementById('bootcamp-duration').value
+                workflowAutomation: {
+                    price: document.getElementById('workflow-automation-price').value,
+                    description: document.getElementById('workflow-automation-desc').value
+                },
+                voiceAutomation: {
+                    price: document.getElementById('voice-automation-price').value,
+                    description: document.getElementById('voice-automation-desc').value
+                },
+                dataAnalysis: {
+                    price: document.getElementById('data-analysis-price').value,
+                    description: document.getElementById('data-analysis-desc').value
                 },
                 discovery: document.getElementById('discovery-price').value,
                 currency: document.getElementById('currency').value,
