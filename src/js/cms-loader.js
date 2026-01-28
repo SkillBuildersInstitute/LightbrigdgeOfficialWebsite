@@ -18,8 +18,11 @@ function loadCMSContent() {
         loadLegalContent();
         loadPricingContent();
         loadServicesTaglines();
+        loadPricingGuide();
         // loadContactInfo(); // Disabled - using hardcoded contact info
         loadFooterLinks();
+        loadContentMap();
+        saveContentMapFromPage();
         
         console.log('CMS content loaded successfully');
     } catch (error) {
@@ -73,10 +76,12 @@ function loadServicesTaglines() {
     if (!services || Object.keys(services).length === 0) return;
 
     const map = [
-        { key: 'collaborative', selector: '[data-service="collaborative"] .service-description' },
-        { key: 'express', selector: '[data-service="express"] .service-description' },
-        { key: 'businessButler', selector: '[data-service="business-butler"] .service-description' },
-        { key: 'businessBootcamp', selector: '[data-service="business-bootcamp"] .service-description' }
+        { key: 'customSolutions', selector: '[data-service="custom-solutions"] .service-description' },
+        { key: 'websiteDevelopment', selector: '[data-service="website-development"] .service-description' },
+        { key: 'crmTools', selector: '[data-service="crm-tools"] .service-description' },
+        { key: 'workflowAutomation', selector: '[data-service="workflow-automation"] .service-description' },
+        { key: 'voiceAutomation', selector: '[data-service="voice-automation"] .service-description' },
+        { key: 'dataAnalysis', selector: '[data-service="data-analysis"] .service-description' }
     ];
 
     map.forEach(({ key, selector }) => {
@@ -216,6 +221,27 @@ function loadPricingContent() {
 }
 
 /**
+ * Load pricing guide ranges for the homepage
+ */
+function loadPricingGuide() {
+    const pricing = JSON.parse(localStorage.getItem('cms_pricing') || '{}');
+    if (!pricing || !Array.isArray(pricing.pricingGuide)) return;
+
+    pricing.pricingGuide.forEach((tier, index) => {
+        const slot = index + 1;
+        const labelEl = document.querySelector(`[data-price-guide-label="${slot}"]`);
+        const rangeEl = document.querySelector(`[data-price-guide-range="${slot}"]`);
+
+        if (labelEl && tier.label) {
+            labelEl.textContent = tier.label;
+        }
+        if (rangeEl && tier.range) {
+            rangeEl.textContent = tier.range;
+        }
+    });
+}
+
+/**
  * Update pricing for a specific service
  * @param {string} serviceKey - Service identifier
  * @param {object} pricingData - Pricing data object
@@ -331,6 +357,40 @@ function loadFooterLinks() {
 }
 
 /**
+ * Load generic CMS content mapped by data-cms keys
+ */
+function loadContentMap() {
+    const contentMap = JSON.parse(localStorage.getItem('cms_content_map') || '{}');
+    if (!contentMap || Object.keys(contentMap).length === 0) return;
+
+    document.querySelectorAll('[data-cms]').forEach(el => {
+        const key = el.getAttribute('data-cms');
+        if (!key || !(key in contentMap)) return;
+
+        const value = contentMap[key];
+        if (value === null || value === undefined || value === '') return;
+
+        el.innerHTML = value;
+    });
+}
+
+/**
+ * Persist data-cms elements for the current page to localStorage
+ */
+function saveContentMapFromPage() {
+    const contentMap = {};
+    document.querySelectorAll('[data-cms]').forEach(el => {
+        const key = el.getAttribute('data-cms');
+        if (!key) return;
+        contentMap[key] = el.innerHTML.trim();
+    });
+
+    if (Object.keys(contentMap).length > 0) {
+        localStorage.setItem('cms_content_map', JSON.stringify(contentMap));
+    }
+}
+
+/**
  * Export for use in other scripts
  */
 if (typeof module !== 'undefined' && module.exports) {
@@ -344,4 +404,3 @@ if (typeof module !== 'undefined' && module.exports) {
         loadFooterLinks
     };
 }
-

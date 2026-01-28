@@ -241,6 +241,12 @@
             border-top: 2px solid #eee;
         }
 
+        .content-map-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
         .help-text {
             font-size: 13px;
             color: #666;
@@ -341,6 +347,9 @@
             <button class="admin-tab" onclick="showAdminPanel('legal')">
                 <i data-lucide="file-text"></i> Legal
             </button>
+            <button class="admin-tab" onclick="showAdminPanel('content-map')">
+                <i data-lucide="edit-3"></i> Site Content
+            </button>
             <button class="admin-tab" onclick="showAdminPanel('submissions')">
                 <i data-lucide="mail"></i> Submissions
             </button>
@@ -435,7 +444,7 @@
             <h2>Pricing Management</h2>
             <p>Manage pricing for all service offerings using dollar sign symbols (e.g., $, $$, $$$). Changes will be reflected across the entire website.</p>
             <p style="color: #666; font-size: 14px; margin-bottom: 24px;">
-                <strong>Pricing Guide:</strong> $ = $2K-$5K | $$ = $5K-$10K | $$$ = $10K-$25K | $$$$ = $25K-$50K | $$$$$ = $50K-$99K | $$$$$$ = $100K+
+                <strong>Pricing Guide:</strong> Configure the ranges and labels for the pricing key shown on the homepage.
             </p>
 
             <div class="content-editor">
@@ -570,6 +579,61 @@
                     </div>
                 </div>
 
+                <div class="content-section" style="margin-top: 32px;">
+                    <h3>Pricing Guide Ranges</h3>
+                    <p style="color: #666; margin-bottom: 20px;">These labels and ranges appear in the Pricing Guide section on the homepage.</p>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Tier 1 Label</label>
+                            <input type="text" id="pricing-guide-label-1" class="form-input" value="$" placeholder="$">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tier 1 Range</label>
+                            <input type="text" id="pricing-guide-range-1" class="form-input" value="$2,000 - $5,000" placeholder="$2,000 - $5,000">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tier 2 Label</label>
+                            <input type="text" id="pricing-guide-label-2" class="form-input" value="$$" placeholder="$$">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tier 2 Range</label>
+                            <input type="text" id="pricing-guide-range-2" class="form-input" value="$5,000 - $10,000" placeholder="$5,000 - $10,000">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tier 3 Label</label>
+                            <input type="text" id="pricing-guide-label-3" class="form-input" value="$$$" placeholder="$$$">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tier 3 Range</label>
+                            <input type="text" id="pricing-guide-range-3" class="form-input" value="$10,000 - $25,000" placeholder="$10,000 - $25,000">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tier 4 Label</label>
+                            <input type="text" id="pricing-guide-label-4" class="form-input" value="$$$$" placeholder="$$$$">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tier 4 Range</label>
+                            <input type="text" id="pricing-guide-range-4" class="form-input" value="$25,000 - $50,000" placeholder="$25,000 - $50,000">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tier 5 Label</label>
+                            <input type="text" id="pricing-guide-label-5" class="form-input" value="$$$$$" placeholder="$$$$$">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tier 5 Range</label>
+                            <input type="text" id="pricing-guide-range-5" class="form-input" value="$50,000 - $99,999" placeholder="$50,000 - $99,999">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tier 6 Label</label>
+                            <input type="text" id="pricing-guide-label-6" class="form-input" value="$$$$$$" placeholder="$$$$$$">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tier 6 Range</label>
+                            <input type="text" id="pricing-guide-range-6" class="form-input" value="$100,000+" placeholder="$100,000+">
+                        </div>
+                    </div>
+                </div>
+
                 <div class="action-buttons">
                     <button class="btn btn-primary" onclick="savePricingContent()">
                         <i data-lucide="save"></i>
@@ -654,26 +718,36 @@
             <div class="content-editor">
                 <div class="content-section">
                     <h3>Service Offerings</h3>
-                    <p style="color: #666; margin-bottom: 20px;">Edit the main service descriptions that appear on service cards.</p>
+                    <p style="color: #666; margin-bottom: 20px;">Edit the main service descriptions that appear on the homepage service cards.</p>
                     
                     <div class="form-group">
-                        <label class="editor-label">Collaborative Development Tagline</label>
-                        <div class="wysiwyg-container"><div id="collab-tagline-editor"></div></div>
+                        <label class="editor-label">Custom Solutions Tagline</label>
+                        <div class="wysiwyg-container"><div id="custom-solutions-tagline-editor"></div></div>
                     </div>
 
                     <div class="form-group">
-                        <label class="editor-label">Express Development Tagline</label>
-                        <div class="wysiwyg-container"><div id="express-tagline-editor"></div></div>
+                        <label class="editor-label">Website Development Tagline</label>
+                        <div class="wysiwyg-container"><div id="website-development-tagline-editor"></div></div>
                     </div>
 
                     <div class="form-group">
-                        <label class="editor-label">Business Butler Tagline</label>
-                        <div class="wysiwyg-container"><div id="butler-tagline-editor"></div></div>
+                        <label class="editor-label">Lead Generation & CRM Tools Tagline</label>
+                        <div class="wysiwyg-container"><div id="crm-tools-tagline-editor"></div></div>
                     </div>
 
                     <div class="form-group">
-                        <label class="editor-label">Business Boot Camp Tagline</label>
-                        <div class="wysiwyg-container"><div id="bootcamp-tagline-editor"></div></div>
+                        <label class="editor-label">Workflow Automation Tagline</label>
+                        <div class="wysiwyg-container"><div id="workflow-automation-tagline-editor"></div></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="editor-label">Voice Automation Tagline</label>
+                        <div class="wysiwyg-container"><div id="voice-automation-tagline-editor"></div></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="editor-label">Data Analysis Tagline</label>
+                        <div class="wysiwyg-container"><div id="data-analysis-tagline-editor"></div></div>
                     </div>
                 </div>
 
@@ -755,6 +829,39 @@
                     <button class="btn btn-outline" onclick="previewChanges('../pages/terms.html')">
                         <i data-lucide="eye"></i>
                         Preview Terms
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Site Content Map Panel -->
+        <div id="content-map-panel" class="admin-panel">
+            <h2>Site Content Map</h2>
+            <p>Edit any field tagged with <code>data-cms</code> across the site. Changes are saved to CMS storage and applied everywhere.</p>
+
+            <div class="content-editor">
+                <div class="content-section">
+                    <h3>All data-cms Fields</h3>
+                    <div class="form-group">
+                        <label class="form-label">Filter fields</label>
+                        <input type="text" id="content-map-filter" class="form-input" placeholder="Search by key or content">
+                        <span class="help-text">Type to filter fields by key or content. HTML is allowed for basic formatting.</span>
+                    </div>
+                    <div id="content-map-fields" class="content-map-grid"></div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="saveContentMap()">
+                        <i data-lucide="save"></i>
+                        Save Site Content
+                    </button>
+                    <button class="btn btn-outline" onclick="loadContentMapFromPages()">
+                        <i data-lucide="refresh-cw"></i>
+                        Load Defaults from Site
+                    </button>
+                    <button class="btn btn-outline" onclick="clearContentMap()">
+                        <i data-lucide="trash-2"></i>
+                        Clear Site Content
                     </button>
                 </div>
             </div>
@@ -983,10 +1090,12 @@
                 }
             };
 
-            editors.collabTagline = new Quill('#collab-tagline-editor', taglineToolbar);
-            editors.expressTagline = new Quill('#express-tagline-editor', taglineToolbar);
-            editors.butlerTagline = new Quill('#butler-tagline-editor', taglineToolbar);
-            editors.bootcampTagline = new Quill('#bootcamp-tagline-editor', taglineToolbar);
+            editors.customSolutionsTagline = new Quill('#custom-solutions-tagline-editor', taglineToolbar);
+            editors.websiteDevelopmentTagline = new Quill('#website-development-tagline-editor', taglineToolbar);
+            editors.crmToolsTagline = new Quill('#crm-tools-tagline-editor', taglineToolbar);
+            editors.workflowAutomationTagline = new Quill('#workflow-automation-tagline-editor', taglineToolbar);
+            editors.voiceAutomationTagline = new Quill('#voice-automation-tagline-editor', taglineToolbar);
+            editors.dataAnalysisTagline = new Quill('#data-analysis-tagline-editor', taglineToolbar);
 
             // Privacy Policy Content Editor
             editors.privacyContent = new Quill('#privacy-content-editor', {
@@ -1062,6 +1171,7 @@
             loadLegalData();
             loadPricingData();
             loadServicesData();
+            loadContentMapData();
             loadSettings();
             loadSubmissions();
             updateStats();
@@ -1186,6 +1296,25 @@
             } else {
                 document.getElementById('discovery-price').value = 'FREE - Complimentary';
             }
+
+            // Load Pricing Guide
+            const defaultGuide = [
+                { label: '$', range: '$2,000 - $5,000' },
+                { label: '$$', range: '$5,000 - $10,000' },
+                { label: '$$$', range: '$10,000 - $25,000' },
+                { label: '$$$$', range: '$25,000 - $50,000' },
+                { label: '$$$$$', range: '$50,000 - $99,999' },
+                { label: '$$$$$$', range: '$100,000+' }
+            ];
+
+            const pricingGuide = Array.isArray(pricing.pricingGuide) ? pricing.pricingGuide : defaultGuide;
+            pricingGuide.forEach((tier, index) => {
+                const slot = index + 1;
+                const labelInput = document.getElementById(`pricing-guide-label-${slot}`);
+                const rangeInput = document.getElementById(`pricing-guide-range-${slot}`);
+                if (labelInput && tier.label) labelInput.value = tier.label;
+                if (rangeInput && tier.range) rangeInput.value = tier.range;
+            });
         }
 
         /**
@@ -1194,28 +1323,40 @@
         function loadServicesData() {
             const services = JSON.parse(localStorage.getItem('cms_services') || '{}');
 
-            if (services.collaborative && editors.collabTagline) {
-                const html = services.collaborative.taglineHTML || services.collaborative.tagline || '';
+            if (services.customSolutions && editors.customSolutionsTagline) {
+                const html = services.customSolutions.taglineHTML || services.customSolutions.tagline || '';
                 if (html) {
-                    editors.collabTagline.root.innerHTML = html;
+                    editors.customSolutionsTagline.root.innerHTML = html;
                 }
             }
-            if (services.express && editors.expressTagline) {
-                const html = services.express.taglineHTML || services.express.tagline || '';
+            if (services.websiteDevelopment && editors.websiteDevelopmentTagline) {
+                const html = services.websiteDevelopment.taglineHTML || services.websiteDevelopment.tagline || '';
                 if (html) {
-                    editors.expressTagline.root.innerHTML = html;
+                    editors.websiteDevelopmentTagline.root.innerHTML = html;
                 }
             }
-            if (services.businessButler && editors.butlerTagline) {
-                const html = services.businessButler.taglineHTML || services.businessButler.tagline || '';
+            if (services.crmTools && editors.crmToolsTagline) {
+                const html = services.crmTools.taglineHTML || services.crmTools.tagline || '';
                 if (html) {
-                    editors.butlerTagline.root.innerHTML = html;
+                    editors.crmToolsTagline.root.innerHTML = html;
                 }
             }
-            if (services.businessBootcamp && editors.bootcampTagline) {
-                const html = services.businessBootcamp.taglineHTML || services.businessBootcamp.tagline || '';
+            if (services.workflowAutomation && editors.workflowAutomationTagline) {
+                const html = services.workflowAutomation.taglineHTML || services.workflowAutomation.tagline || '';
                 if (html) {
-                    editors.bootcampTagline.root.innerHTML = html;
+                    editors.workflowAutomationTagline.root.innerHTML = html;
+                }
+            }
+            if (services.voiceAutomation && editors.voiceAutomationTagline) {
+                const html = services.voiceAutomation.taglineHTML || services.voiceAutomation.tagline || '';
+                if (html) {
+                    editors.voiceAutomationTagline.root.innerHTML = html;
+                }
+            }
+            if (services.dataAnalysis && editors.dataAnalysisTagline) {
+                const html = services.dataAnalysis.taglineHTML || services.dataAnalysis.tagline || '';
+                if (html) {
+                    editors.dataAnalysisTagline.root.innerHTML = html;
                 }
             }
         }
@@ -1236,6 +1377,153 @@
             if (settings.blogUrl) document.getElementById('blog-url').value = settings.blogUrl;
             
             document.getElementById('email-notifications-enabled').checked = settings.emailNotificationsEnabled !== false;
+        }
+
+        const CONTENT_MAP_PAGES = [
+            '../index.html',
+            '../pages/about.html',
+            '../pages/contact.html',
+            '../pages/collaborative-development.html',
+            '../pages/express-development.html',
+            '../pages/business-butler.html',
+            '../pages/business-bootcamp.html',
+            '../pages/privacy.html',
+            '../pages/terms.html'
+        ];
+
+        /**
+         * Load site content map data
+         */
+        function loadContentMapData() {
+            const contentMap = JSON.parse(localStorage.getItem('cms_content_map') || '{}');
+            renderContentMapEditor(contentMap);
+
+            if (!contentMap || Object.keys(contentMap).length === 0) {
+                loadContentMapFromPages();
+            }
+        }
+
+        /**
+         * Render the content map editor UI
+         */
+        function renderContentMapEditor(contentMap) {
+            const container = document.getElementById('content-map-fields');
+            if (!container) return;
+
+            container.innerHTML = '';
+            const keys = Object.keys(contentMap || {}).sort();
+
+            if (keys.length === 0) {
+                const empty = document.createElement('p');
+                empty.className = 'help-text';
+                empty.textContent = 'No content loaded yet. Use “Load Defaults from Site” to populate fields.';
+                container.appendChild(empty);
+            } else {
+                keys.forEach(key => {
+                    const group = document.createElement('div');
+                    group.className = 'form-group';
+                    group.dataset.contentMapKey = key;
+
+                    const label = document.createElement('label');
+                    label.className = 'form-label';
+                    label.textContent = key;
+
+                    const textarea = document.createElement('textarea');
+                    textarea.className = 'form-textarea';
+                    textarea.setAttribute('data-content-map-key', key);
+                    textarea.value = contentMap[key] || '';
+
+                    group.appendChild(label);
+                    group.appendChild(textarea);
+                    container.appendChild(group);
+                });
+            }
+
+            const filterInput = document.getElementById('content-map-filter');
+            if (filterInput && !filterInput.dataset.bound) {
+                filterInput.addEventListener('input', filterContentMapFields);
+                filterInput.dataset.bound = 'true';
+            }
+        }
+
+        /**
+         * Filter content map fields
+         */
+        function filterContentMapFields() {
+            const input = document.getElementById('content-map-filter');
+            const query = (input ? input.value : '').toLowerCase();
+
+            document.querySelectorAll('#content-map-fields .form-group').forEach(group => {
+                const key = (group.dataset.contentMapKey || '').toLowerCase();
+                const textarea = group.querySelector('textarea');
+                const value = (textarea ? textarea.value : '').toLowerCase();
+                const matches = key.includes(query) || value.includes(query);
+                group.style.display = matches ? '' : 'none';
+            });
+        }
+
+        /**
+         * Save the content map
+         */
+        function saveContentMap() {
+            const contentMap = {};
+            document.querySelectorAll('[data-content-map-key]').forEach(field => {
+                const key = field.getAttribute('data-content-map-key');
+                if (!key) return;
+                contentMap[key] = SecurityUtils.sanitizeInput(field.value, 'html');
+            });
+
+            localStorage.setItem('cms_content_map', JSON.stringify(contentMap));
+            showNotification('Site content saved successfully!', 'success');
+        }
+
+        /**
+         * Load defaults from site pages
+         */
+        async function loadContentMapFromPages() {
+            try {
+                showNotification('Loading site content…', 'info');
+                const contentMap = {};
+
+                const responses = await Promise.all(CONTENT_MAP_PAGES.map(path =>
+                    fetch(path)
+                        .then(response => (response.ok ? response.text() : ''))
+                        .catch(() => '')
+                ));
+
+                responses.forEach(html => {
+                    if (!html) return;
+                    const doc = new DOMParser().parseFromString(html, 'text/html');
+                    doc.querySelectorAll('[data-cms]').forEach(el => {
+                        const key = el.getAttribute('data-cms');
+                        if (!key) return;
+                        contentMap[key] = el.innerHTML.trim();
+                    });
+                });
+
+                if (Object.keys(contentMap).length === 0) {
+                    showNotification('No data-cms fields found on site pages.', 'error');
+                    return;
+                }
+
+                localStorage.setItem('cms_content_map', JSON.stringify(contentMap));
+                renderContentMapEditor(contentMap);
+                showNotification('Site content loaded successfully!', 'success');
+            } catch (error) {
+                showNotification('Error loading site content: ' + error.message, 'error');
+            }
+        }
+
+        /**
+         * Clear content map overrides
+         */
+        function clearContentMap() {
+            if (!confirm('Clear all site content overrides? This will revert to the default HTML content.')) {
+                return;
+            }
+            localStorage.removeItem('cms_content_map');
+            renderContentMapEditor({});
+            showNotification('Site content cleared.', 'success');
         }
 
         /**
@@ -1378,6 +1666,14 @@
          * Save pricing content
          */
         function savePricingContent() {
+            const pricingGuide = Array.from({ length: 6 }, (_, index) => {
+                const slot = index + 1;
+                return {
+                    label: document.getElementById(`pricing-guide-label-${slot}`).value,
+                    range: document.getElementById(`pricing-guide-range-${slot}`).value
+                };
+            });
+
             const pricing = {
                 customSolutions: {
                     price: document.getElementById('custom-solutions-price').value,
@@ -1405,6 +1701,7 @@
                 },
                 discovery: document.getElementById('discovery-price').value,
                 currency: document.getElementById('currency').value,
+                pricingGuide,
                 lastUpdated: new Date().toISOString()
             };
 
@@ -1417,21 +1714,29 @@
          */
         function saveServicesContent() {
             const services = {
-                collaborative: {
-                    taglineHTML: SecurityUtils.sanitizeInput(editors.collabTagline ? editors.collabTagline.root.innerHTML : '', 'html'),
-                    taglineText: SecurityUtils.sanitizeInput(editors.collabTagline ? editors.collabTagline.getText().trim() : '', 'text')
+                customSolutions: {
+                    taglineHTML: SecurityUtils.sanitizeInput(editors.customSolutionsTagline ? editors.customSolutionsTagline.root.innerHTML : '', 'html'),
+                    taglineText: SecurityUtils.sanitizeInput(editors.customSolutionsTagline ? editors.customSolutionsTagline.getText().trim() : '', 'text')
                 },
-                express: {
-                    taglineHTML: SecurityUtils.sanitizeInput(editors.expressTagline ? editors.expressTagline.root.innerHTML : '', 'html'),
-                    taglineText: SecurityUtils.sanitizeInput(editors.expressTagline ? editors.expressTagline.getText().trim() : '', 'text')
+                websiteDevelopment: {
+                    taglineHTML: SecurityUtils.sanitizeInput(editors.websiteDevelopmentTagline ? editors.websiteDevelopmentTagline.root.innerHTML : '', 'html'),
+                    taglineText: SecurityUtils.sanitizeInput(editors.websiteDevelopmentTagline ? editors.websiteDevelopmentTagline.getText().trim() : '', 'text')
                 },
-                businessButler: {
-                    taglineHTML: SecurityUtils.sanitizeInput(editors.butlerTagline ? editors.butlerTagline.root.innerHTML : '', 'html'),
-                    taglineText: SecurityUtils.sanitizeInput(editors.butlerTagline ? editors.butlerTagline.getText().trim() : '', 'text')
+                crmTools: {
+                    taglineHTML: SecurityUtils.sanitizeInput(editors.crmToolsTagline ? editors.crmToolsTagline.root.innerHTML : '', 'html'),
+                    taglineText: SecurityUtils.sanitizeInput(editors.crmToolsTagline ? editors.crmToolsTagline.getText().trim() : '', 'text')
                 },
-                businessBootcamp: {
-                    taglineHTML: SecurityUtils.sanitizeInput(editors.bootcampTagline ? editors.bootcampTagline.root.innerHTML : '', 'html'),
-                    taglineText: SecurityUtils.sanitizeInput(editors.bootcampTagline ? editors.bootcampTagline.getText().trim() : '', 'text')
+                workflowAutomation: {
+                    taglineHTML: SecurityUtils.sanitizeInput(editors.workflowAutomationTagline ? editors.workflowAutomationTagline.root.innerHTML : '', 'html'),
+                    taglineText: SecurityUtils.sanitizeInput(editors.workflowAutomationTagline ? editors.workflowAutomationTagline.getText().trim() : '', 'text')
+                },
+                voiceAutomation: {
+                    taglineHTML: SecurityUtils.sanitizeInput(editors.voiceAutomationTagline ? editors.voiceAutomationTagline.root.innerHTML : '', 'html'),
+                    taglineText: SecurityUtils.sanitizeInput(editors.voiceAutomationTagline ? editors.voiceAutomationTagline.getText().trim() : '', 'text')
+                },
+                dataAnalysis: {
+                    taglineHTML: SecurityUtils.sanitizeInput(editors.dataAnalysisTagline ? editors.dataAnalysisTagline.root.innerHTML : '', 'html'),
+                    taglineText: SecurityUtils.sanitizeInput(editors.dataAnalysisTagline ? editors.dataAnalysisTagline.getText().trim() : '', 'text')
                 },
                 lastUpdated: new Date().toISOString()
             };
@@ -1502,6 +1807,28 @@
             localStorage.setItem('cms_settings', JSON.stringify(settings));
             showNotification('Settings saved successfully! Email notifications will be sent to ' + settings.adminEmail, 'success');
         }
+
+        /**
+         * Sync all data-cms elements into a content map for the CMS loader
+         */
+        function syncContentMapFromPage() {
+            const contentMap = {};
+            document.querySelectorAll('[data-cms]').forEach(el => {
+                const key = el.getAttribute('data-cms');
+                if (!key) return;
+                contentMap[key] = el.innerHTML.trim();
+            });
+
+            if (Object.keys(contentMap).length > 0) {
+                localStorage.setItem('cms_content_map', JSON.stringify(contentMap));
+            }
+            return contentMap;
+        }
+
+        // Populate content map on load for admin preview usage
+        document.addEventListener('DOMContentLoaded', () => {
+            syncContentMapFromPage();
+        });
 
         /**
          * Preview changes in new tab
