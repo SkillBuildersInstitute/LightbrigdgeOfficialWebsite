@@ -125,15 +125,19 @@ function handleFormSubmission(e) {
         // Send to CMS with sanitized data
         submitToCMS(sanitizedData)
             .then(response => {
-                showSuccessMessage(form);
-                form.reset();
+                if (response && response.success) {
+                    showSuccessMessage(form);
+                    form.reset();
 
-                // Generate new CSRF token after successful submission
-                const newToken = SecurityUtils.generateCSRFToken();
-                localStorage.setItem('csrf_token', newToken);
-                const csrfInput = form.querySelector('input[name="csrf_token"]');
-                if (csrfInput) {
-                    csrfInput.value = newToken;
+                    // Generate new CSRF token after successful submission
+                    const newToken = SecurityUtils.generateCSRFToken();
+                    localStorage.setItem('csrf_token', newToken);
+                    const csrfInput = form.querySelector('input[name="csrf_token"]');
+                    if (csrfInput) {
+                        csrfInput.value = newToken;
+                    }
+                } else {
+                    throw new Error(response?.error || 'Submission failed');
                 }
             })
             .catch(error => {

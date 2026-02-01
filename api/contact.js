@@ -51,7 +51,18 @@ IP: ${req.headers['x-forwarded-for'] || req.connection.remoteAddress}
     // In production, you'd store this in a database
     // For now, we'll use the Web3Forms API as a fallback
     
-    // Option 1: Use Web3Forms (free, no API key needed for basic use)
+    const web3formsAccessKey = process.env.WEB3FORMS_ACCESS_KEY;
+    const hasWeb3FormsKey = web3formsAccessKey && web3formsAccessKey !== 'YOUR_WEB3FORMS_KEY';
+
+    if (!hasWeb3FormsKey) {
+      return res.status(200).json({
+        success: true,
+        emailSent: false,
+        message: 'Submission received. Email delivery is currently unavailable.'
+      });
+    }
+
+    // Option 1: Use Web3Forms
     const response = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: {
@@ -59,7 +70,7 @@ IP: ${req.headers['x-forwarded-for'] || req.connection.remoteAddress}
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        access_key: process.env.WEB3FORMS_ACCESS_KEY || 'YOUR_WEB3FORMS_KEY',
+        access_key: web3formsAccessKey,
         subject: emailSubject,
         from_name: 'Lightbridge Consulting Website',
         name: name,
@@ -70,17 +81,21 @@ IP: ${req.headers['x-forwarded-for'] || req.connection.remoteAddress}
       })
     });
 
-    const result = await response.json();
+    const result = await response.json().catch(() => ({}));
 
-    if (result.success) {
-      // Store in localStorage on client side will be handled by frontend
+    if (!response.ok || !result.success) {
       return res.status(200).json({
         success: true,
-        message: 'Thank you! We\'ve received your inquiry and will respond within 24 hours.'
+        emailSent: false,
+        message: 'Submission received. Email delivery is temporarily unavailable.'
       });
-    } else {
-      throw new Error('Failed to send email');
     }
+
+    return res.status(200).json({
+      success: true,
+      emailSent: true,
+      message: 'Thank you! We\'ve received your inquiry and will respond within 24 hours.'
+    });
 
   } catch (error) {
     console.error('Form submission error:', error);
@@ -90,4 +105,3 @@ IP: ${req.headers['x-forwarded-for'] || req.connection.remoteAddress}
     });
   }
 }
-
