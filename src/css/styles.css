@@ -1521,7 +1521,7 @@ p {
 
 .about-accent-box {
   position: absolute;
-  bottom: -20px;
+  top: -20px;
   right: -20px;
   background: linear-gradient(135deg,
     var(--beam-orange) 0%,
