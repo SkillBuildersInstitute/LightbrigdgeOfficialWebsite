@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Website Development | Lightbridge Consulting</title>
+    <meta name="description" content="Custom website development for Tampa Bay small businesses. Full CMS control, built-in SEO, newsletter tools, and more. Delivered in less than a week.">
+
+    <!-- SEO and Social Media Tags -->
+    <meta property="og:title" content="Professional Website Development | Lightbridge Consulting">
+    <meta property="og:description" content="Custom website development for Tampa Bay small businesses. Full CMS control, built-in SEO, newsletter tools, and more. Delivered in less than a week.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lightbridgeconsulting.co/pages/website-development.html">
+    <meta property="og:site_name" content="Lightbridge Consulting">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Professional Website Development | Lightbridge Consulting">
+    <meta name="twitter:description" content="Custom website development for Tampa Bay small businesses. Full CMS control, built-in SEO, newsletter tools, and more. Delivered in less than a week.">
+
+    <!-- Brand fonts & global styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Helvetica+Neue:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        :root {
+            /* Map this page's palette to site-wide design tokens for consistency */
+            --primary: var(--wave-blue);
+            --primary-dark: var(--deep-blue);
+            --accent: var(--beam-orange);
+            --text-dark: var(--text-primary);
+            --text-light: var(--text-secondary);
+            --bg-cream: var(--background-secondary);
+            --bg-white: var(--white);
+            --border-light: var(--border-color);
+            --gradient-start: var(--wave-blue);
+            --gradient-end: var(--deep-blue);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 20px 40px rgba(0,0,0,0.12);
+            /* Override global body offset from site navbar for this standalone page */
+            --navbar-offset: 0px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            line-height: 1.6;
+            background: var(--bg-cream);
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        h2 { font-size: clamp(2rem, 4vw, 3rem); }
+        h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-light);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            padding: 0.75rem 1.75rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 107, 53, 0.15) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .hero .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .hero h1 {
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.3s backwards;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.5s backwards;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.6s backwards;
+        }
+
+        .browser-mockup {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+            transition: transform 0.6s ease;
+        }
+
+        .browser-mockup:hover {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+        }
+
+        .browser-header {
+            background: #f1f5f9;
+            padding: 0.75rem 1rem;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .browser-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #cbd5e1;
+        }
+
+        .browser-dot:nth-child(1) { background: #ef4444; }
+        .browser-dot:nth-child(2) { background: #f59e0b; }
+        .browser-dot:nth-child(3) { background: #10b981; }
+
+        .browser-content {
+            background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 100%);
+            padding: 2rem;
+            min-height: 300px;
+        }
+
+        /* Feature Grid */
+        .features {
+            padding: 6rem 2rem;
+            background: var(--bg-white);
+        }
+
+        .features .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-tag {
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Use site service card styles for tighter, consistent tiles */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+        }
+
+        .service-card.condensed {
+            padding: var(--space-md);
+            background: var(--background-secondary);
+            border: 1px solid var(--border-color);
+            box-shadow: none;
+            display: grid;
+            grid-template-columns: 32px 1fr;
+            grid-template-areas:
+                "icon title"
+                "icon desc";
+            column-gap: var(--space-sm);
+            row-gap: 4px;
+            align-items: start;
+        }
+
+        .service-card.condensed:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .service-card.condensed .feature-icon {
+            background: none;
+            width: 32px;
+            height: 32px;
+            font-size: 28px;
+            margin: 0;
+            color: var(--beam-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            grid-area: icon;
+        }
+
+        .service-card.condensed h3 {
+            margin: 0 0 4px 0;
+            font-size: var(--fs-h5);
+            line-height: var(--lh-tight);
+            grid-area: title;
+        }
+
+        .service-card.condensed p {
+            color: var(--text-secondary);
+            line-height: var(--lh-relaxed);
+            margin: 0;
+            grid-area: desc;
+        }
+
+        /* CMS Showcase */
+        .cms-showcase {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--bg-cream) 0%, var(--bg-white) 100%);
+        }
+
+        .cms-showcase .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .cms-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 4rem;
+        }
+
+        .cms-image-placeholder {
+            background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%);
+            border: 3px solid var(--primary);
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            color: var(--primary);
+            font-weight: 600;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cms-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 3px solid var(--primary);
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cms-image-placeholder .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .cms-list {
+            list-style: none;
+        }
+
+        .cms-list li {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+
+        .cms-list li:last-child {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        /* Comparison Section */
+        .comparison {
+            padding: 6rem 2rem;
+            background: var(--bg-white);
+        }
+
+        .comparison .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .comparison-card {
+            background: var(--bg-cream);
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .comparison-card.highlight {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .comparison-card h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .comparison-card.highlight h3 {
+            color: white;
+        }
+
+        .comparison-list {
+            list-style: none;
+            text-align: left;
+        }
+
+        .comparison-list li {
+            padding: 0.75rem 0;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .comparison-card.highlight .comparison-list li {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Screenshots Section */
+        .screenshots {
+            padding: 6rem 2rem;
+            background: linear-gradient(to bottom, var(--bg-cream), var(--bg-white));
+        }
+
+        .screenshots .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .screenshot-item {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s ease;
+        }
+
+        .screenshot-item:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .screenshot-placeholder {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            aspect-ratio: 16/10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .screenshot-image {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 16/10;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .screenshot-caption {
+            padding: 1.5rem;
+        }
+
+        .screenshot-caption h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .screenshot-caption p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Pricing Preview */
+        .pricing-preview {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+        }
+
+        .pricing-preview .container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Ensure all text in pricing section has sufficient contrast */
+        .pricing-preview h1,
+        .pricing-preview h2,
+        .pricing-preview h3,
+        .pricing-preview p,
+        .pricing-preview .section-tag { color: rgba(255,255,255,0.95); }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-top: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .price {
+            font-size: 3rem;
+            font-family: var(--font-heading);
+            font-weight: 800;
+            margin: 1rem 0;
+            color: #fff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        }
+
+        .price-features {
+            list-style: none;
+            margin: 2rem 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            text-align: left;
+        }
+
+        .price-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* CTA Section */
+        .final-cta {
+            padding: 6rem 2rem;
+            background: var(--bg-cream);
+        }
+
+        .final-cta .container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: 24px;
+            padding: 4rem 3rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cta-box h2 {
+            margin-bottom: 1rem;
+        }
+
+        .cta-box p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        /* Footer */
+        footer {
+            background: #1e293b;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 3rem 2rem 2rem;
+        }
+
+        footer .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        footer a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-grid,
+            .cms-features,
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .price-features {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .feature-grid,
+            .screenshot-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../lightbridge-logo.png" alt="Lightbridge Consulting" class="logo">
+                </a>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../index.html#services" class="nav-link">Services</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <a href="contact.html" class="btn btn-primary nav-cta">Get Free Assessment →</a>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero" style="background: linear-gradient(135deg, rgba(31,120,180,0.9) 0%, rgba(11,61,145,0.9) 100%);">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <span class="hero-tag">✨ Website Builder Tool</span>
+                    <h1 style="color:#fff; text-shadow:0 2px 8px rgba(0,0,0,0.35); letter-spacing:-0.01em">Your Website.<br>Your Control.<br>Zero Code.</h1>
+                    <p class="hero-subtitle">
+                        Delivered in less than a week, this website tool gives you complete control—manage events, news, memberships, sponsors, newsletters, and more without touching code.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="contact.html?subject=Website%20Tool%20Live%20Demo" class="btn btn-primary">
+                            Schedule a Live Demo →
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <picture>
+                        <source type="image/webp" srcset="../images/website-dev/page-editor-interface.webp 1x, ../images/website-dev/page-editor-interface@2x.webp 2x">
+                        <img src="../images/website-dev/page-editor-interface.png" alt="Admin page editor and controls" loading="eager" decoding="async" style="width:100%; height:auto; border:3px solid var(--primary); border-radius:12px; box-shadow: var(--shadow-lg);">
+                    </picture>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">What’s In The Tool</div>
+                <h2>Everything You Need—In One Tool</h2>
+                <p style="color: var(--text-light); font-size: 1.1rem; margin-top: 1rem;">
+                    No plugin sprawl. No developer dependency for routine updates. This modern, powerful tool gives you complete control.
+                </p>
+            </div>
+
+            <div class="services-grid">
+                <article class="service-card condensed">
+                    <div class="feature-icon"><i data-lucide="file-text"></i></div>
+                    <h3>Full Content Control</h3>
+                    <p>Manage pages, news, and events with a block editor. Draft, schedule, and publish without touching code.</p>
+                </article>
+
+                <article class="service-card condensed">
+                    <div class="feature-icon"><i data-lucide="paintbrush"></i></div>
+                    <h3>Instant Layout Changes</h3>
+                    <p>10+ layout presets and style options. Change navigation, hero, and colors in minutes.</p>
+                </article>
+
+                <article class="service-card condensed">
+                    <div class="feature-icon"><i data-lucide="mail"></i></div>
+                    <h3>Newsletter Designer</h3>
+                    <p>Build email‑ready newsletters visually. Export HTML and use with any provider.</p>
+                </article>
+
+                <article class="service-card condensed">
+                    <div class="feature-icon"><i data-lucide="search"></i></div>
+                    <h3>SEO Built‑In</h3>
+                    <p>Meta tags, Open Graph, structured data, and automatic sitemaps from day one.</p>
+                </article>
+
+                <article class="service-card condensed">
+                    <div class="feature-icon"><i data-lucide="calendar"></i></div>
+                    <h3>Event Management</h3>
+                    <p>Calendar integration, registration tracking, and one‑click export.</p>
+                </article>
+
+                <article class="service-card condensed">
+                    <div class="feature-icon"><i data-lucide="images"></i></div>
+                    <h3>Photo Galleries</h3>
+                    <p>Bulk upload photos, create albums, and publish optimized galleries.</p>
+                </article>
+
+                <article class="service-card condensed">
+                    <div class="feature-icon"><i data-lucide="users"></i></div>
+                    <h3>Sponsors & Partners</h3>
+                    <p>Logo tiers, links, and descriptions keep partnerships current.</p>
+                </article>
+
+                <article class="service-card condensed">
+                    <div class="feature-icon"><i data-lucide="layout-dashboard"></i></div>
+                    <h3>Homepage Tiles</h3>
+                    <p>Highlight key programs and reorder tiles anytime.</p>
+                </article>
+
+                <article class="service-card condensed">
+                    <div class="feature-icon"><i data-lucide="bar-chart-3"></i></div>
+                    <h3>Analytics Dashboard</h3>
+                    <p>Understand visitor behavior and popular content.</p>
+                </article>
+
+                <article class="service-card condensed">
+                    <div class="feature-icon"><i data-lucide="square-pen"></i></div>
+                    <h3>Unlimited Forms</h3>
+                    <p>Create contact and registration forms; route to email or database.</p>
+                </article>
+
+                <article class="service-card condensed">
+                    <div class="feature-icon"><i data-lucide="shield"></i></div>
+                    <h3>Enterprise Security</h3>
+                    <p>Role‑based access, audit logging, and Row Level Security.</p>
+                </article>
+
+                <article class="service-card condensed">
+                    <div class="feature-icon"><i data-lucide="zap"></i></div>
+                    <h3>Blazing Performance</h3>
+                    <p>Optimized images, code splitting, and smart caching.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="cms-showcase">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">No More Developer Dependency</div>
+                <h2>A Modern CMS Tool Without the Typical Headaches</h2>
+            </div>
+
+            <div class="cms-features">
+                <div>
+                    <ul class="cms-list">
+                        <li>
+                            <span class="check-icon">✓</span>
+                            <div>
+                                <strong>Update Content in Minutes:</strong> Change page copy, add articles, post events—all through an intuitive interface without waiting on developers.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="check-icon">✓</span>
+                            <div>
+                                <strong>No Plugin Sprawl:</strong> Core capabilities (content, SEO, media, events, newsletters) are built-in, reducing third-party dependency risk.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="check-icon">✓</span>
+                            <div>
+                                <strong>Refresh Your Look Instantly:</strong> Choose new color schemes, layouts, and navigation styles without costly redesign projects.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="check-icon">✓</span>
+                            <div>
+                                <strong>Launch in Phases:</strong> Use feature toggles to enable/disable major modules (donations, membership, events) as you're ready.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="check-icon">✓</span>
+                            <div>
+                                <strong>Maintain Accountability:</strong> Audit logs track who changed what and when—essential for teams and compliance.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <picture>
+                    <source type="image/webp" srcset="../images/website-dev/page-editor-interface.webp 1x, ../images/website-dev/page-editor-interface@2x.webp 2x">
+                    <img class="cms-image" src="../images/website-dev/page-editor-interface.png" alt="Admin interface showing page editing and content management" loading="lazy" decoding="async">
+                </picture>
+            </div>
+        </div>
+    </section>
+
+    <section class="comparison">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">How We Compare</div>
+                <h2>More Control. Less Hassle. Lower Cost.</h2>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h3>Plugin-Heavy CMS</h3>
+                    <ul class="comparison-list">
+                        <li>❌ Constant plugin updates</li>
+                        <li>❌ Performance conflicts</li>
+                        <li>❌ Security vulnerabilities</li>
+                        <li>❌ Developer needed for changes</li>
+                        <li>❌ Hidden costs add up</li>
+                    </ul>
+                </div>
+
+                <div class="comparison-card highlight">
+                    <h3>Our Tool</h3>
+                    <ul class="comparison-list">
+                        <li>✓ All features built-in</li>
+                        <li>✓ Fast & optimized</li>
+                        <li>✓ Enterprise security</li>
+                        <li>✓ Full self-service control</li>
+                        <li>✓ Transparent pricing</li>
+                    </ul>
+                </div>
+
+                <div class="comparison-card">
+                    <h3>Custom Build</h3>
+                    <ul class="comparison-list">
+                        <li>❌ Expensive upfront cost</li>
+                        <li>❌ Long development time</li>
+                        <li>❌ Ongoing developer fees</li>
+                        <li>❌ Slow to make changes</li>
+                        <li>❌ Difficult to maintain</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="screenshots">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">See It In Action</div>
+                <h2>Real Features. Real Power.</h2>
+                <p style="color: var(--text-light); font-size: 1.1rem; margin-top: 1rem;">
+                    Screenshots of the actual admin interface show exactly what you'll be working with—no smoke and mirrors.
+                </p>
+            </div>
+
+            <div class="screenshot-grid">
+                <div class="screenshot-item">
+                    <picture>
+                        <source type="image/webp" srcset="../images/website-dev/page-editor-interface.webp 1x, ../images/website-dev/page-editor-interface@2x.webp 2x">
+                        <img class="screenshot-image" src="../images/website-dev/page-editor-interface.png" alt="Admin page editor interface" loading="lazy" decoding="async">
+                    </picture>
+                    <div class="screenshot-caption">
+                        <h4>Page Editor Interface</h4>
+                        <p>Block-based content editor with drag-and-drop functionality, media uploads, and SEO settings per page.</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-item">
+                    <picture>
+                        <source type="image/webp" srcset="../images/website-dev/theme-customizer.webp 1x, ../images/website-dev/theme-customizer@2x.webp 2x">
+                        <img class="screenshot-image" src="../images/website-dev/theme-customizer.png" alt="Theme customization and layout themes" loading="lazy" decoding="async">
+                    </picture>
+                    <div class="screenshot-caption">
+                        <h4>Theme Customizer</h4>
+                        <p>Real-time preview as you change colors, fonts, and layouts. Apply preset themes or create custom combinations.</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-item">
+                    <picture>
+                        <source type="image/webp" srcset="../images/website-dev/newsletter-designer.webp 1x, ../images/website-dev/newsletter-designer@2x.webp 2x">
+                        <img class="screenshot-image" src="../images/website-dev/newsletter-designer.png" alt="Newsletter creation and email tools" loading="lazy" decoding="async">
+                    </picture>
+                    <div class="screenshot-caption">
+                        <h4>Newsletter Designer</h4>
+                        <p>Visual email builder with drag-and-drop blocks for hero images, articles, events, CTAs, and social links.</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-item">
+                    <picture>
+                        <source type="image/webp" srcset="../images/website-dev/event-management.webp 1x, ../images/website-dev/event-management@2x.webp 2x">
+                        <img class="screenshot-image" src="../images/website-dev/event-management.png" alt="Event management tools in admin" loading="lazy" decoding="async">
+                    </picture>
+                    <div class="screenshot-caption">
+                        <h4>Event Management</h4>
+                        <p>Create and manage events with registration tracking, calendar integration, and automatic ICS export.</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-item">
+                    <picture>
+                        <source type="image/webp" srcset="../images/website-dev/homepage-module-manager.webp 1x, ../images/website-dev/homepage-module-manager@2x.webp 2x">
+                        <img class="screenshot-image" src="../images/website-dev/homepage-module-manager.png" alt="Homepage tiles and module management" loading="lazy" decoding="async">
+                    </picture>
+                    <div class="screenshot-caption">
+                        <h4>Homepage Module Manager</h4>
+                        <p>Control which sections appear on your homepage, reorder tiles, and toggle features on/off instantly.</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-item">
+                    <picture>
+                        <source type="image/webp" srcset="../images/website-dev/gallery-management.webp 1x, ../images/website-dev/gallery-management@2x.webp 2x">
+                        <img class="screenshot-image" src="../images/website-dev/gallery-management.png" alt="Photo gallery and albums management" loading="lazy" decoding="async">
+                    </picture>
+                    <div class="screenshot-caption">
+                        <h4>Gallery Management</h4>
+                        <p>Bulk upload photos, create albums, and publish galleries with automatic image optimization.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-preview">
+        <div class="container">
+            <div class="section-tag" style="color: rgba(255,255,255,0.8);">Transparent Pricing</div>
+            <h2>Professional Website Tool Pricing</h2>
+
+            <div class="pricing-card">
+                <div style="font-size: 1.1rem; margin-bottom: 1rem;">Starting at</div>
+                <div class="price">$ - $$</div>
+                <div style="font-size: 1rem; margin-bottom: 2rem; opacity: 0.8;">Delivered in less than a week | 60 days support included</div>
+
+                <ul class="price-features">
+                    <li>✓ Full CMS—you control everything</li>
+                    <li>✓ Built-in newsletter generator</li>
+                    <li>✓ SEO optimization included</li>
+                    <li>✓ Event & news management</li>
+                    <li>✓ Photo galleries</li>
+                    <li>✓ Sponsor/partner pages</li>
+                    <li>✓ Unlimited forms</li>
+                    <li>✓ Analytics dashboard</li>
+                    <li>✓ 10+ layout presets</li>
+                    <li>✓ Custom color schemes</li>
+                    <li>✓ Mobile responsive</li>
+                    <li>✓ Enterprise security</li>
+                </ul>
+
+                <p style="font-size: 0.95rem; margin-top: 2rem; opacity: 0.85;">
+                    <strong>Pricing Guide:</strong> $ = $500-$999 | $$ = $1,000-$1,499 | $$$ = $1,500-$1,999 | $$$$ = $2,000+<br>
+                    Final cost depends on customization needs and content volume
+                </p>
+
+                <div style="margin-top: 2rem;">
+                    <a href="contact.html" class="btn btn-primary" style="display: inline-flex;">
+                        Get Your Custom Quote →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-headline">Ready to Try the Website Tool?</h2>
+            <p class="cta-description">
+                See it in action with a live demo or explore a read‑only preview. Experience how easily you can manage your site—no code required.
+            </p>
+            <div class="cta-button-wrapper">
+                <a href="contact.html?subject=Website%20Tool%20Live%20Demo" class="btn btn-white btn-large">Schedule Live Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p style="margin-bottom: 1rem;">
+                <strong>Lightbridge Consulting</strong> | Local Technology Consulting | Wesley Chapel & Tampa Bay
+            </p>
+            <p>
+                <a href="../index.html">Home</a> •
+                <a href="../index.html#services">Services</a> •
+                <a href="about.html">About</a> •
+                <a href="contact.html">Contact</a> •
+                <a href="privacy.html">Privacy</a> •
+                <a href="terms.html">Terms</a>
+            </p>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.7;">
+                © 2025 Lightbridge Consulting. All rights reserved.
+            </p>
+        </div>
+</footer>
+</body>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script>try{lucide.createIcons();}catch(e){}</script>
+</html>

@@ -300,6 +300,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
     <!-- Icons (using Lucide for consistency) -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -388,35 +389,7 @@
             </div>
 
             <div class="services-grid">
-                <!-- Service Card 1: Custom Solutions & Technical Training (Featured - Most Popular) -->
-                <article class="service-card featured" data-service="custom-solutions">
-                    <div class="service-badge-wrapper">
-                        <span class="popular-badge">⭐ Most Popular</span>
-                    </div>
-                    <div class="service-icon">
-                        <i data-lucide="sparkles"></i>
-                    </div>
-                    <h3 class="service-title">Custom Solutions & Technical Training</h3>
-                    <div class="service-pricing" style="text-align: center; margin: 16px 0; padding: 16px; background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 165, 0, 0.15) 100%); border-radius: 8px; border: 2px solid #FFD700;">
-                        <div data-price="custom-solutions" style="font-size: 36px; font-weight: 700; color: #000; line-height: 1;">$$ - $$$</div>
-                        <div style="font-size: 14px; color: #666; margin-top: 4px;">Based on scope | 3 months support included</div>
-                    </div>
-                    <p class="service-description">
-                        Our most sought-after service combines personalized technology solutions with comprehensive training. 
-                        Perfect for businesses with unique needs who want to truly own and understand their systems. 
-                        We don't just implement—we empower your team to succeed independently.
-                    </p>
-                    <ul class="service-features">
-                        <li>Fully tailored to your specific business needs</li>
-                        <li>Hands-on training with clear, expert guidance</li>
-                        <li>Combines any services: automation, CRM, data, voice</li>
-                        <li>Ongoing support and knowledge transfer included</li>
-                        <li>You understand and control your technology</li>
-                    </ul>
-                    <a href="pages/contact.html" class="service-cta">Start Your Custom Solution →</a>
-                </article>
-
-                <!-- Service Card 2: Website Development -->
+                <!-- Service Card 1: Website Development (moved to first) -->
                 <article class="service-card" data-service="website-development">
                     <div class="service-icon">
                         <i data-lucide="globe"></i>
@@ -443,7 +416,35 @@
                         <li>10+ color scheme combinations + create custom schemes</li>
                         <li>Change layouts anytime—no code required</li>
                     </ul>
-                    <a href="pages/contact.html" class="service-cta">Get Started →</a>
+                    <a href="pages/website-development.html" class="service-cta">Learn More →</a>
+                </article>
+
+                <!-- Service Card 2: Custom Solutions & Technical Training (Featured - Most Popular) -->
+                <article class="service-card featured" data-service="custom-solutions">
+                    <div class="service-badge-wrapper">
+                        <span class="popular-badge">⭐ Most Popular</span>
+                    </div>
+                    <div class="service-icon">
+                        <i data-lucide="sparkles"></i>
+                    </div>
+                    <h3 class="service-title">Custom Solutions & Technical Training</h3>
+                    <div class="service-pricing" style="text-align: center; margin: 16px 0; padding: 16px; background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 165, 0, 0.15) 100%); border-radius: 8px; border: 2px solid #FFD700;">
+                        <div data-price="custom-solutions" style="font-size: 36px; font-weight: 700; color: #000; line-height: 1;">$$ - $$$</div>
+                        <div style="font-size: 14px; color: #666; margin-top: 4px;">Based on scope | 3 months support included</div>
+                    </div>
+                    <p class="service-description">
+                        Our most sought-after service combines personalized technology solutions with comprehensive training. 
+                        Perfect for businesses with unique needs who want to truly own and understand their systems. 
+                        We don't just implement—we empower your team to succeed independently.
+                    </p>
+                    <ul class="service-features">
+                        <li>Fully tailored to your specific business needs</li>
+                        <li>Hands-on training with clear, expert guidance</li>
+                        <li>Combines any services: automation, CRM, data, voice</li>
+                        <li>Ongoing support and knowledge transfer included</li>
+                        <li>You understand and control your technology</li>
+                    </ul>
+                    <a href="pages/contact.html" class="service-cta">Start Your Custom Solution →</a>
                 </article>
 
                 <!-- Service Card 3: Lead Generation & CRM Tools -->
@@ -1195,7 +1196,6 @@
     <!-- JavaScript for security and interactions -->
     <script src="js/security.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/cms-loader.js"></script>
     <script src="js/cms-loader.js"></script>
     <script>
         // Initialize Lucide icons
